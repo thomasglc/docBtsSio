@@ -1,0 +1,4 @@
+.vscode
+cache
+node_modules
+.vite_opt_cache
