@@ -81,6 +81,7 @@ export default withMermaid ({
               { text: 'HTML', link: '/memo/html.md' },
               { text: 'CSS', link: '/memo/css.md' },
               { text: 'JS', link: '/memo/js.md' },
+              { text: 'PHP', link: '/memo/php.md' },
 
             ]
           },
