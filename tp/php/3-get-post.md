@@ -1,4 +1,4 @@
-# TP 03 - La méthode $_GET et $_POST
+# 📝 TP 03 - La méthode $_GET et $_POST
 
 ## Exercice 1 : Utilisation de la méthode $_GET pour un convertisseur de devises
 

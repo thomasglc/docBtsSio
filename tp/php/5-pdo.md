@@ -1,4 +1,4 @@
-# 📝 **TP : Manipulation de PDO en PHP**  
+# 📝 **TP 05 - Manipulation de PDO en PHP**  
 
 ## **🎯 Objectifs**  
 ✔ Comprendre et utiliser **PDO** pour interagir avec une base de données MySQL.  

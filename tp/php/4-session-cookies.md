@@ -1,6 +1,6 @@
 
 
-# 📝 **TP : Gestion de session, cookies et redirections en PHP**  
+# 📝 **TP 04 - Gestion de session, cookies et redirections en PHP**  
 
 ## 🎯 **Objectifs**  
 ✔ Comprendre et manipuler les **sessions** en PHP  
