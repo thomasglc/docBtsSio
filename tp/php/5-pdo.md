@@ -1,6 +1,6 @@
-### 📝 **TP : Manipulation de PDO en PHP**  
+# 📝 **TP : Manipulation de PDO en PHP**  
 
-#### **🎯 Objectifs**  
+## **🎯 Objectifs**  
 ✔ Comprendre et utiliser **PDO** pour interagir avec une base de données MySQL.  
 ✔ Savoir **se connecter** à une base de données avec PDO.  
 ✔ Être capable de **récupérer** des données et de les afficher.  
@@ -8,7 +8,7 @@
 ✔ En bonus : Modifier un élément existant.  
 
 
-## Exercice 1 : Préparation de la base de données
+## 🔧 Exercice 1 : Préparation de la base de données
 
 Avant de commencer, nous devons créer une base de données. Pour cette partie il va falloir utiliser le SGBDR `MySql` et l'administrer via `phpMyAdmin`.
 
@@ -48,19 +48,27 @@ INSERT INTO produits (nom, prix) VALUES
 
 Dès que vous avez créé votre nouvelle base de données, vous pouvez passer à la suite.
 
-## Exercice 2 : Connexion à la base de données avec PDO
+## 🔧 Exercice 2 : Connexion à la base de données avec PDO
 
 1. **Créez un fichier `config.php`** qui contiendra les informations de connexion.  
 2. Dans ce fichier, utilisez **PDO** pour établir la connexion.  
 3. Affichez un message en cas d'erreur.  
 
-👉 **Instructions :**  
-- Déclarez les constantes **DB_HOST**, **DB_NAME**, **DB_USER** et **DB_PASS**.  
-- Utilisez `try...catch` pour gérer les erreurs de connexion.  
+::: details ℹ️ Aide 
 
----
+On oublie pas de changer `leNomDeMaDb` avec le nom de la base de données que vous voulez utilser.
 
-## Exercice 3 : Affichage des éléments de la base de données
+```php
+try {
+    $conn = new PDO('mysql:host=localhost;dbname=leNomDeMaDb', $user, $password);
+
+} catch (PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+}
+``` 
+:::
+
+## 🔧 Exercice 3 : Affichage des éléments de la base de données
 
 1. Créez un fichier `index.php`.  
 2. Dans ce fichier :  
@@ -68,7 +76,7 @@ Dès que vous avez créé votre nouvelle base de données, vous pouvez passer à
    - Récupérez tous les produits de la table **produits** avec une requête SQL (`SELECT * FROM produits`).  
    - Affichez ces produits sous forme de liste ou de tableau HTML.  
 
-👉 **Exemple de sortie attendue :**  
+::: tip 👉 **Exemple de sortie attendue :**  
 
 | ID  | Nom         | Prix (€) |
 |-----|------------|----------|
@@ -76,9 +84,18 @@ Dès que vous avez créé votre nouvelle base de données, vous pouvez passer à
 | 2   | Souris     | 29.99    |
 | 3   | Clavier    | 49.99    |
 
----
+:::
 
-## Exercice 4 : Ajout d’un nouvel élément dans la base de données
+::: details ℹ️ Aide 
+Pour récupérer tous les produits dans un tableau associatif
+``` php
+$stmt = $pdo->query("SELECT * FROM produits");
+$produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
+```
+
+:::
+
+## 🔧 Exercice 4 : Ajout d’un nouvel élément dans la base de données
 
 1. Créez un fichier `ajout.php`.  
 2. Ajoutez un **formulaire** avec :  
@@ -90,9 +107,28 @@ Dès que vous avez créé votre nouvelle base de données, vous pouvez passer à
    - Insérez ces données dans la base avec une requête préparée (`INSERT INTO produits`).  
    - Redirigez l’utilisateur vers `index.php` avec `header("Location: index.php")`.  
 
----
+::: details ℹ️ Aide
 
-## Exercice 5 : Suppression d’un élément 
+Pour rappel, pour faire une requête préparée, il faut utiliser `prepare`, puis `bindParam`
+
+```php
+// Préparation de la requête
+$stmt = $conn->prepare("INSERT INTO etudiants (nom, prénom) VALUES (:nom, :prénom)");
+
+// Lier les paramètres
+$nom = "Dupont";
+$prénom = "Thomas";
+$stmt->bindParam(':nom', $nom);
+$stmt->bindParam(':prénom', $prénom);
+
+// Exécuter la requête
+$stmt->execute();
+```
+:::
+
+
+
+## 🔧 Exercice 5 : Suppression d’un élément 
 
 1. Ajoutez un **lien "Supprimer"** à côté de chaque produit dans `index.php`.  
 2. Ce lien doit pointer vers `supprimer.php?id=ID_PRODUIT`.  
@@ -101,9 +137,8 @@ Dès que vous avez créé votre nouvelle base de données, vous pouvez passer à
    - Exécutez une requête SQL pour **supprimer** l’élément (`DELETE FROM produits WHERE id = ?`).  
    - Redirigez l’utilisateur vers `index.php`.  
 
----
 
-## Bonus : Modification d’un élément
+## 🎁 Bonus : Modification d’un élément
 
 1. Ajoutez un lien **"Modifier"** à côté de chaque produit, qui envoie vers `modifier.php?id=ID_PRODUIT`.  
 2. Dans `modifier.php` :  
@@ -111,3 +146,6 @@ Dès que vous avez créé votre nouvelle base de données, vous pouvez passer à
    - Lorsqu’on valide, mettez à jour l’élément dans la base (`UPDATE produits SET nom=?, prix=? WHERE id=?`).  
    - Redirigez l’utilisateur vers `index.php`.  
 
+::: tip
+Pour modifier les données, on utilise le même fonctionnement que pour ajouter des données. On prépare notre requête puis on utilise `bindParam`
+:::
