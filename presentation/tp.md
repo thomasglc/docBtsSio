@@ -6,6 +6,7 @@
 - [2 - Les tableaux associatifs](/tp/php/2-tableaux.md)
 - [3 - Les fonctions $_GET et $_POST](/tp/php/3-get-post.md)
 - [4 - Les fonctions $_SESSION et $_COOKIES](/tp/php/4-session-cookies.md)
+- [4 - Découverte de PDO](/tp/php/5-pdo.md)
 
 
 ## Test unitaires en JavaScript
