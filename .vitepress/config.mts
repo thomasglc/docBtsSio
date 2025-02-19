@@ -55,6 +55,7 @@ export default withMermaid ({
                   { text: '2 - Les tableaux associatifs', link: '/tp/php/2-tableaux.md' },
                   { text: '3 - $_GET et $_POST', link: '/tp/php/3-get-post.md' },
                   { text: '4 - $_SESSION et $_COOKIES', link: '/tp/php/4-session-cookies.md' },
+                  { text: '5 - PDO', link: '/tp/php/5-pdo.md' },
                 ]
               },
               {
