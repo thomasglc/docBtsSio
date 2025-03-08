@@ -54,7 +54,7 @@ Montre les fichiers modifiés, ajoutés et en attente de validation.
 
 ### Afficher l'historique des commits
 ```sh
-git log --oneline --graph --decorate --all
+git log --oneline
 ```
 Affiche un historique compact avec la structure des branches.
 
@@ -84,12 +84,20 @@ Fusionne `<nom_de_branche>` dans la branche actuelle. Cela permet de rapatrier l
 ### Schéma des branches
 ```mermaid
 gitGraph
-    commit id:"Initial Commit"
+    commit id:"initial commit"
+    commit id:"add css file"
+    commit id:"add css link in html"
     branch feature
     checkout feature
     commit id:"Ajout d'une fonctionnalité"
     checkout main
-    merge feature tag:"Fusion"
+    merge feature
+    branch feature2
+    checkout feature2
+    commit id: "Change color to red"
+    checkout main
+    commit id: "Change color to blue"
+    merge feature2 id: "accept red color"
 ```
 
 ## Travailler avec un dépôt distant
