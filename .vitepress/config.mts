@@ -44,7 +44,7 @@ export default withMermaid ({
         items: [
           {
             text: 'Travaux pratiques',
-            collapsed: true,
+            collapsed: false,
             items: [
               {
                 text: 'PHP',
@@ -87,7 +87,7 @@ export default withMermaid ({
         items: [
           {
             text: 'Mémos',
-            collapsed: true,
+            collapsed: false,
             items: [
               { text: 'HTML', link: '/memo/html.md' },
               { text: 'CSS', link: '/memo/css.md' },
