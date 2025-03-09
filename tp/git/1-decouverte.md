@@ -129,6 +129,6 @@ Vous êtes à présent prêt pour utiliser Git dans des bonnes conditions.
 1. **Modifier** le fichier `index.html` en ajoutant un titre `<h1>` sur votre page :  
 2. **Vérifier** les modifications 
 3. **Ajouter** et committer les changements avec un message qui indique ce que vous avez fait.
-4. **Consulter** l’historique des commits :  
+4. **Consulter**  l’historique des commits :  
  
 

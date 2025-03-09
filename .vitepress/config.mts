@@ -69,6 +69,14 @@ export default withMermaid ({
                   { text: '4 - Jest et le DOM', link: '/tp/testUnitaire/jest/2-jest.md' },
                   { text: '5 - Bonus', link: '/tp/testUnitaire/jest/3-bonus.md' },
                 ]
+              },
+              {
+                text: 'Git',
+                collapsed: true,
+
+                items: [
+                  { text: '1 - Découverte', link: '/tp/git/1-decouverte.md' },
+                ]
               }
             ]
           },
