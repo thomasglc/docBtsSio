@@ -134,3 +134,22 @@ git add <fichier_conflit>
 git commit -m "Résolution de conflit"
 ```
 
+::: tip Tip 📢
+
+
+Les modifications et commits que vous effectuez en local ne sont visibles que sur votre ordinateur.
+
+💡 Tant que vous ne faites pas un git push, vos collègues ne peuvent pas voir votre travail sur GitHub !
+
+✅ Pensez à pousser régulièrement votre code avec :
+
+```bash
+git push origin NOM_DE_LA_BRANCHE
+```
+🚀 Bonne pratique : Avant de pousser, récupérez aussi les dernières modifications des autres avec :
+
+```bash
+git pull origin NOM_DE_LA_BRANCHE
+```
+Cela évite les conflits et garde votre code à jour !
+:::
