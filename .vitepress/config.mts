@@ -76,6 +76,7 @@ export default withMermaid ({
 
                 items: [
                   { text: '1 - Découverte', link: '/tp/git/1-decouverte.md' },
+                  { text: '2 - Git et Github', link: '/tp/git/2-gitAndGithub.md' },
                 ]
               }
             ]

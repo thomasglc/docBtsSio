@@ -4,7 +4,6 @@
 ✔ Apprendre à initialiser un dépôt Git localement.
 ✔ Savoir stager, committer et visualiser l’hisstorique des modifications.
 ✔ Expérimenter les branches et les merges.
-✔ Découvrir le versionnement collaboratif avec GitHub (push, pull, clone).
 
 
 ## 🔧 Etape 1 : Téléchargement et configuration de Git
