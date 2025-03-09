@@ -132,3 +132,90 @@ Vous êtes à présent prêt pour utiliser Git dans des bonnes conditions.
 4. **Consulter**  l’historique des commits :  
  
 
+
+
+## **🌿 Étape 3 : Créer et naviguer entre les branches**  
+1. **Créer**  une nouvelle branche appelée `develop`
+2. **Vérifier** les branches existantes 
+   👉 La branche actuelle est marquée avec un `*`.  
+
+3. **Se déplacer** sur la branche `develop`
+  
+::: details ℹ️ Aide
+   ```bash
+   git branch develop
+   git branch
+   git switch dev
+   ```
+:::
+  
+
+## **📝 Étape 4 : Modifier un fichier sur une branche sans impacter les autres**  
+1. **Modifier** le fichier `index.html` sur la branche `develop`
+2. **Commiter** ces modifications 
+
+
+## **👀 Étape 5 : Observer l’indépendance des branches**  
+1. **Retourner** sur la branche `main`  
+2. **Afficher** le contenu du fichier `index.html`  
+   👉 Que constatez-vous ? 
+
+3. **Repasser** sur `develop` et revérifier le fichier `index.html`  
+   👉 Les modifications sont bien spécifiques à chaque branche !   
+
+
+## **🔄 Étape 6 : Fusionner la branche `develop` dans `main`**  
+1. **Retourner** sur la branche `main` 
+2. **Fusionner / Merger** la branche `develop` dans la branche `main`
+3. **Vérifier**  le contenu de `index.html`  
+
+👉 Les modifications de `develop` ont bien été ajoutées à `main` !
+::: details ℹ️ Aide
+   ```bash
+      git switch main
+      git merge develop
+   ```
+:::
+
+## **⚠️ Étape 7 : Gérer un conflit lors d’une fusion**  
+Dans cette partie, on va **provoquer un conflit Git** pour comprendre comment le résoudre.  
+Sachez qu'un conflit n'est pas forcément grave. Il s'agit uniquement de prendre une décision que Git ne peux pas prendre à notre place.
+
+1. **Sur la branche `main`**, modifier `index.html` pour ajouter un titre `<h2>`. N'oubliez pas de commit après votre modification.
+   
+2. **Sur la branche `develop`**, modifier aussi `index.html` à la même ligne pour mettre un paragraphe `<p>`. Faites un commit de votre modificiation.
+3. **Retourner sur `main`** et essayer de fusionner `develop` :  
+   ```bash
+   git switch main
+   git merge develop
+   ```
+   👉 Un **conflit** va apparaître !  
+
+4. **Ouvrez `index.html`** avec `VSCode` et observer les marqueurs de conflit :  
+   (`<<<<<<<`, `=======`, `>>>>>>>`).  
+
+   Exemple de ce que vous pourriez voir :  
+   ```html
+   <h1>Je suis un titre h1 initialement écrit.<h1>
+   <<<<<<< main
+   <h2>Je suis un titre sur la branche main<h2>
+   =======
+   <p>Je suis un paragraphe dans la branche develop<p>
+   >>>>>>> develop
+   ```
+5. **Résoudre le conflit** en choisissant **quelle modification conserver**.  
+   Par exemple, modifiez le fichier pour qu’il ai la balise `<h1>` `<h2>` `<p>` :  
+   ```html
+   <h1>Je suis un titre h1 initialement écrit.<h1>
+   <h2>Je suis un titre sur la branche main<h2>
+   <p>Je suis un paragraphe dans la branche develop<p>
+   ```
+6. **Ajouter et valider les modifications** :  
+   ```bash
+   git add index.html
+   git commit -m "Résolution du conflit entre main et develop"
+   ```
+7. **Vérifier que tout est bien fusionné** :  
+   ```bash
+   git log --oneline 
+   ```
