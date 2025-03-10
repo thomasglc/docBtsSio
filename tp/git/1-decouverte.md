@@ -180,9 +180,9 @@ Vous êtes à présent prêt pour utiliser Git dans des bonnes conditions.
 Dans cette partie, on va **provoquer un conflit Git** pour comprendre comment le résoudre.  
 Sachez qu'un conflit n'est pas forcément grave. Il s'agit uniquement de prendre une décision que Git ne peux pas prendre à notre place.
 
-1. **Sur la branche `main`**, modifier `index.html` pour ajouter un titre `<h2>`. N'oubliez pas de commit après votre modification.
+1. **Sur la branche `main`**, modifier `index.html` pour modifier le titre `<h1>`. N'oubliez pas de commit après votre modification.
    
-2. **Sur la branche `develop`**, modifier aussi `index.html` à la même ligne pour mettre un paragraphe `<p>`. Faites un commit de votre modificiation.
+2. **Sur la branche `develop`**, modifier aussi `index.html` pour modifier à nouveau le titre `<h1>` avec une autre valeur. Faites un commit de votre modificiation.
 3. **Retourner sur `main`** et essayer de fusionner `develop` :  
    ```bash
    git switch main
