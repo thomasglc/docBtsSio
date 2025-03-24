@@ -202,3 +202,37 @@ echo "Utilisateur supprimé !";
 ✅ Toujours utiliser des requêtes préparées pour éviter les injections SQL.  
 ✅ Activer `PDO::ERRMODE_EXCEPTION` pour un meilleur débogage.  
 
+
+## La mise en place d'un entry-point
+
+```php
+<?php
+
+// Récupération de la route depuis l'URL
+$page = isset($_GET['page']) ? $_GET['page'] : 'home';
+
+// Définition des pages autorisées
+$pages = ['home', 'about', 'contact'];
+
+// Vérification et inclusion de la bonne page
+if (in_array($page, $pages)) {
+    include $page . '.php';
+} else {
+    include '404.php';
+}
+
+?>
+
+```
+
+Ce fichier `index.php` vérifie la valeur du paramètre page dans l'URL (ex. `index.php?page=about`) et inclut le fichier correspondant (about.php, home.php, etc.). 
+Si la page demandée n'est pas autorisée, il affiche une page 404.
+
+::: tip
+Depuis la page `home.php`, tu peux utiliser un lien comme ceci pour naviguer vers la page about.php via l'entrypoint index.php :
+
+```php
+<a href="index.php?page=about">À propos</a>
+```
+
+:::
