@@ -2,14 +2,14 @@
 
 ## Les Bases
 
-### Structure de base
+## Structure de base
 ```php
 <?php
     // Code PHP ici
 ?>
 ```
 
-### Variables et Types
+## Variables et Types
 ```php
 $nom = "Thomas";           // Chaîne de caractères
 $age = 25;                // Nombre entier
@@ -18,7 +18,7 @@ $estVrai = true;          // Booléen
 $fruits = ["pomme", "banane"]; // Tableau
 ```
 
-### Conditions (if / else)
+## Conditions (if / else)
 ```php
 $age = 20;
 if ($age >= 18) {
@@ -30,7 +30,7 @@ if ($age >= 18) {
 }
 ```
 
-### Boucles
+## Boucles
 ```php
 // Boucle for
 for ($i = 0; $i < 5; $i++) {
@@ -51,7 +51,7 @@ foreach ($fruits as $fruit) {
 }
 ```
 
-### Fonctions
+## Fonctions
 ```php
 function direBonjour($nom) {
     return "Bonjour " . $nom;
@@ -59,7 +59,7 @@ function direBonjour($nom) {
 echo direBonjour("Thomas"); // Affiche: Bonjour Thomas
 ```
 
-### Tableaux
+## Tableaux
 ```php
 // Tableau indexé
 $fruits = ["pomme", "banane", "orange"];
@@ -74,7 +74,7 @@ $personne = [
 echo $personne["nom"]; // Affiche: Dupont
 ```
 
-### Chaînes de caractères
+## Chaînes de caractères
 ```php
 $prenom = "Thomas";
 $nom = "Dupont";
@@ -91,14 +91,14 @@ echo strtoupper($nom);    // Majuscules
 echo strtolower($nom);    // Minuscules
 ```
 
-### Inclusion de fichiers
+## Inclusion de fichiers
 ```php
 require 'config.php';     // Arrête le script si erreur
 include 'header.php';     // Continue même si erreur
 require_once 'config.php'; // Vérifie si déjà inclus
 ```
 
-### Sessions et Cookies
+## Sessions et Cookies
 ```php
 // Sessions
 session_start();
@@ -109,30 +109,130 @@ echo $_SESSION['user'];
 setcookie("utilisateur", "Thomas", time() + 3600); // Expire dans 1h
 echo $_COOKIE['utilisateur'];
 ```
+---
 
-<!-- ### Connexion Base de données (PDO)
+
+##  PDO : CRUD
+
+## 1. Connexion à la base de données
+
 ```php
 try {
-    $pdo = new PDO(
-        "mysql:host=localhost;dbname=test",
-        "utilisateur",
-        "mot_de_passe"
-    );
+    $pdo = new PDO("mysql:host=localhost;dbname=nom_de_la_base", "utilisateur", "mot_de_passe");
+
+    //Configuration de PDO pour permettre la bonne gestion des erreurs
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e) {
-    echo "Erreur : " . $e->getMessage();
+    echo "Connexion réussie";
+} catch (PDOException $e) {
+    die("Erreur : " . $e->getMessage());
 }
 ```
 
-### Requêtes SQL avec PDO
+## 2. Création (INSERT)
+
 ```php
-// Sélection
-$stmt = $pdo->query("SELECT * FROM utilisateurs");
-while ($row = $stmt->fetch()) {
-    echo $row['nom'];
+$stmt = $pdo->prepare("INSERT INTO utilisateurs (nom, email) VALUES (:nom, :email)");
+
+$nom = "Dupont";
+$email = "dupont@example.com";
+
+$stmt->bindParam(':nom', $nom);
+$stmt->bindParam(':email', $email);
+$stmt->execute();
+
+echo "Utilisateur ajouté avec succès !";
+```
+
+---
+
+## 3. Lecture (SELECT)
+
+```php
+$stmt = $pdo->prepare("SELECT * FROM utilisateurs");
+
+$stmt->execute();
+
+$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+foreach($users as $user){
+    echo "$user['name'] : $user['email']";
+}
+```
+
+---
+
+## 4. Mise à jour (UPDATE)
+
+```php
+$stmt = $pdo->prepare("UPDATE utilisateurs SET nom = :nom WHERE email = :email");
+
+$nom = "Durand";
+$email = "dupont@example.com";
+
+$stmt->bindParam(':nom', $nom);
+$stmt->bindParam(':email', $email);
+$stmt->execute();
+
+echo "Mise à jour effectuée !";
+```
+
+---
+
+## 5. Suppression (DELETE)
+
+```php
+$stmt = $pdo->prepare("DELETE FROM utilisateurs WHERE email = :email");
+
+$email = "dupont@example.com";
+$stmt->bindParam(':email', $email);
+$stmt->execute();
+
+echo "Utilisateur supprimé !";
+```
+
+---
+
+### Remarque sur `bindParam`
+- `bindParam()` ne peut lier que des variables (et non des valeurs directes comme des chaînes de texte).
+- Pour une liaison plus flexible, `bindValue()` peut être utilisé   
+(exemple : `$stmt->bindValue(':nom', 'Dupont')`).
+
+---
+
+### Bonnes pratiques
+✅ Toujours utiliser des requêtes préparées pour éviter les injections SQL.  
+✅ Activer `PDO::ERRMODE_EXCEPTION` pour un meilleur débogage.  
+
+
+## La mise en place d'un entry-point
+
+```php
+<?php
+
+// Récupération de la route depuis l'URL
+$page = isset($_GET['page']) ? $_GET['page'] : 'home';
+
+// Définition des pages autorisées
+$pages = ['home', 'about', 'contact'];
+
+// Vérification et inclusion de la bonne page
+if (in_array($page, $pages)) {
+    include $page . '.php';
+} else {
+    include '404.php';
 }
 
-// Insertion sécurisée
-$stmt = $pdo->prepare("INSERT INTO utilisateurs (nom, age) VALUES (?, ?)");
-$stmt->execute(["Thomas", 25]);
-```  -->
+?>
+
+```
+
+Ce fichier `index.php` vérifie la valeur du paramètre page dans l'URL (ex. `index.php?page=about`) et inclut le fichier correspondant (about.php, home.php, etc.). 
+Si la page demandée n'est pas autorisée, il affiche une page 404.
+
+::: tip
+Depuis la page `home.php`, tu peux utiliser un lien comme ceci pour naviguer vers la page about.php via l'entrypoint index.php :
+
+```php
+<a href="index.php?page=about">À propos</a>
+```
+
+:::

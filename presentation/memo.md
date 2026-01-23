@@ -7,3 +7,4 @@ Les aides mémoires sont des fiches synthétiques qui vous permettront de vous r
   - [CSS](/memo/css.md)
   - [JS](/memo/js.md)
   - [PHP](/memo/php.md)
+  - [Git](/memo/git.md)

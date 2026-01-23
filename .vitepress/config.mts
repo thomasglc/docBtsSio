@@ -44,7 +44,7 @@ export default withMermaid ({
         items: [
           {
             text: 'Travaux pratiques',
-            collapsed: true,
+            collapsed: false,
             items: [
               {
                 text: 'PHP',
@@ -69,6 +69,15 @@ export default withMermaid ({
                   { text: '4 - Jest et le DOM', link: '/tp/testUnitaire/jest/2-jest.md' },
                   { text: '5 - Bonus', link: '/tp/testUnitaire/jest/3-bonus.md' },
                 ]
+              },
+              {
+                text: 'Git',
+                collapsed: true,
+
+                items: [
+                  { text: '1 - Découverte', link: '/tp/git/1-decouverte.md' },
+                  { text: '2 - Git et Github', link: '/tp/git/2-gitAndGithub.md' },
+                ]
               }
             ]
           },
@@ -78,12 +87,13 @@ export default withMermaid ({
         items: [
           {
             text: 'Mémos',
-            collapsed: true,
+            collapsed: false,
             items: [
               { text: 'HTML', link: '/memo/html.md' },
               { text: 'CSS', link: '/memo/css.md' },
               { text: 'JS', link: '/memo/js.md' },
               { text: 'PHP', link: '/memo/php.md' },
+              { text: 'Git', link: '/memo/git.md' },
 
             ]
           },

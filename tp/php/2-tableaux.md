@@ -1,4 +1,4 @@
-# TP 02 - Les tableaux associatifs
+# 📝 TP 02 - Les tableaux associatifs
 
 ## Exercice 1 : Création et parcours d'un tableau associatif
 

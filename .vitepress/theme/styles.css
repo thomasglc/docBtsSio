@@ -34,3 +34,15 @@
   }
 }
 
+.VPHomeHero .VPImage {
+  animation: fly 3.5s ease-in-out infinite;
+  transition: transform 2s ease-in-out;
+}
+
+ @keyframes fly {
+  0% { transform: translate(-50%, -49%);}
+  50% { transform: translate(-50%, -53%);}
+  100% { transform: translate(-50%, -49%);}
+
+
+} 

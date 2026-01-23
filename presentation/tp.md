@@ -15,3 +15,8 @@
 - [3 - Découverte de Jest](/tp/testUnitaire/jest/1-jest.md)
 - [4 - Jest et le DOM](/tp/testUnitaire/jest/2-jest.md)
 - [5 - Bonus](/tp/testUnitaire/jest/3-bonus.md)
+
+
+## Git
+- [1 - Découverte](/tp/git/1-decouverte.md)
+- [2 - Git et Github](/tp/git/2-gitAndGithub.md)
