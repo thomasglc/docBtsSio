@@ -78,6 +78,14 @@ export default withMermaid ({
                   { text: '1 - Découverte', link: '/tp/git/1-decouverte.md' },
                   { text: '2 - Git et Github', link: '/tp/git/2-gitAndGithub.md' },
                 ]
+              },
+              {
+                text: 'Système',
+                collapsed: true,
+
+                items: [
+                  { text: '1 - Mise en place LAMP', link: '/tp/systeme/1-lamp.md' },
+                ]
               }
             ]
           },

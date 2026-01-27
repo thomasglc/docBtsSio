@@ -1,6 +1,7 @@
 # 📝 TP : Déploiement d'une infrastructure Web LAMP & WordPress
-###  🎯 Objectif : Installer et sécuriser une pile LAMP pour héberger un CMS WordPress.
+###  🎯 Objectif : Installer un serveur LAMP pour héberger un CMS WordPress.
 
+## Partie 1 : Mise en place de LAMP
 ### 1. Préparation du système
 Avant toute installation, on s'assure que les dépôts et les paquets sont à jour.
 
@@ -56,7 +57,7 @@ Connectez-vous à MariaDB : `mysql -u root -p` puis exécutez ces requêtes :
 -- Création de la base
 CREATE DATABASE wordpress_db DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- Création de l'utilisateur dédié
+-- Création de l'utilisateur dédié - Vous devez changer le mot de passe.
 CREATE USER 'wp_user'@'localhost' IDENTIFIED BY 'TonMotDePasseTresSecurise-AChanger';
 
 -- Attribution des droits
@@ -87,7 +88,7 @@ cp -r wordpress/* /var/www/html/
 Gestion des permissions (Crucial) : L'utilisateur qui fait tourner Apache (www-data) doit être propriétaire des fichiers pour permettre les mises à jour et l'upload d'images.
 
 ```Bash
-chown -RW www-data:www-data /var/www/html/
+chown -R www-data:www-data /var/www/html/
 chmod -R 755 /var/www/html/
 ```
 ### 7. Configuration de l'Hôte Virtuel (VirtualHost)
@@ -117,3 +118,11 @@ a2ensite wordpress.conf
 a2enmod rewrite
 systemctl restart apache2
 ```
+
+## Partie 2 : Configuration de Wordpress
+
+Accédez a votre serveur web depuis un navigateur, vous devriez avoir cette page accéssible.
+![Installation WP1](image.png)
+
+Ici vous pouvez renseigner les informations de votre base de données : 
+![Installation WP2](image-1.png)
