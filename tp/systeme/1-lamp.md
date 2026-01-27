@@ -9,15 +9,13 @@ Avant toute installation, on s'assure que les dépôts et les paquets sont à jo
 apt update && apt upgrade -y
 ```
 
-Installez directement `ssh`, cela va vous permettre d'accéder à votre machine virtuelle depuis votre ordinateur. N'hésitez pas a changer le port par défaut.
+Installez directement `ssh`, cela va vous permettre d'accéder à votre machine virtuelle depuis votre ordinateur. N'hésitez pas à changer le port par défaut.
 
 Nous allons aussi directement installer le pare-feu `UFW`.
 Autorisez uniquement le port que vous avez ouvert pour votre connexion `ssh` ainsi que le port pour le protocole `http`
 
 ### 2. Installation du serveur Web (Apache2)
 Apache est le serveur HTTP le plus utilisé. On l'installe de manière minimaliste.
-
-Commande :
 
 ```Bash
 apt install apache2 -y
@@ -28,16 +26,12 @@ Vérification : Tapez l'adresse IP de la VM dans un navigateur. Vous devriez voi
 ### 3. Installation de la base de données (MariaDB)
 On privilégie MariaDB (fork communautaire de MySQL), standard sous Debian.
 
-Commande :
-
 ```Bash
 apt install mariadb-server -y
 ```
 
 ### 4. Installation de PHP (Le moteur)
 WordPress nécessite PHP et des extensions spécifiques pour fonctionner (gestion d'images, de la base de données, etc.).
-
-Commande :
 
 ```Bash
 apt install php php-mysql php-curl php-gd php-intl php-mbstring php-soap php-xml php-xmlrpc php-zip libapache2-mod-php -y
@@ -77,6 +71,10 @@ cd /tmp
 wget https://wordpress.org/latest.tar.gz
 tar -xzvf latest.tar.gz
 ```
+:::tip ❓Question
+Que permet de faire la commande `wget` ?  
+Quel est l'intérêt de la commande `tar -xzvf` ?
+:::
 
 Déplacement vers le répertoire Web :
 
@@ -91,6 +89,10 @@ Gestion des permissions (Crucial) : L'utilisateur qui fait tourner Apache (www-d
 chown -R www-data:www-data /var/www/html/
 chmod -R 755 /var/www/html/
 ```
+
+:::tip ❓Question
+Présentez l'utilisateur `www-data`. Pourquoi c'est à lui qu'il faut donner les droits ?
+:::
 ### 7. Configuration de l'Hôte Virtuel (VirtualHost)
 Pour faire les choses proprement, on crée un fichier de configuration Apache dédié.
 
@@ -110,6 +112,10 @@ Créer `/etc/apache2/sites-available/wordpress.conf` :
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 ```
+:::tip ❓Question
+A quoi sert le fichier de configuration présent dans le dossier `sites-available` ?  
+Expliquez chaque ligne présent dans le fichier `wordpress.conf`
+:::
 
 Activer le site et le module de réécriture (pour les liens WordPress) :
 
@@ -121,7 +127,7 @@ systemctl restart apache2
 
 ## Configuration de Wordpress
 
-Accéder à votre serveur web depuis un navigateur, vous devriez avoir cette page accessible.
+Accédez à votre serveur web depuis un navigateur, vous devriez avoir cette page accessible.
 
 ![Installation WP1](image.png)
 
@@ -129,17 +135,20 @@ Ici vous pouvez renseigner les informations de votre base de données :
 ![Installation WP2](image-1.png)
 
 ::: tip 
-À cette étape, Wordpress va créer l'ensemble de la base de données.
+À cette étape, WordPress va créer l'ensemble de la base de données.
 
-Soyez curieux ! Je vous invite **fortement** à regarder les tables créées par Wordpress dans votre base de données.
+Soyez curieux ! Je vous invite **fortement** à regarder les tables créées par WordPress dans votre base de données.
+
+❓**Question** : Quel est la particularité des tables que WordPress crée ?
 :::
 
-Renseignez les informations de votre site. Vous voulez construire un portfolio professionnel. Comme nom du site utilisez quelque chose de parlant.
-Retenez bien votre identifiant et votre mot de passe. Ils seront indispensable pour la suite.
+Renseignez les informations de votre site. Vous voulez construire un portfolio professionnel. Comme nom du site, utilisez quelque chose de parlant.
+Retenez bien votre identifiant et votre mot de passe. Ils seront indispensables pour la suite.
 
 ![Installation WP3](image-2.png)
 
-Vous pouvez a présent vous connecter a la page d'administration (back-office) wordpress 
+Vous pouvez à présent vous connecter à la page d'administration (back-office) WordPress 
+
 ![Installation WP4](image-3.png)
 
 ::: tip Et voilà !
@@ -162,9 +171,8 @@ Un site sans page ce n’est pas un site non ? Avec Wordpress, vous pouvez crée
 
 ![Création de pages](image-5.png)
 
-L'éditeur est ce que l'on appelle un WYSIWYG, il vous permettra de rédiger visuellement votre contenu (texte, mais également intégration de contenu provenant d'autre site). Vous souhaitez ajouter une image ? Un simple Drag&Drop est suffisant. Puissant hein !
+L'éditeur est ce que l'on appelle un WYSIWYG, il vous permettra de rédiger visuellement votre contenu (texte, mais également intégration de contenu provenant d'autre site). Vous souhaitez ajouter une image ? Un simple Drag&Drop est suffisant. 
 
-✋ Au passage, le thème « Nouveau blog » que nous avons choisi tout à l'heure, nous permet de mettre une « page » en « page d'accueil » cette option est disponible dans « Apparence > Personaliser ».
 
 ::: tip et le responsive ?
 Chez Wordpress ils ont également pensé à tout ça. Vous avez la possibilité de « Prévisualiser » votre page sous différents formats.
@@ -200,7 +208,9 @@ Depuis le menu de gauche, repérez les sections suivantes :
 - Extensions
 - Réglages
 
-📌 Question : Quelle est l'objectif de chacune des pages ?
+:::tip 📌 Question 
+Quelle est l'objectif de chacune des pages ?
+:::
 
 ## Partie 2 – Création des pages principales du portfolio
 ### Création des pages
@@ -215,8 +225,6 @@ Pour chaque page :
 - Ajoutez un titre clair
 - Ajoutez un texte de présentation du sujet. 
 - Publiez la page
-
-
 
 
 📌 Vérification : Les 4 pages doivent apparaître dans la liste des pages.
@@ -254,8 +262,8 @@ Pour chaque article :
 
 L'objectif de l'article de projet est de renseigner vos projets sur lesquels vous allez travailler durant les deux années de BTS. Cela peut être des projets d'écoles mais aussi des projets réalisés personnellement
 
-::: tip
-📌 Astuce : utilisez des titres (H2 / H3) pour structurer votre contenu.
+::: tip 📌 Astuce 
+Utilisez des titres (H2 / H3) pour structurer votre contenu.
 Vérifiez que les articles apparaissent automatiquement sur la page Mes projets
 :::
 
@@ -305,8 +313,10 @@ Depuis Apparence → Thèmes :
 
 ::: tip
 
-La sélection de thème est une étape importante, cela va former votre site dans un style particulier. Utilisez un thème simple et assez sobre pour commencer.
-Plus le thème est conséquent, plus vous pouvez vous retrouver avec des lenteurs de chargement du site.
-"Less is more"
+La sélection de thème est une étape importante, cela va former votre site dans un style particulier. Utilisez un thème simple et assez sobre pour commencer.  
+Plus le thème est conséquent, plus vous pouvez vous retrouver avec des lenteurs de chargement du site.  
+:::
 
+::: danger Rendu sur Moodle
+Vous pouvez déposer votre fichier de réponse sur Moodle.
 :::
