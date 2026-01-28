@@ -17,7 +17,7 @@ hero:
       alt: BTS SIO
 
 features:
-  - title: 🧑‍💻 Travaux Pratiques
+  - title: 💻 Travaux Pratiques
     link: /presentation/tp
     details: Liste des travaux pratiques à réaliser
   - title: 🧠 Les mémos
