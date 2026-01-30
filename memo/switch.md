@@ -1,6 +1,6 @@
 # 📌 MÉMO – Commandes indispensables sur un switch Cisco
 
-### 1. Commandes de base
+## 1. Commandes de base
 | Tâche                                | Commande                             |
 | ------------------------------------ | ------------------------------------ |
 | Passer en mode privilégié            | `enable`                             |
@@ -12,7 +12,7 @@
 | Redémarrer le switch                 | `reload`                             |
 
 
-### 2. Gestion des interfaces
+## 2. Gestion des interfaces
 
 | Tâche                              | Commande                  |
 | ---------------------------------- | ------------------------- |
@@ -24,7 +24,7 @@
 | Vérifier les erreurs sur ports     | `show interfaces status`  |
 
 
-### 3. VLAN
+## 3. VLAN
 Création / suppression
 ``` bash
 vlan 10
@@ -50,7 +50,7 @@ Vérifier l’appartenance des ports
 ``` bash
 show interfaces switchport
 ```
-### 4. Trunking (802.1Q)
+## 4. Trunking (802.1Q)
 Configurer un trunk
 ``` bash
 interface gi0/1
@@ -68,7 +68,7 @@ Voir les trunks actifs
 show interfaces trunk
 ```
 
-### 5. Spanning Tree Protocol (STP)
+## 5. Spanning Tree Protocol (STP)
 | Tâche                             | Commande                              |
 | --------------------------------- | ------------------------------------- |
 | Voir l’état spanning-tree         | `show spanning-tree`                  |
@@ -76,7 +76,7 @@ show interfaces trunk
 | Activer PortFast sur un port      | `spanning-tree portfast`              |
 | Activer BPDU Guard                | `spanning-tree bpduguard enable`      |
 
-### 6. Adresse IP de management
+## 6. Adresse IP de management
 
 Sur un switch L2, l’adresse IP se configure sur l’interface VLAN (SVI - Switched Virtual Interface) :
 
@@ -92,7 +92,7 @@ Voir l’IP :
 show ip interface brief
 ```
 
-### 7. Sécurisation de ports (Port Security)
+## 7. Sécurisation de ports (Port Security)
 Activer Port Security
 ``` bash
 interface fa0/10
@@ -121,13 +121,13 @@ show port-security
 show port-security interface fa0/10
 ```
 
-### 8. Table MAC
+## 8. Table MAC
 | Tâche                | Commande                          |
 | -------------------- | --------------------------------- |
 | Voir la table MAC    | `show mac address-table`          |
 | Effacer la table MAC | `clear mac address-table dynamic` |
 
-### 9. NTP (sur un switch administré)
+## 9. NTP (sur un switch administré)
 | Tâche                     | Commande                  |
 | ------------------------- | ------------------------- |
 | Configurer un serveur NTP | `ntp server 192.168.99.1` |

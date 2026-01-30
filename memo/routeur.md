@@ -1,6 +1,6 @@
 # 📌 MÉMO – Commandes indispensables sur un routeur Cisco
 
-### 1. Configuration de base
+## 1. Configuration de base
 Passer en mode privilégié
 ```bash
 enable
@@ -22,14 +22,14 @@ Sauvegarder la configuration
 ```bash
 copy running-config startup-config
 ```
-### 2. Configurer les interfaces
+## 2. Configurer les interfaces
 Configurer une interface physique
 ```bash
 interface GigabitEthernet0/0
  ip address 192.168.1.1 255.255.255.0
  no shutdown
 ```
-### 3. Configuration VLAN & 802.1Q (trunk)
+## 3. Configuration VLAN & 802.1Q (trunk)
 Créer des sous-interfaces pour router-on-a-stick
 ```bash
 interface GigabitEthernet0/0.10
@@ -41,7 +41,7 @@ interface GigabitEthernet0/0.20
  ip address 192.168.20.1 255.255.255.0
 ```
 
-### 4. Configuration d’un serveur DHCP
+## 4. Configuration d’un serveur DHCP
 Créer un pool DHCP
 ```bash
 ip dhcp pool VLAN10
@@ -54,14 +54,14 @@ Exclure des adresses
 ip dhcp excluded-address 192.168.10.1 192.168.10.20
 ```
 
-### 5. Configuration du serveur NTP
+## 5. Configuration du serveur NTP
 Mettre en place le serveur NTP
 ```bash
 ntp master 1
 ```
 Il ne vous reste plus qu'à configurer les clients.
 
-### 6. Configuration NAT/PAT (NAT Overload)
+## 6. Configuration NAT/PAT (NAT Overload)
 Déclarer les interfaces inside/outside
 ```bash
 interface GigabitEthernet0/0 # interface d'entrée (coté LAN)
@@ -84,7 +84,7 @@ Cette commande applique à l’interface WAN, le groupe que vous avez créé au 
 
 
 
-### 7. Port forwarding (Static NAT / PAT)
+## 7. Port forwarding (Static NAT / PAT)
 Exemple : rendre un serveur Web interne accessible (port 80)
 
 Serveur interne : `192.168.10.50`
@@ -96,7 +96,7 @@ Autre exemple : SSH
 ```bash
 ip nat inside source static tcp 192.168.10.50 22 203.0.113.1 22
 ```
-### 8. Routage
+## 8. Routage
 Route statique vers un réseau
 ```bash
 # ip route | réseau | masque | passerelle
@@ -107,7 +107,7 @@ Route par défaut
 ip route 0.0.0.0 0.0.0.0 203.0.113.254
 ```
 
-### 9. Commandes de vérification indispensables
+## 9. Commandes de vérification indispensables
 Interfaces
 ```bash
 show ip interface brief
@@ -147,7 +147,7 @@ show running-config interface GigabitEthernet0/0.10
 show interfaces trunk    (sur le switch)
 show interfaces g0/0.10  (sur le routeur)
 ```
-### 10. Dépannage rapide (troubleshooting)
+## 10. Dépannage rapide (troubleshooting)
 Pings
 ```bash
 ping 192.168.10.1
