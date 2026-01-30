@@ -102,6 +102,8 @@ export default withMermaid ({
               { text: 'JS', link: '/memo/js.md' },
               { text: 'PHP', link: '/memo/php.md' },
               { text: 'Git', link: '/memo/git.md' },
+              { text: 'Switch', link: '/memo/switch.md' },
+              { text: 'Routeur', link: '/memo/routeur.md' },
 
             ]
           },
