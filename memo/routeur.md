@@ -59,7 +59,7 @@ Mettre en place le serveur NTP
 ```bash
 ntp master 1
 ```
-Il ne vous reste plus qu'à vconfigurer les clients.
+Il ne vous reste plus qu'à configurer les clients.
 
 ### 6. Configuration NAT/PAT (NAT Overload)
 Déclarer les interfaces inside/outside
