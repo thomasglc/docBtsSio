@@ -19,6 +19,7 @@
 | Lister les interfaces et leur état | `show ip interface brief` |
 | Voir les détails d’une interface   | `show interfaces fa0/1`   |
 | Entrer dans l’interface            | `interface fa0/1`         |
+| Sélectionner une plage d’interfaces | `interface range fa 0/1 - 10`         |
 | Activer une interface              | `no shutdown`             |
 | Désactiver une interface           | `shutdown`                |
 | Vérifier les erreurs sur ports     | `show interfaces status`  |
