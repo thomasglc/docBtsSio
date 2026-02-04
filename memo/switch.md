@@ -51,6 +51,16 @@ Vérifier l’appartenance des ports
 ``` bash
 show interfaces switchport
 ```
+Donner une adresse IP au switch dans un VLAN
+``` bash
+interface vlan 10
+ ip address 192.168.10.2 255.255.255.0
+ no shutdown
+
+#Ne pas oublier d'ajouter la passerelle
+ip default-gateway 192.168.10.1
+```
+
 ## 4. Trunking (802.1Q)
 Configurer un trunk
 ``` bash
