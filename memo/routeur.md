@@ -110,31 +110,37 @@ ip route 0.0.0.0 0.0.0.0 203.0.113.254
 ## 9. Mise en place du protocole OSPF
 
 Les commandes de bases pour la mise en place d'OSPF sur un routeur.
-``` bash
-router ospf 1                              # Démarrer le processus OSPF
-network 192.168.1.0 0.0.0.255 area 0       # Déclarer un réseau (Masque inversé)
-router-id 1.1.1.1                          # Forcer l'ID de routeur
-passive-interface GigabitEthernet0/0       # Interface passive (LAN)
-auto-cost reference-bandwidth 10000        # Changer la bande passante de référence
-clear ip ospf process                      # Redémarrer OSPF (pour appliquer router-id)
-```
+
+| Commande | Description |
+|---|---|
+| `router ospf 1` | Démarrer le processus OSPF |
+| `network 192.168.1.0 0.0.0.255 area 0` | Déclarer un réseau (Masque inversé) |
+| `router-id 1.1.1.1` | Forcer l'ID de routeur |
+| `passive-interface GigabitEthernet0/0` | Interface passive (LAN) |
+| `auto-cost reference-bandwidth 10000` | Changer la bande passante de référence |
+| `clear ip ospf process` | Redémarrer OSPF (pour appliquer router-id) |
+
+---
 
 Vérification OSPF 
 
-```bash
-show ip ospf neighbor                     # Voisins OSPF
-show ip ospf                              # Processus, Router-ID, timers
-show ip ospf interface                    # Détails OSPF par interface
-show ip ospf interface brief              # Résumé avec coûts (tableau)
-show ip ospf database                     # Base LSDB
-```
+| Commande | Description |
+|---|---|
+| `show ip ospf neighbor` | Voisins OSPF |
+| `show ip ospf` | Processus, Router-ID, timers |
+| `show ip ospf interface` | Détails OSPF par interface |
+| `show ip ospf interface brief` | Résumé avec coûts (tableau) |
+| `show ip ospf database` | Base LSDB |
+
+---
 
 Vérifications de routage 
 
-```bash
-show ip route                             # Table de routage complète
-show ip route ospf                        # Routes apprises via OSPF uniquement
-```
+| Commande | Description |
+|---|---|
+| `show ip route` | Table de routage complète |
+| `show ip route ospf` | Routes apprises via OSPF uniquement |
+
 
 ## 10. Commandes de vérification indispensables
 Interfaces
