@@ -140,7 +140,67 @@ Vérifications de routage
 |---|---|
 | `show ip route` | Table de routage complète |
 | `show ip route ospf` | Routes apprises via OSPF uniquement |
+## Les ACL - Access Control Lists
+### ACL Standard
 
+
+``` bash
+# Créer l'ACL numéro 10
+Router(config) access-list 10 permit 192.168.1.0 0.0.0.255
+Router(config) access-list 10 deny   192.168.2.0 0.0.0.255
+Router(config) access-list 10 permit any
+
+# Appliquer sur une interface (trafic sortant)
+Router(config) interface GigabitEthernet0/1
+Router(config-if) ip access-group 10 out
+```
+
+### ACL Standard nommée
+
+``` bash
+Router(config) ip access-list standard FILTRAGE_RH
+Router(config-std-nacl) permit 192.168.10.0 0.0.0.255
+Router(config-std-nacl) deny   any
+
+Router(config) interface GigabitEthernet0/0
+Router(config-if) ip access-group FILTRAGE_RH out
+```
+### ACL Etendue - Syntaxe
+
+``` bash
+access-list [numéro] [permit|deny] [protocole]
+            [source] [wildcard] [destination] [wildcard]
+            [opérateur port]
+```
+La liste des opérateurs de port : 
+* eq 80 → égal à 80 (HTTP)
+* gt 1024 → supérieur à 1024
+* lt 1024 → inférieur à 1024
+* range 20 21 → entre 20 et 21 (FTP)
+
+
+| Mot-clé | Signification | Équivalent |
+|---|---|---|
+| `any` | N'importe quelle IP | `0.0.0.0 255.255.255.255` |
+| `host x.x.x.x` | Une IP exacte | `x.x.x.x 0.0.0.0` |
+
+
+Exemple 1 : 
+
+``` bash
+access-list 110 permit tcp 192.168.10.0 0.0.0.255 host 10.0.0.80 eq 80
+access-list 110 deny ip any any
+```
+
+Exemple ACL étendue nommée :
+```bash
+Router(config) ip access-list extended ANTI_PING
+Router(config-ext-nacl) deny   icmp any any echo
+Router(config-ext-nacl) permit ip any any
+```
+::: warning 
+⚠️ Sans le permit ip any any final, tout le trafic serait bloqué par le deny implicite !
+:::
 
 ## 10. Commandes de vérification indispensables
 Interfaces
