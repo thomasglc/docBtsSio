@@ -86,6 +86,14 @@ export default withMermaid ({
                 items: [
                   { text: '1 - Mise en place LAMP', link: '/tp/systeme/1-lamp.md' },
                 ]
+              },
+              {
+                text: 'PowerShell',
+                collapsed: true,
+
+                items: [
+                  { text: '1 - Initiation', link: '/tp/powershell/1-initiation.md' },
+                ]
               }
             ]
           },
@@ -104,6 +112,7 @@ export default withMermaid ({
               { text: 'Git', link: '/memo/git.md' },
               { text: 'Switch', link: '/memo/switch.md' },
               { text: 'Routeur', link: '/memo/routeur.md' },
+              { text: 'PowerShell', link: '/memo/powershell.md' },
 
             ]
           },

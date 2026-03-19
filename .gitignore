@@ -2,3 +2,6 @@
 cache
 node_modules
 .vite_opt_cache
+.claude/
+
+CLAUDE.md
