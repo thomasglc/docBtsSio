@@ -94,6 +94,14 @@ export default withMermaid ({
                 items: [
                   { text: '1 - Initiation', link: '/tp/powershell/1-initiation.md' },
                 ]
+              },
+              {
+                text: 'Réseau',
+                collapsed: true,
+
+                items: [
+                  { text: '1 - Configuration ACL', link: '/tp/reseau/1-acl.md' },
+                ]
               }
             ]
           },
