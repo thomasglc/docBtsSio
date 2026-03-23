@@ -121,6 +121,7 @@ export default withMermaid ({
               { text: 'Switch', link: '/memo/switch.md' },
               { text: 'Routeur', link: '/memo/routeur.md' },
               { text: 'PowerShell', link: '/memo/powershell.md' },
+              { text: 'WordPress', link: '/memo/wordpress.md' },
 
             ]
           },
