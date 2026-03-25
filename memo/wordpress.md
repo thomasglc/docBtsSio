@@ -55,12 +55,12 @@ Ouvrez le fichier `.sql` généré et vérifiez qu'il contient bien des instruct
 Toujours sur la **VM source**, créer une archive du dossier WordPress.
 
 ```bash
-cd /var/www/html
-tar -czf wordpress_sauvegarde.tar.gz wordpress/
+cd /var/www
+tar -czf wordpress_sauvegarde.tar.gz html/
 ```
 
 ::: tip Où se trouve WordPress ?
-Par défaut avec LAMP, WordPress est dans `/var/www/html/`. Adaptez le chemin si votre installation est différente.
+Par défaut avec LAMP, WordPress est dans `/var/www/`. Adaptez le chemin si votre installation est différente.
 :::
 
 ---
