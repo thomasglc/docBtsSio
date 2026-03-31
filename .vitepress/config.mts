@@ -86,6 +86,8 @@ export default withMermaid ({
                 items: [
                   { text: '1 - Mise en place LAMP', link: '/tp/systeme/1-lamp.md' },
                   { text: '2 - Configuration WordPress', link: '/tp/systeme/2-wordpress.md' },
+                  { text: '3 - Mise en place de pfSense', link: '/tp/systeme/3-pfsense.md' },
+                  { text: '4 - DMZ & Règles de pare-feu', link: '/tp/systeme/4-pfsense-dmz.md' },
                 ]
               },
               {
