@@ -85,6 +85,7 @@ export default withMermaid ({
 
                 items: [
                   { text: '1 - Mise en place LAMP', link: '/tp/systeme/1-lamp.md' },
+                  { text: '2 - Configuration WordPress', link: '/tp/systeme/2-wordpress.md' },
                 ]
               },
               {
