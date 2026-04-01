@@ -165,7 +165,7 @@ Laissez en DHCP si votre carte est connectée en NAT — pfSense récupère auto
 Conservez `192.168.1.1 / 24` ou modifiez selon vos besoins.
 
 **Étape 5 — Mot de passe admin**
-Choisissez un nouveau mot de passe sécurisé.
+Laissez le mot de passe par défaut (`pfsense`) ou utilisez `admin`. On est sur un réseau de test isolé, pas besoin de le changer ici.
 
 **Étape 6 — Terminer**
 Cliquez sur **Finish**. pfSense applique la configuration et recharge l'interface.
@@ -245,18 +245,6 @@ Que se passe-t-il si vous supprimez la règle qui autorise le trafic LAN vers WA
 Pensez à remettre la règle ensuite.
 :::
 
-### Changement du mot de passe admin
-
-Depuis **System → User Manager → Users**, cliquez sur l'icône d'édition du compte `admin` et définissez un nouveau mot de passe robuste.
-
-### Activation des mises à jour
-
-Depuis **System → Update**, vérifiez si une mise à jour est disponible et appliquez-la si c'est le cas.
-
-:::warning ⚠️
-N'appliquez une mise à jour que si vous avez du temps devant vous — pfSense redémarre après la mise à jour.
-:::
-
 ## 10. Compte rendu attendu
 
 Votre compte rendu doit répondre aux questions posées tout au long du TP et inclure les sections suivantes :
@@ -265,7 +253,6 @@ Votre compte rendu doit répondre aux questions posées tout au long du TP et in
 - Qu'est-ce que pfSense et sur quelle base est-il construit ?
 - Citez **5 fonctionnalités** que pfSense peut offrir (avec une phrase d'explication pour chacune).
 - Dans quel type d'environnement pfSense est-il utilisé ? (PME, école, domicile…)
-- Quelle est la différence entre pfSense **Community Edition** et **pfSense Plus** ?
 
 ### Section 2 — Architecture mise en place
 - Schéma de votre infrastructure (VM pfSense + VM Client)

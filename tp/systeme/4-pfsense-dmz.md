@@ -255,11 +255,9 @@ Pour ce TP, VM-Serveur aura une **adresse IP statique** (10.0.50.10), pas DHCP. 
 
 ### Mission 4 — Configuration de VM-Serveur (DMZ)
 
-**Tâche 4.0 — Vérifier la connectivité DHCP initiale**
+**Tâche 4.0 — Vérifier l'obtention d'une adresse DHCP**
 
-Démarrez VM-Serveur (Debian). Avant toute configuration manuelle, vérifiez que la machine obtient bien une adresse IP depuis le serveur DHCP de pfSense et qu'elle peut communiquer avec lui.
-
-Vérifiez l'adresse obtenue :
+Démarrez VM-Serveur (Debian). Avant toute configuration manuelle, vérifiez que la machine obtient bien une adresse IP depuis le serveur DHCP de pfSense.
 
 ```bash
 ip a
@@ -267,14 +265,12 @@ ip a
 
 Vous devriez voir une adresse dans la plage `10.0.50.100 – 10.0.50.200` sur votre interface réseau.
 
-Testez la connectivité avec pfSense :
-
-```bash
-ping -c 3 10.0.50.1
-```
+::: info
+Ne tentez pas de pinguer pfSense à cette étape — pfSense bloque par défaut tout le trafic initié depuis une interface DMZ tant qu'aucune règle n'est créée. Le ping échouera, c'est normal.
+:::
 
 ::: tip 📸 Capture 4
-Sortie de `ip a` et résultat du ping vers 10.0.50.1 — adresse DHCP obtenue et passerelle joignable.
+Sortie de `ip a` sur VM-Serveur — adresse DHCP obtenue dans la plage 10.0.50.100–10.0.50.200.
 :::
 
 ::: warning Si vous n'obtenez pas d'adresse DHCP
