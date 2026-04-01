@@ -45,13 +45,13 @@ Créez une seconde VM (Debian ou Windows) avec :
 - **1 carte réseau** en mode `Réseau interne` (même nom que le LAN de pfSense)
 - RAM : 512 Mo minimum
 
-## 3. Téléchargement de pfSense
+## 3. Récupération de l'ISO pfSense
 
-Rendez-vous sur le site officiel de pfSense et téléchargez la dernière image ISO stable.
+L'image ISO de pfSense est disponible sur le **NAS**. 
+`\\serveur-nas`
 
 :::tip 💡 Astuce
-Choisissez l'image au format **ISO** (DVD Image), architecture **AMD64**.
-La taille est d'environ 600 Mo.
+Le fichier est au format **ISO** (DVD Image), architecture **AMD64**. Copiez-le en local avant de démarrer la VM.
 :::
 
 ## 4. Installation de pfSense
@@ -68,17 +68,13 @@ Appuyez sur `Entrée` pour accepter et continuer.
 Sélectionnez **Install** (installation standard).
 
 **Étape 4 — Partitionnement**
-Choisissez **Auto (ZFS)** ou **Auto (UFS)** selon votre préférence. Validez avec `OK`.
-
-:::tip 💡
-Pour un TP, **Auto (UFS)** est suffisant et plus rapide à mettre en place.
-:::
+Choisissez le partitionnement par défaut.
 
 **Étape 5 — Sélection du disque**
 Sélectionnez le disque virtuel de la VM (ex. `ada0`). Confirmez l'écriture.
 
 **Étape 6 — Fin de l'installation**
-Une fois l'installation terminée, le système vous propose de **redémarrer**. Retirez l'ISO du lecteur avant de redémarrer.
+Une fois l'installation terminée, le système vous propose de **redémarrer**.  Attention ! ⚠️ Retirez l'ISO du lecteur avant de redémarrer.
 
 ## 5. Premier démarrage et assignation des interfaces
 
@@ -123,6 +119,15 @@ Quelle est la différence entre ces deux interfaces dans le contexte d'un pare-f
 
 ## 6. Accès à l'interface web (WebConfigurator)
 
+Pour accéder à l'interface web de pfSense, vous avez besoin d'une **VM Client** connectée au réseau LAN. Deux options s'offrent à vous :
+
+- **Option A** — Utilisez votre VM Ubuntu déjà configurée lors d'un précédent TP. Vérifiez que sa carte réseau est bien en mode `Réseau interne` avec le même nom que le LAN de pfSense.
+- **Option B** — Importez le fichier `.ova` disponible sur le NAS (`\\serveur-nas`) via **Fichier → Importer un appareil virtuel** dans VirtualBox.
+
+:::warning ⚠️ Carte réseau de la VM Client
+Quelle que soit l'option choisie, assurez-vous que la carte réseau de la VM Client est en mode `Réseau interne` et rattachée au même réseau interne que l'interface LAN de pfSense.
+:::
+
 Depuis votre **VM Client**, ouvrez un navigateur et accédez à :
 
 ```
@@ -137,7 +142,7 @@ Identifiants par défaut :
 | Mot de passe | `pfsense` |
 
 :::danger 🔒 Sécurité
-Changez le mot de passe par défaut dès votre première connexion. Un pare-feu avec des identifiants par défaut est une faille de sécurité majeure.
+Dans la vraie vie, il faut changez le mot de passe par défaut dès votre première connexion. Un pare-feu avec des identifiants par défaut est une faille de sécurité majeure. 
 :::
 
 ## 7. Assistant de configuration initiale
