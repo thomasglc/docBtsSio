@@ -242,7 +242,14 @@ show running-config interface GigabitEthernet0/0.10
 show interfaces trunk    (sur le switch)
 show interfaces g0/0.10  (sur le routeur)
 ```
-## 11. Dépannage rapide (troubleshooting)
+## 11. Réinitialisation du routeur
+Effacer la configuration sauvegardée et redémarrer
+```bash
+write erase
+reload
+```
+
+## 12. Dépannage rapide (troubleshooting)
 Pings
 ```bash
 ping 192.168.10.1
