@@ -97,6 +97,14 @@ export default withMermaid ({
                 ]
               },
               {
+                text: 'GLPI',
+                collapsed: true,
+
+                items: [
+                  { text: '1 - Installation', link: '/tp/glpi/1-installation.md' },
+                ]
+              },
+              {
                 text: 'Réseau',
                 collapsed: true,
 
