@@ -169,11 +169,7 @@ Page d'administration des utilisateurs dans GLPI — liste des comptes visible.
 
 **Tâche 2.3 — Vérifier la suppression du dossier install**
 
-Essayez d'accéder à `http://[IP]/install/install.php` depuis le navigateur. Vous devez obtenir une erreur 404 (page introuvable).
-
-::: tip 📸 Capture 7
-Navigateur affichant une erreur 404 sur `/install/install.php`.
-:::
+Essayez d'accéder à `http://[IP]/install/install.php` depuis le navigateur. Vous devez voir une redirection sur la page principale.
 
 ---
 
