@@ -187,7 +187,7 @@ La page d'accueil affiche un résumé de l'activité : tickets ouverts, assets r
 
 **À noter dans votre document :** à quoi sert cette vue d'ensemble ? Qui l'utilise au quotidien ?
 
-::: tip 📸 Capture 8
+::: tip 📸 Capture 7
 Tableau de bord GLPI après connexion avec le compte administrateur.
 :::
 
@@ -207,7 +207,7 @@ Explorez les sous-menus :
 
 **À noter dans votre document :** quelles informations peut-on enregistrer pour un ordinateur (marque, modèle, numéro de série, utilisateur affecté…) ?
 
-::: tip 📸 Capture 9
+::: tip 📸 Capture 8
 Page **Parc → Ordinateurs** dans GLPI.
 :::
 
@@ -219,7 +219,7 @@ Cliquez sur **+ Créer un ticket** et observez le formulaire sans le valider.
 
 **À noter dans votre document :** quels types de tickets existe-t-il (incident, demande) ? Quels champs sont obligatoires ?
 
-::: tip 📸 Capture 10
+::: tip 📸 Capture 9
 Formulaire de création d'un ticket dans GLPI.
 :::
 
@@ -236,7 +236,7 @@ Naviguez dans le menu **Gestion**. Cette section regroupe les éléments financi
 
 **À noter dans votre document :** en quoi la section Gestion est-elle utile pour le suivi des contrats de maintenance ?
 
-::: tip 📸 Capture 11
+::: tip 📸 Capture 10
 Page **Gestion → Fournisseurs** dans GLPI.
 :::
 
@@ -252,7 +252,7 @@ Ces deux menus permettent de gérer :
 
 **À noter dans votre document :** quelle est la différence entre un profil "Super-administrateur" et un profil "Technicien" ?
 
-::: tip 📸 Capture 12
+::: tip 📸 Capture 11
 Page **Administration → Profils** dans GLPI — liste des profils disponibles.
 :::
 
@@ -261,7 +261,7 @@ Page **Administration → Profils** dans GLPI — liste des profils disponibles.
 ## Récapitulatif — Rapport annexe à rendre
 
 ::: danger À rendre
-Votre rapport annexe doit contenir les **12 captures d'écran** listées ci-dessous, dans l'ordre, avec pour chaque capture une légende indiquant ce qu'elle montre.
+Votre rapport annexe doit contenir les **11 captures d'écran** listées ci-dessous, dans l'ordre, avec pour chaque capture une légende indiquant ce qu'elle montre.
 :::
 
 | N° | Contenu de la capture | Mission |
@@ -272,12 +272,11 @@ Votre rapport annexe doit contenir les **12 captures d'écran** listées ci-dess
 | 4 | Configuration de la base de données | 1 |
 | 5 | Page de fin d'installation (identifiants par défaut) | 1 |
 | 6 | Page des utilisateurs GLPI | 2 |
-| 7 | Erreur 404 sur `/install/install.php` | 2 |
-| 8 | Tableau de bord GLPI | 3 |
-| 9 | Parc → Ordinateurs | 3 |
-| 10 | Formulaire de création de ticket | 3 |
-| 11 | Gestion → Fournisseurs | 3 |
-| 12 | Administration → Profils | 3 |
+| 7 | Tableau de bord GLPI | 3 |
+| 8 | Parc → Ordinateurs | 3 |
+| 9 | Formulaire de création de ticket | 3 |
+| 10 | Gestion → Fournisseurs | 3 |
+| 11 | Administration → Profils | 3 |
 
 ::: warning
 Vérifiez que chaque capture montre clairement le résultat (fenêtres non coupées, texte lisible).
