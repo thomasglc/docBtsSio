@@ -258,32 +258,6 @@ Page **Administration → Profils** dans GLPI — liste des profils disponibles.
 
 ---
 
-## Récapitulatif — Rapport annexe à rendre
-
-::: danger À rendre
-Votre rapport annexe doit contenir les **11 captures d'écran** listées ci-dessous, dans l'ordre, avec pour chaque capture une légende indiquant ce qu'elle montre.
-:::
-
-| N° | Contenu de la capture | Mission |
-|---|---|---|
-| 1 | Services Apache et MariaDB actifs sur la VM importée | 0 |
-| 2 | Page de sélection de langue (assistant web) | 1 |
-| 3 | Vérification des prérequis — tous au vert | 1 |
-| 4 | Configuration de la base de données | 1 |
-| 5 | Page de fin d'installation (identifiants par défaut) | 1 |
-| 6 | Page des utilisateurs GLPI | 2 |
-| 7 | Tableau de bord GLPI | 3 |
-| 8 | Parc → Ordinateurs | 3 |
-| 9 | Formulaire de création de ticket | 3 |
-| 10 | Gestion → Fournisseurs | 3 |
-| 11 | Administration → Profils | 3 |
-
-::: warning
-Vérifiez que chaque capture montre clairement le résultat (fenêtres non coupées, texte lisible).
-:::
-
----
-
 ## Document de présentation à rédiger
 
 ::: danger À rendre
