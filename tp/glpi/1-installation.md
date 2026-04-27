@@ -89,6 +89,13 @@ Choisissez **Installer** (et non "Mettre à jour").
 
 GLPI vérifie automatiquement que toutes les extensions PHP nécessaires sont présentes. Vous devez voir une liste avec uniquement des indicateurs **verts**.
 
+:: tip 
+Normalement vous devriez voir la librairie `bcmath` manquante. Installez la avec la commande suivante puis redémarrez le service apache.
+``` bash
+sudo apt install php-bcmath
+```
+:::
+
 ::: tip 📸 Capture 3
 Page de vérification des prérequis — tous les indicateurs au vert.
 :::
@@ -101,7 +108,7 @@ Renseignez les informations de connexion à MariaDB :
 |---|---|
 | Serveur SQL | `localhost` |
 | Utilisateur SQL | `glpi` |
-| Mot de passe SQL | `GlpiSecure2024!` |
+| Mot de passe SQL | `glpi` |
 
 Cliquez sur **Continuer**.
 
