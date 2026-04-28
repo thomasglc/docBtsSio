@@ -279,10 +279,6 @@ Ignorez les lecteurs dont `$l.Used + $l.Free -eq 0` (lecteurs réseau ou sans ta
 La ligne du lecteur C: s'affiche en jaune (entre 50 et 80 %), la ligne D: en vert.
 :::
 
-::: warning Bonus
-Affichez un résumé final : `1/2 lecteurs sous surveillance (> 50% utilisé)`
-:::
-
 ---
 
 ::: info Aide
