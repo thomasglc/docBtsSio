@@ -74,5 +74,16 @@
     </ul>
   </div>
 
+  <div class="tp-card">
+    <div class="tp-card-header">
+      <span class="tp-icon">🗄️</span>
+      <h2>GLPI</h2>
+    </div>
+    <ul>
+      <li><a href="/tp/glpi/1-installation">1 — Installation</a></li>
+      <li><a href="/tp/glpi/2-inventaire">2 — Gestion d'un inventaire</a></li>
+    </ul>
+  </div>
+
 </div>
 
