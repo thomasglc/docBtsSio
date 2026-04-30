@@ -114,6 +114,14 @@ export default withMermaid ({
                   { text: '2 - Mise en place de pfSense', link: '/tp/reseau/3-pfsense.md' },
                   { text: '3 - DMZ & Règles de pare-feu', link: '/tp/reseau/4-pfsense-dmz.md' },
                 ]
+              },
+              {
+                text: 'Active Directory',
+                collapsed: true,
+
+                items: [
+                  { text: '1 - Installation', link: '/tp/activeDirectory/1-installation.md' },
+                ]
               }
             ]
           },

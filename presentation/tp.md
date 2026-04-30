@@ -85,5 +85,15 @@
     </ul>
   </div>
 
+  <div class="tp-card">
+    <div class="tp-card-header">
+      <span class="tp-icon">🏢</span>
+      <h2>Active Directory</h2>
+    </div>
+    <ul>
+      <li><a href="/tp/activeDirectory/1-installation">1 — Installation</a></li>
+    </ul>
+  </div>
+
 </div>
 
