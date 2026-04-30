@@ -252,6 +252,35 @@ Comptez et affichez à la fin le nombre de services démarrés sur le total. Ex 
 
 ---
 
+### Exercice 13 — Moniteur d'espace disque — `ex13.ps1`
+
+Créez un script `ex13.ps1` qui analyse l'espace disque de chaque lecteur local :
+
+1. Récupérez tous les lecteurs locaux avec `Get-PSDrive -PSProvider FileSystem` et stockez-les dans `$lecteurs`
+2. Pour chaque lecteur, calculez :
+   - L'espace total : `$l.Used + $l.Free`
+   - Le pourcentage utilisé : `[math]::Round($l.Used / ($l.Used + $l.Free) * 100, 1)`
+3. Affichez une ligne par lecteur avec le format : `[C:] 45.2% utilisé (22 Go libres sur 50 Go)`
+4. Colorez la ligne selon le taux d'utilisation :
+   - **Rouge** si le taux dépasse 80 %
+   - **Jaune** si le taux est entre 50 % et 80 %
+   - **Vert** sinon
+
+::: details Indice
+`$l.Free` et `$l.Used` sont en octets. Pour convertir en Go : `[math]::Round($l.Free / 1GB, 1)`.  
+Ignorez les lecteurs dont `$l.Used + $l.Free -eq 0` (lecteurs réseau ou sans taille connue).
+:::
+
+::: tip Résultat
+```
+[C:] 62.3% utilisé (37.8 Go libres sur 100 Go)
+[D:] 12.0% utilisé (88.0 Go libres sur 100 Go)
+```
+La ligne du lecteur C: s'affiche en jaune (entre 50 et 80 %), la ligne D: en vert.
+:::
+
+---
+
 ::: info Aide
 En cas de blocage sur une commande : `Get-Help NomCmdlet -Examples`
 :::

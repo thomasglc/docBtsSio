@@ -587,36 +587,6 @@ Repérez une ligne de log correspondant à un paquet bloqué et identifiez dans 
 
 ---
 
-## Récapitulatif — Rapport annexe à rendre
-
-::: danger À rendre
-Votre rapport annexe doit contenir les **16 captures d'écran** listées ci-dessous, dans l'ordre, avec pour chaque capture une légende indiquant ce qu'elle montre.
-:::
-
-| N° | Contenu de la capture | Mission |
-|---|---|---|
-| 1 | Paramètres VirtualBox — 3 adaptateurs réseau de pfSense | 1 |
-| 2 | Configuration de l'interface DMZ dans pfSense (avant Save) | 2 |
-| 3 | Interfaces → Overview — 3 interfaces actives | 2 |
-| 4 | `ip a` sur VM-Serveur — adresse DHCP obtenue | 4 |
-| 5 | `ip a` sur VM-Serveur — adresse statique 10.0.50.10 | 4 |
-| 6 | `systemctl status apache2` sur VM-Serveur | 4 |
-| 7 | 4 pings depuis VM-Client (avant les règles) | 5 |
-| 8 | Navigateur VM-Client vers VM-Serveur (avant les règles) | 5 |
-| 9 | Liste des règles LAN dans pfSense | 6 |
-| 10 | Liste des règles DMZ dans pfSense | 6 |
-| 11 | T1 — `curl` HTTP depuis VM-Client vers VM-Serveur | 7 |
-| 12 | T2 — Navigateur VM-Client affichant la page DMZ | 7 |
-| 13 | T3 — SSH refusé depuis VM-Client | 7 |
-| 14 | T7 — Ping refusé depuis VM-Serveur vers VM-Client | 7 |
-| 15 | T10 — `apt update` réussi depuis VM-Serveur | 7 |
-| 16 | Logs du pare-feu — paquet ICMP bloqué visible | 8 |
-
-::: warning
-Vérifiez que chaque capture montre clairement le résultat (fenêtres non coupées, texte lisible). Pour les captures CLI, faites défiler si nécessaire pour montrer l'intégralité du résultat.
-:::
-
----
 
 ## Questions de synthèse
 

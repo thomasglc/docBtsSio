@@ -89,6 +89,13 @@ Choisissez **Installer** (et non "Mettre à jour").
 
 GLPI vérifie automatiquement que toutes les extensions PHP nécessaires sont présentes. Vous devez voir une liste avec uniquement des indicateurs **verts**.
 
+:: tip 
+Normalement vous devriez voir la librairie `bcmath` manquante. Installez la avec la commande suivante puis redémarrez le service apache.
+``` bash
+sudo apt install php-bcmath
+```
+:::
+
 ::: tip 📸 Capture 3
 Page de vérification des prérequis — tous les indicateurs au vert.
 :::
@@ -101,7 +108,7 @@ Renseignez les informations de connexion à MariaDB :
 |---|---|
 | Serveur SQL | `localhost` |
 | Utilisateur SQL | `glpi` |
-| Mot de passe SQL | `GlpiSecure2024!` |
+| Mot de passe SQL | `glpi` |
 
 Cliquez sur **Continuer**.
 
@@ -162,11 +169,7 @@ Page d'administration des utilisateurs dans GLPI — liste des comptes visible.
 
 **Tâche 2.3 — Vérifier la suppression du dossier install**
 
-Essayez d'accéder à `http://[IP]/install/install.php` depuis le navigateur. Vous devez obtenir une erreur 404 (page introuvable).
-
-::: tip 📸 Capture 7
-Navigateur affichant une erreur 404 sur `/install/install.php`.
-:::
+Essayez d'accéder à `http://[IP]/install/install.php` depuis le navigateur. Vous devez voir une redirection sur la page principale.
 
 ---
 
@@ -184,7 +187,7 @@ La page d'accueil affiche un résumé de l'activité : tickets ouverts, assets r
 
 **À noter dans votre document :** à quoi sert cette vue d'ensemble ? Qui l'utilise au quotidien ?
 
-::: tip 📸 Capture 8
+::: tip 📸 Capture 7
 Tableau de bord GLPI après connexion avec le compte administrateur.
 :::
 
@@ -204,7 +207,7 @@ Explorez les sous-menus :
 
 **À noter dans votre document :** quelles informations peut-on enregistrer pour un ordinateur (marque, modèle, numéro de série, utilisateur affecté…) ?
 
-::: tip 📸 Capture 9
+::: tip 📸 Capture 8
 Page **Parc → Ordinateurs** dans GLPI.
 :::
 
@@ -216,7 +219,7 @@ Cliquez sur **+ Créer un ticket** et observez le formulaire sans le valider.
 
 **À noter dans votre document :** quels types de tickets existe-t-il (incident, demande) ? Quels champs sont obligatoires ?
 
-::: tip 📸 Capture 10
+::: tip 📸 Capture 9
 Formulaire de création d'un ticket dans GLPI.
 :::
 
@@ -233,7 +236,7 @@ Naviguez dans le menu **Gestion**. Cette section regroupe les éléments financi
 
 **À noter dans votre document :** en quoi la section Gestion est-elle utile pour le suivi des contrats de maintenance ?
 
-::: tip 📸 Capture 11
+::: tip 📸 Capture 10
 Page **Gestion → Fournisseurs** dans GLPI.
 :::
 
@@ -249,35 +252,8 @@ Ces deux menus permettent de gérer :
 
 **À noter dans votre document :** quelle est la différence entre un profil "Super-administrateur" et un profil "Technicien" ?
 
-::: tip 📸 Capture 12
+::: tip 📸 Capture 11
 Page **Administration → Profils** dans GLPI — liste des profils disponibles.
-:::
-
----
-
-## Récapitulatif — Rapport annexe à rendre
-
-::: danger À rendre
-Votre rapport annexe doit contenir les **12 captures d'écran** listées ci-dessous, dans l'ordre, avec pour chaque capture une légende indiquant ce qu'elle montre.
-:::
-
-| N° | Contenu de la capture | Mission |
-|---|---|---|
-| 1 | Services Apache et MariaDB actifs sur la VM importée | 0 |
-| 2 | Page de sélection de langue (assistant web) | 1 |
-| 3 | Vérification des prérequis — tous au vert | 1 |
-| 4 | Configuration de la base de données | 1 |
-| 5 | Page de fin d'installation (identifiants par défaut) | 1 |
-| 6 | Page des utilisateurs GLPI | 2 |
-| 7 | Erreur 404 sur `/install/install.php` | 2 |
-| 8 | Tableau de bord GLPI | 3 |
-| 9 | Parc → Ordinateurs | 3 |
-| 10 | Formulaire de création de ticket | 3 |
-| 11 | Gestion → Fournisseurs | 3 |
-| 12 | Administration → Profils | 3 |
-
-::: warning
-Vérifiez que chaque capture montre clairement le résultat (fenêtres non coupées, texte lisible).
 :::
 
 ---
