@@ -92,6 +92,8 @@
     </div>
     <ul>
       <li><a href="/tp/activeDirectory/1-installation">1 — Installation</a></li>
+      <li><a href="/tp/activeDirectory/2-configuration">2 — Utilisateurs, groupes et jonction au domaine</a></li>
+      <li><a href="/tp/activeDirectory/3-gpo">3 — Stratégies de groupe (GPO)</a></li>
     </ul>
   </div>
 

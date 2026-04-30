@@ -121,6 +121,8 @@ export default withMermaid ({
 
                 items: [
                   { text: '1 - Installation', link: '/tp/activeDirectory/1-installation.md' },
+                  { text: '2 - Utilisateurs, groupes et jonction au domaine', link: '/tp/activeDirectory/2-configuration.md' },
+                  { text: '3 - Stratégies de groupe (GPO)', link: '/tp/activeDirectory/3-gpo.md' },
                 ]
               }
             ]
