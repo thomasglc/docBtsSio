@@ -102,6 +102,7 @@ export default withMermaid ({
 
                 items: [
                   { text: '1 - Installation', link: '/tp/glpi/1-installation.md' },
+                  { text: '2 - Gestion d\'un inventaire', link: '/tp/glpi/2-inventaire.md' },
                 ]
               },
               {
