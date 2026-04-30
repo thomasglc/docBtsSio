@@ -11,9 +11,10 @@ La société **TechServices** vient de déployer GLPI. Votre responsable vous de
 :::
 
 ::: warning Modalités
-Vous avez besoin de deux VMs pour ce TP :
+Vous avez besoin de deux VMs et de votre PC hôte pour ce TP :
 - **VM-Serveur** — votre serveur Debian avec GLPI (TP 1)
 - **VM-Cliente** — une VM Debian ou Windows sur laquelle vous installerez GLPI Agent
+- **PC hôte** — votre poste de travail Windows physique, qui sera également inventorié
 
 Vous devrez constituer un **rapport-annexe** contenant les captures d'écran demandées à chaque étape. Les captures sont indiquées par 📸.
 :::
@@ -194,7 +195,7 @@ Vous aurez besoin de l'adresse IP du serveur lors de la configuration de GLPI Ag
 ip a
 ```
 
-Notez l'adresse IP de votre VM-Serveur (ex : `192.168.x.x`). Vous l'utiliserez à la Mission 4.
+Notez l'adresse IP de votre VM-Serveur (ex : `192.168.x.x`). Vous l'utiliserez aux Missions 4 et 5.
 
 ---
 
@@ -280,11 +281,134 @@ Sortie de `systemctl status glpi-agent` — état `active (running)`.
 
 ---
 
-## Mission 5 — Déclencher et vérifier l'inventaire automatique
+## Mission 5 — Installer GLPI Agent sur le PC Hôte Windows
 
-### Tâche 5.1 — Forcer un inventaire immédiat
+Votre VM-Serveur GLPI est également joignable depuis votre PC physique Windows. Vous allez y installer GLPI Agent pour que **votre poste de travail réel** apparaisse lui aussi dans l'inventaire, aux côtés de la VM-Cliente.
 
-Par défaut, GLPI Agent envoie un inventaire toutes les 24 heures. Pour ne pas attendre, forcez un envoi immédiat :
+::: warning Prérequis réseau
+Votre PC hôte doit pouvoir joindre la VM-Serveur. Pour cela, la carte réseau de la VM-Serveur doit être configurée en **mode pont (Bridged)** dans VirtualBox.
+
+Vérifiez la connectivité avant de continuer. Ouvrez un **terminal** et tapez :
+
+```bash
+ping [IP-SERVEUR]
+```
+
+Si la commande échoue (Request timed out), vérifiez le mode réseau de la VM dans ses paramètres avant de continuer.
+:::
+
+### Tâche 5.1 — Télécharger l'installeur Windows
+
+Depuis votre **PC hôte**, ouvrez un navigateur et rendez-vous sur :
+
+`https://github.com/glpi-project/glpi-agent/releases/latest`
+
+Dans la liste des assets de la dernière version, repérez le fichier `.msi` correspondant à votre architecture :
+- **64 bits**  : `GLPI-Agent-X.X-x64.msi`
+
+Téléchargez-le sur votre bureau ou dans votre dossier Téléchargements.
+
+::: tip 📸 Capture 9
+Page des releases GitHub — fichier `.msi` identifié et téléchargement en cours.
+:::
+
+### Tâche 5.2 — Installer GLPI Agent
+
+Faites un **clic droit** sur le fichier `.msi` téléchargé et choisissez **Exécuter en tant qu'administrateur**.
+
+::: warning
+L'installation nécessite obligatoirement les droits administrateur. Un double-clic simple peut échouer sans message d'erreur clair.
+:::
+
+Suivez l'assistant d'installation :
+
+1. Cliquez sur **Next** pour passer l'écran d'accueil
+2. Acceptez le contrat de licence (**I accept**) puis cliquez sur **Next**
+3. Laissez le répertoire d'installation par défaut (`C:\Program Files\GLPI-Agent\`) et cliquez sur **Next**
+4. Sur l'écran **GLPI Agent Configuration**, renseignez les champs suivants :
+
+| Champ | Valeur |
+|---|---|
+| Server | `http://[IP-SERVEUR]/` |
+| Local | *(laisser vide)* |
+| Quicktime | *(laisser vide)* |
+
+5. Cliquez sur **Next** puis sur **Install**
+6. Une fois l'installation terminée, cliquez sur **Finish**
+
+::: warning
+Respectez bien le `/` final dans l'URL du serveur. Sans lui, l'agent ne trouvera pas le point de réception de GLPI.
+:::
+
+::: tip 📸 Capture 10
+Écran de configuration de l'installeur GLPI Agent — champ **Server** renseigné avec l'URL du serveur GLPI.
+:::
+
+### Tâche 5.3 — Vérifier la configuration via l'interface locale
+
+GLPI Agent embarque une **interface web locale** accessible directement depuis votre navigateur. Elle vous permet de vérifier la configuration et de déclencher un inventaire à la demande, sans passer par la ligne de commande.
+
+Ouvrez votre navigateur et accédez à :
+
+```
+http://localhost:62354/
+```
+
+Vérifiez que :
+- Le champ **Server** affiche bien l'URL de votre serveur GLPI
+- Le statut de l'agent est **Running**
+
+::: info Que faire si la page ne s'affiche pas ?
+L'agent démarre en tant que service Windows. Si la page est inaccessible :
+1. Appuyez sur `Windows + R`, tapez `services.msc` et validez
+2. Recherchez le service **GLPI Agent** dans la liste
+3. S'il est arrêté, faites un clic droit → **Démarrer**
+4. Rafraîchissez la page dans votre navigateur
+:::
+
+::: tip 📸 Capture 11
+Interface web locale de GLPI Agent (`http://localhost:62354/`) — configuration du serveur visible et statut Running.
+:::
+
+### Tâche 5.4 — Forcer un inventaire immédiat
+
+Par défaut, GLPI Agent envoie un inventaire toutes les 24 heures. Pour ne pas attendre, vous allez déclencher un envoi immédiat.
+
+**Via l'interface web locale**
+
+Depuis `http://localhost:62354/`, cliquez sur le bouton **Force an inventory**. La page affiche alors une confirmation indiquant que l'inventaire a été soumis.
+
+
+Attendez quelques secondes que l'agent collecte et envoie les données.
+
+::: tip 📸 Capture 12
+Résultat de l'inventaire forcé — confirmation dans l'interface web (`Inventory started`) ou sortie de PowerShell.
+:::
+
+### Tâche 5.5 — Vérifier l'apparition du PC dans GLPI
+
+Retournez dans l'interface GLPI (depuis la VM-Serveur ou votre navigateur) et naviguez dans **Parc → Ordinateurs**.
+
+Votre PC hôte Windows doit maintenant apparaître dans la liste.
+
+::: warning Si le PC n'apparaît pas
+- Patientez 1 à 2 minutes et actualisez la page GLPI
+- Vérifiez la connectivité réseau : `ping [IP-SERVEUR]` depuis PowerShell
+- Consultez les logs de l'agent dans `C:\Program Files\GLPI-Agent\var\glpi-agent.log`
+- Vérifiez que le service est démarré dans `services.msc` → **GLPI Agent**
+:::
+
+::: tip 📸 Capture 13
+Liste **Parc → Ordinateurs** dans GLPI affichant votre PC hôte Windows remonté automatiquement.
+:::
+
+---
+
+## Mission 6 — Déclencher et vérifier les inventaires automatiques
+
+### Tâche 6.1 — Forcer un inventaire immédiat sur la VM-Cliente
+
+Sur la **VM-Cliente**, forcez un envoi immédiat :
 
 ```bash
 glpi-agent --force
@@ -292,27 +416,28 @@ glpi-agent --force
 
 L'agent collecte les informations du poste et les envoie au serveur GLPI. Vous devriez voir des lignes de log confirmant l'envoi.
 
-::: tip 📸 Capture 9
-Sortie de `glpi-agent --force` montrant l'inventaire envoyé avec succès.
+::: tip 📸 Capture 14
+Sortie de `glpi-agent --force` sur la VM-Cliente montrant l'inventaire envoyé avec succès.
 :::
 
-### Tâche 5.2 — Vérifier la réception dans GLPI
+### Tâche 6.2 — Vérifier la réception dans GLPI
 
 Retournez sur l'interface GLPI (VM-Serveur) et naviguez dans **Parc → Ordinateurs**.
 
-Votre VM-Cliente doit maintenant apparaître dans la liste, avec sa fiche complète générée automatiquement.
+Votre **VM-Cliente** et votre **PC hôte Windows** doivent maintenant apparaître tous les deux dans la liste, avec leurs fiches complètes générées automatiquement.
 
-::: warning Si la VM-Cliente n'apparaît pas
+::: warning Si un poste n'apparaît pas
 - Attendez 1 à 2 minutes puis actualisez la page
-- Vérifiez la connectivité réseau entre les deux VMs : `ping [IP-SERVEUR]` depuis la VM-Cliente
-- Consultez les logs de l'agent : `journalctl -u glpi-agent -n 50`
+- Vérifiez la connectivité réseau entre le poste concerné et la VM-Serveur
+- **VM-Cliente** : `ping [IP-SERVEUR]` depuis le terminal Linux, logs : `journalctl -u glpi-agent -n 50`
+- **PC hôte** : `ping [IP-SERVEUR]` depuis PowerShell, logs : `C:\Program Files\GLPI-Agent\var\glpi-agent.log`
 :::
 
-::: tip 📸 Capture 10
-Liste **Parc → Ordinateurs** dans GLPI affichant la VM-Cliente remontée automatiquement.
+::: tip 📸 Capture 15
+Liste **Parc → Ordinateurs** dans GLPI affichant la VM-Cliente **et** le PC hôte Windows remontés automatiquement.
 :::
 
-### Tâche 5.3 — Explorer la fiche générée automatiquement
+### Tâche 6.3 — Explorer la fiche générée automatiquement
 
 Cliquez sur la fiche de la VM-Cliente pour l'ouvrir. Comparez son niveau de détail avec la fiche de `PC-Direction-01` créée manuellement.
 
@@ -321,21 +446,21 @@ Explorez les onglets :
 - **Logiciels** — liste complète des logiciels installés
 - **Réseau** — adresses IP et interfaces détectées
 
-::: tip 📸 Capture 11
+::: tip 📸 Capture 16
 Onglet **Composants** de la VM-Cliente remontée par GLPI Agent — informations matérielles détectées automatiquement.
 :::
 
-::: tip 📸 Capture 12
+::: tip 📸 Capture 17
 Onglet **Logiciels** de la VM-Cliente — liste des logiciels installés détectée automatiquement.
 :::
 
 ---
 
-## Mission 6 — Exploiter les données du parc
+## Mission 7 — Exploiter les données du parc
 
 Maintenant que le parc contient plusieurs éléments, vous allez apprendre à rechercher, filtrer et exporter des données.
 
-### Tâche 6.1 — Utiliser la recherche avancée
+### Tâche 7.1 — Utiliser la recherche avancée
 
 Dans **Parc → Ordinateurs**, cliquez sur **Rechercher** pour accéder aux filtres avancés.
 
@@ -348,11 +473,11 @@ Ajoutez les critères suivants pour trouver uniquement les postes en production 
 
 Cliquez sur **Rechercher** et observez les résultats filtrés.
 
-::: tip 📸 Capture 13
+::: tip 📸 Capture 18
 Résultats de la recherche filtrée — seul `PC-Direction-01` apparaît.
 :::
 
-### Tâche 6.2 — Personnaliser les colonnes affichées
+### Tâche 7.2 — Personnaliser les colonnes affichées
 
 Par défaut, la liste des ordinateurs n'affiche que quelques colonnes. Vous pouvez personnaliser cet affichage.
 
@@ -361,11 +486,11 @@ Dans la liste **Parc → Ordinateurs**, cliquez sur l'icône de configuration de
 - **Numéro de série**
 - **Date de dernière mise à jour**
 
-::: tip 📸 Capture 14
+::: tip 📸 Capture 19
 Liste des ordinateurs avec les colonnes personnalisées affichées.
 :::
 
-### Tâche 6.3 — Exporter les données
+### Tâche 7.3 — Exporter les données
 
 La liste des équipements peut être exportée pour être intégrée dans un rapport ou un tableur.
 
@@ -373,49 +498,18 @@ Depuis la liste **Parc → Ordinateurs**, cliquez sur le bouton **Exporter** (ic
 
 Ouvrez le fichier exporté pour vérifier son contenu.
 
-::: tip 📸 Capture 15
+::: tip 📸 Capture 20
 Fichier CSV exporté ouvert dans un tableur — colonnes et données visibles.
 :::
 
-### Tâche 6.4 — Utiliser la recherche globale
+### Tâche 7.4 — Utiliser la recherche globale
 
 La barre de recherche en haut de GLPI permet de retrouver n'importe quel élément du parc, tous types confondus.
 
 Tapez `Direction` dans la barre de recherche globale. GLPI doit vous retourner tous les assets dont le nom ou la localisation contient ce mot.
 
-::: tip 📸 Capture 16
+::: tip 📸 Capture 21
 Résultats de la recherche globale pour "Direction" — plusieurs assets retournés.
-:::
-
----
-
-## Récapitulatif — Rapport annexe à rendre
-
-::: danger À rendre
-Votre rapport annexe doit contenir les **16 captures d'écran** listées ci-dessous, dans l'ordre, avec pour chaque capture une légende indiquant ce qu'elle montre.
-:::
-
-| N° | Contenu de la capture | Mission |
-|---|---|---|
-| 1 | Formulaire de création de `PC-Direction-01` rempli | 1 |
-| 2 | Onglet Composants de `PC-Direction-01` avec matériel renseigné | 1 |
-| 3 | Onglet Connexions de `PC-Direction-01` avec l'écran connecté | 1 |
-| 4 | Fiche de `PC-Direction-01` avec utilisateur affecté | 1 |
-| 5 | Liste Parc → Réseaux avec le switch créé | 2 |
-| 6 | Page Administration → Inventaire configurée | 3 |
-| 7 | `glpi-agent --version` — installation confirmée | 4 |
-| 8 | `systemctl status glpi-agent` — service actif | 4 |
-| 9 | `glpi-agent --force` — inventaire envoyé | 5 |
-| 10 | Liste Parc → Ordinateurs avec la VM-Cliente remontée | 5 |
-| 11 | Onglet Composants de la VM-Cliente (inventaire automatique) | 5 |
-| 12 | Onglet Logiciels de la VM-Cliente | 5 |
-| 13 | Résultats de la recherche filtrée | 6 |
-| 14 | Liste des ordinateurs avec colonnes personnalisées | 6 |
-| 15 | Fichier CSV exporté ouvert dans un tableur | 6 |
-| 16 | Résultats de la recherche globale "Direction" | 6 |
-
-::: warning
-Vérifiez que chaque capture montre clairement le résultat (fenêtres non coupées, texte lisible).
 :::
 
 ---
@@ -429,7 +523,8 @@ Répondez à ces questions dans votre rapport, **en vous basant sur ce que vous 
 3. Pourquoi est-il important de relier les équipements entre eux (ordinateur ↔ écran) dans GLPI ?
 4. Citez un avantage concret de la **recherche avancée** pour un administrateur gérant un parc de 500 postes.
 5. Dans quel cas l'export CSV d'un inventaire serait-il utile pour l'entreprise ?
+6. Quelle différence avez-vous observé entre l'installation de GLPI Agent sur Linux (VM-Cliente) et sur Windows (PC hôte) ? Laquelle vous semble la plus simple à déployer en entreprise ?
 
 ::: danger Rendu sur Moodle
-Déposez votre **rapport-annexe** (PDF) avec les 16 captures numérotées et légendées ainsi que vos réponses aux questions de synthèse.
+Déposez votre **rapport-annexe** (PDF) avec les 21 captures numérotées et légendées ainsi que vos réponses aux questions de synthèse.
 :::
