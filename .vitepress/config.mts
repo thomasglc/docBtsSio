@@ -117,6 +117,15 @@ export default withMermaid ({
                 ]
               },
               {
+                text: 'Docker',
+                collapsed: true,
+
+                items: [
+                  { text: '1 - Découverte de Docker', link: '/tp/docker/1-decouverte.md' },
+                  { text: '2 - Compose et WordPress', link: '/tp/docker/2-compose-wordpress.md' },
+                ]
+              },
+              {
                 text: 'Active Directory',
                 collapsed: true,
 
