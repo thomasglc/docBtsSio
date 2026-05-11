@@ -58,6 +58,7 @@ Dans VirtualBox, cliquez sur **Nouvelle** et renseignez :
 | RAM | `4096 Mo` minimum |
 | CPU | `2` processeurs |
 | Disque dur | `60 Go` (dynamiquement alloué) |
+| Clé de produit | `VDYBN-27WPP-V4HQT-9VMD4-VMK7H` |
 
 ::: warning RAM minimale
 Windows Server 2022 nécessite au minimum 2 Go de RAM pour démarrer, mais 4 Go sont recommandés pour un usage fluide avec Active Directory. En dessous, vous risquez des lenteurs importantes ou des blocages pendant l'installation.
@@ -71,8 +72,10 @@ Avant de démarrer la VM, montez le fichier ISO :
 
 1. Sélectionnez la VM `SRV-AD-01` et cliquez sur **Configuration**
 2. Allez dans l'onglet **Stockage**
-3. Cliquez sur le **lecteur optique** (icône disque vide), puis sur l'icône de disque à droite de la fenêtre
-4. Sélectionnez **Choisir un fichier de disque** et naviguez jusqu'au fichier `Windows_Server_2022.iso` disponible sur le NAS
+3. Vérifiez que le **disque dur virtuel** (60 Go) est bien rattaché au contrôleur **SATA**, et non IDE
+4. Cliquez sur le **lecteur optique** (icône disque vide), puis sur l'icône de disque à droite de la fenêtre
+5. Sélectionnez **Choisir un fichier de disque** et naviguez jusqu'au fichier `Windows_Server_2022.iso` disponible sur le NAS
+
 
 ### Tâche 1.3 — Configurer le réseau de la VM
 
