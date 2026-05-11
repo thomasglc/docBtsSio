@@ -528,3 +528,21 @@ Répondez à ces questions dans votre rapport, **en vous basant sur ce que vous 
 ::: danger Rendu sur Moodle
 Déposez votre **rapport-annexe** (PDF) avec les 21 captures numérotées et légendées ainsi que vos réponses aux questions de synthèse.
 :::
+
+---
+
+## Annexe — Réinitialiser le mot de passe du compte GLPI
+
+Si vous avez perdu l'accès au compte `glpi`, vous pouvez réinitialiser son mot de passe directement en base de données depuis la VM-Serveur :
+
+```bash
+mysql -u root -p
+```
+Branchez vous sur la base de données nommé GLPI
+Puis exécutez la requête suivante (le hash correspond au mot de passe `glpi`) :
+
+```sql
+update glpi_users set password='$2y$10$p..X4No3kbL9zq3s9yyXuuNdbHN78Bd/j8aiInj5L7Fo1Hg3hJMFa' where name = 'glpi';
+```
+
+Quittez ensuite MySQL avec `exit` et reconnectez-vous à GLPI avec le mot de passe `glpi`.
