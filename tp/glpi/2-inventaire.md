@@ -80,6 +80,12 @@ Dans l'onglet **Composants**, cliquez sur **Gérer les composants** et ajoutez l
 | Mémoire (RAM) | `16 Go` |
 | Disque dur | `SSD 512 Go` |
 
+::: warning RAM — créer le composant avant de l'ajouter
+Pour la **Mémoire (RAM)**, GLPI ne propose pas de valeur libre : il faut d'abord créer le modèle de barrette dans le catalogue avant de pouvoir l'associer à l'ordinateur.
+
+Naviguez dans **Configuration → Composants → Mémoire → + Ajouter**, renseignez un nom (ex : `16 Go DDR4`) et sauvegardez. Revenez ensuite dans l'onglet **Composants** de `PC-Direction-01` pour sélectionner ce composant dans la liste.
+:::
+
 ::: tip 📸 Capture 2
 Onglet **Composants** de `PC-Direction-01` avec les éléments matériels renseignés.
 :::
@@ -102,16 +108,22 @@ Cliquez sur **Ajouter**.
 
 ### Tâche 1.4 — Relier l'écran à l'ordinateur
 
-Ouvrez l'ordinateur `PC-Direction-01`, allez dans l'onglet **Connexions** et cliquez sur **Connecter un élément**.
+Dans GLPI, le lien se crée **depuis la fiche de l'écran** vers l'ordinateur (et non l'inverse).
 
-Dans la liste, recherchez `Ecran-Direction-01` et sélectionnez-le. Validez.
+Naviguez dans **Parc → Moniteurs** et ouvrez `Ecran-Direction-01`. Allez dans l'onglet **Connexions** et cliquez sur **Connecter un élément**.
+
+Dans la liste, recherchez `PC-Direction-01` et sélectionnez-le. Validez.
+
+::: warning
+Si vous essayez de faire la connexion depuis la fiche de l'ordinateur, le lien ne fonctionnera pas. Partez toujours de la fiche du moniteur.
+:::
 
 ::: info Pourquoi lier les équipements ?
 Relier les équipements entre eux permet de savoir instantanément, depuis la fiche d'un ordinateur, quels périphériques lui sont associés — et inversement. Cela facilite les interventions et le suivi du matériel.
 :::
 
 ::: tip 📸 Capture 3
-Onglet **Connexions** de `PC-Direction-01` montrant l'écran `Ecran-Direction-01` connecté.
+Onglet **Connexions** de `Ecran-Direction-01` montrant le lien vers `PC-Direction-01`.
 :::
 
 ### Tâche 1.5 — Affecter un utilisateur au poste
