@@ -122,6 +122,7 @@ export default withMermaid ({
 
                 items: [
                   { text: '1 - Découverte de Docker', link: '/tp/docker/1-decouverte.md' },
+                  { text: '1.5 - Construire ses propres images', link: '/tp/docker/1.5-construire-images.md' },
                   { text: '2 - Compose et WordPress', link: '/tp/docker/2-compose-wordpress.md' },
                 ]
               },
