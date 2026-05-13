@@ -280,10 +280,10 @@ Lors de l'installation, Windows peut demander de se connecter avec un compte Mic
 
 Créez le compte local avec :
 
-| Champ | Valeur |
-|---|---|
-| Nom d'utilisateur | `LocalAdmin` |
-| Mot de passe | `Admin@1234` |
+| Champ | Valeur | defaut |
+|---|---|---|
+| Nom d'utilisateur | `LocalAdmin` | `vboxuser` |
+| Mot de passe | `Admin@1234` | `changeme` (attention à la disposition du clavier) |
 
 ### Tâche 4.3 — Renommer le poste
 
