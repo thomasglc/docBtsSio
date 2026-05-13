@@ -15,7 +15,7 @@ Vous avez besoin de deux VMs pour ce TP :
 - **VM-Serveur** (`SRV-AD-01`) — votre contrôleur de domaine du TP 1, démarré et connecté
 - **VM-Cliente** — une VM Windows 10 ou 11 que vous préparerez durant ce TP (ISO disponible sur le NAS)
 
-Les deux VMs doivent être sur le **même réseau** (même configuration réseau que dans le TP 1).
+Les deux VMs doivent être sur le **même réseau interne `adlab`** (même configuration que dans le TP 1).
 
 Vous devrez constituer un **rapport-annexe** contenant les captures d'écran demandées à chaque étape. Les captures sont indiquées par 📸.
 :::
@@ -268,7 +268,7 @@ Créez une nouvelle VM dans VirtualBox avec les paramètres suivants :
 | CPU | `2` processeurs |
 | Disque dur | `50 Go` (dynamiquement alloué) |
 
-Montez l'ISO Windows 10 ou 11 (disponible sur le NAS) dans le lecteur optique, et configurez l'adaptateur réseau en **Réseau pont (Bridged)** — comme pour le serveur.
+Montez l'ISO Windows 10 ou 11 (disponible sur le NAS) dans le lecteur optique, et configurez l'adaptateur réseau en **Réseau interne** avec le nom `adlab` — comme pour le serveur.
 
 ### Tâche 4.2 — Installer Windows
 
@@ -302,10 +302,13 @@ C'est l'étape **la plus importante** de la préparation. Pour rejoindre le doma
 2. **Modifier les options d'adaptateur** → clic droit sur la carte active → **Propriétés**
 3. Sélectionnez **Protocole Internet version 4 (TCP/IPv4)** → **Propriétés**
 
-Configurez uniquement le DNS (l'IP peut rester en automatique si vous avez un DHCP sur le réseau) :
+En réseau interne, il n'y a pas de DHCP — configurez une adresse IP statique et pointez le DNS vers le serveur AD :
 
 | Champ | Valeur |
 |---|---|
+| Adresse IP | `192.168.1.20` |
+| Masque de sous-réseau | `255.255.255.0` |
+| Passerelle par défaut | *(laisser vide)* |
 | Serveur DNS préféré | `192.168.1.10` *(IP de SRV-AD-01)* |
 | Serveur DNS auxiliaire | *(laisser vide)* |
 
@@ -316,7 +319,7 @@ Si le DNS n'est pas correctement configuré, la jonction au domaine échouera av
 :::
 
 ::: tip 📸 Capture 9
-Propriétés TCP/IPv4 du poste `PC-CLIENT-01` — DNS préféré pointant vers `192.168.1.10`.
+Propriétés TCP/IPv4 du poste `PC-CLIENT-01` — adresse IP statique `192.168.1.20` et DNS préféré `192.168.1.10` configurés.
 :::
 
 ### Tâche 4.5 — Vérifier la connectivité avec le serveur

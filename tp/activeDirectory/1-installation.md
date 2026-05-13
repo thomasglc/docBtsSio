@@ -84,11 +84,11 @@ Toujours dans les paramètres de la VM, allez dans l'onglet **Réseau** :
 | Paramètre | Valeur |
 |---|---|
 | Adaptateur 1 | Activé |
-| Mode d'accès réseau | **Réseau pont (Bridged)** |
+| Mode d'accès réseau | **Réseau interne** |
+| Nom du réseau | `adlab` |
 
-::: info Réseau pont vs Réseau interne
-- **Réseau pont** : la VM obtient une adresse IP sur le même réseau que votre PC hôte. Elle peut accéder à Internet et vous pouvez la joindre depuis votre PC. C'est le mode recommandé pour ce TP.
-- **Réseau interne** : la VM est isolée du PC hôte. Uniquement les autres VMs du même réseau interne peuvent communiquer avec elle.
+::: info Pourquoi le réseau interne ?
+En réseau interne, la VM est complètement isolée du réseau du lycée. Seules les autres VMs configurées sur le même réseau interne (`adlab`) peuvent communiquer avec elle. C'est indispensable pour ce TP : plusieurs étudiants qui déploient chacun un contrôleur de domaine sur le réseau du lycée provoqueraient des conflits DNS et des perturbations pour toute la salle.
 :::
 
 ::: tip 📸 Capture 1
@@ -181,7 +181,7 @@ Sélectionnez **Utiliser l'adresse IP suivante** et renseignez (adaptez à votre
 |---|---|
 | Adresse IP | `192.168.1.10` |
 | Masque de sous-réseau | `255.255.255.0` |
-| Passerelle par défaut | `192.168.1.1` *(si présente)* |
+| Passerelle par défaut | *(laisser vide)* |
 | Serveur DNS préféré | `127.0.0.1` |
 
 ::: info Pourquoi `127.0.0.1` en DNS préféré ?
