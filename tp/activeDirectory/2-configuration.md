@@ -270,6 +270,12 @@ Créez une nouvelle VM dans VirtualBox avec les paramètres suivants :
 
 Montez l'ISO Windows 10 ou 11 (disponible sur le NAS) dans le lecteur optique, et configurez l'adaptateur réseau en **Réseau interne** avec le nom `adlab` — comme pour le serveur.
 
+::: danger Windows 11 — Sélectionnez impérativement l'édition **Pro**
+Lors de l'installation de Windows 11, un écran vous demande de choisir l'édition. Sélectionnez **Windows 11 Professionnel** (Pro), jamais **Famille** (Home).
+
+L'édition Home ne permet pas de joindre un domaine Active Directory : l'option est tout simplement absente de l'interface. Si vous installez la mauvaise édition, vous devrez tout recommencer depuis le début.
+:::
+
 ### Tâche 4.2 — Installer Windows
 
 Démarrez la VM et installez Windows normalement. À l'étape **"Comment souhaitez-vous configurer ?"**, choisissez **Configurer pour une utilisation personnelle** (ou **Configurer pour une organisation** selon la version).
