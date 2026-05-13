@@ -173,13 +173,24 @@ Vous allez créer une GPO qui s'appliquera à tous les utilisateurs de l'OU `Tec
 
 ### Tâche 3.1 — Préparer le fond d'écran sur le serveur
 
-Pour que tous les postes puissent accéder au fond d'écran, il doit être stocké dans un dossier réseau accessible depuis toutes les machines du domaine. Le dossier **NETLOGON** est partagé automatiquement sur tous les contrôleurs de domaine.
+Pour que tous les postes puissent accéder au fond d'écran, il doit être stocké dans un dossier réseau accessible depuis toutes les machines du domaine. Le partage **NETLOGON** est créé automatiquement sur tous les contrôleurs de domaine.
 
 Sur `SRV-AD-01`, ouvrez **l'Explorateur de fichiers** et naviguez vers :
 
 ```
-C:\Windows\SYSVOL\sysvol\techservices.local\NETLOGON\
+C:\Windows\SYSVOL\sysvol\techservices.local\scripts\
 ```
+
+::: warning NETLOGON ≠ nom du dossier sur le disque
+`NETLOGON` est le **nom du partage réseau**, pas le nom du dossier physique. Sur le disque, ce partage correspond au dossier `scripts\` (et non à un dossier `NETLOGON\` qui n'existe pas). C'est une source de confusion fréquente.
+
+| Accès | Chemin |
+|---|---|
+| Depuis l'Explorateur (local) | `C:\Windows\SYSVOL\sysvol\techservices.local\scripts\` |
+| Depuis le réseau (UNC) | `\\techservices.local\NETLOGON\` |
+
+Les deux pointent vers le même endroit.
+:::
 
 Créez un sous-dossier nommé `wallpapers`.
 
@@ -192,7 +203,7 @@ C:\Windows\Web\Wallpaper\
 Renommez l'image copiée en `fond-ecran.jpg`.
 
 ::: info Pourquoi NETLOGON ?
-Le dossier NETLOGON est le partage réseau `\\techservices.local\NETLOGON` — accessible automatiquement par tous les postes du domaine sans configuration supplémentaire. C'est l'endroit idéal pour stocker des ressources partagées légères (fond d'écran, scripts de connexion…).
+Le partage NETLOGON (`\\techservices.local\NETLOGON`) est accessible automatiquement par tous les postes du domaine sans configuration supplémentaire. C'est l'endroit idéal pour stocker des ressources partagées légères (fond d'écran, scripts de connexion…).
 :::
 
 ### Tâche 3.2 — Créer la GPO utilisateurs
