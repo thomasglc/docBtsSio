@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction à Docker</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ===================== TITLE ===================== -->
+      <section id="title" class="section-divider" data-state="is-section-divider">
+        <p style="font-size:52pt; margin-bottom:10px;">🐳</p>
+        <h1 style="font-size:50pt; color:#fff;">Introduction à Docker</h1>
+        <p style="color:rgba(255,255,255,0.75); font-size:18pt; margin-top:16px;">BTS SIO SISR — 1ère année</p>
+      </section>
+
+      <!-- ===================== SECTION : LE PROBLÈME ===================== -->
+      <section id="divider-probleme" class="section-divider" data-state="is-section-divider">
+        <h1>Le problème</h1>
+      </section>
+
+      <section id="deployer-complique">
+        <h2>Déployer une appli… c'est long</h2>
+        <div class="content">
+          <ul class="text-lg">
+            <li>Installer Apache, configurer PHP, créer la base de données…</li>
+            <li>Gérer les droits sur les fichiers, les extensions manquantes…</li>
+            <li>Sur une autre machine → recommencer depuis zéro</li>
+            <li>Une version de PHP différente → ça ne marche plus</li>
+          </ul>
+          <div class="info-box" style="margin-top:24px;">
+            <p>Fragile, long, difficile à reproduire</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="meme-partout">
+        <h2>Et si ça marchait partout, toujours ?</h2>
+        <div class="content" style="justify-content:center;">
+          <p class="text-2xl" style="margin-bottom:30px;">Même commande → même résultat</p>
+          <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:20px; margin-top:10px;">
+            <div class="concept-card" style="text-align:center;">
+              <p style="font-size:28pt; margin:0;">💻</p>
+              <p class="desc">Votre PC</p>
+            </div>
+            <div class="concept-card" style="text-align:center;">
+              <p style="font-size:28pt; margin:0;">🖥️</p>
+              <p class="desc">Le serveur de prod</p>
+            </div>
+            <div class="concept-card" style="text-align:center;">
+              <p style="font-size:28pt; margin:0;">☁️</p>
+              <p class="desc">Le cloud</p>
+            </div>
+          </div>
+          <p class="text-xl" style="margin-top:28px; text-align:center; color:var(--primary-color); font-weight:600;">C'est la promesse de Docker.</p>
+        </div>
+      </section>
+
+      <!-- ===================== SECTION : DOCKER ===================== -->
+      <section id="divider-docker" class="section-divider" data-state="is-section-divider">
+        <h1>Docker</h1>
+      </section>
+
+      <section id="quest-ce-que-docker">
+        <h2>Qu'est-ce qu'un conteneur ?</h2>
+        <div class="content">
+          <p class="text-lg">Docker empaquette une application avec <strong>tout ce dont elle a besoin</strong> :</p>
+          <ul class="text-lg" style="margin-top:16px;">
+            <li>Le système de base</li>
+            <li>Les bibliothèques et dépendances</li>
+            <li>La configuration</li>
+            <li>Le code de l'application</li>
+          </ul>
+          <div class="info-box" style="margin-top:20px;">
+            <p>Le tout dans une unité portable appelée <strong>conteneur</strong></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="conteneur-vs-vm">
+        <h2>Conteneur vs Machine Virtuelle</h2>
+        <div class="content">
+          <table>
+            <thead>
+              <tr><th></th><th>Machine Virtuelle</th><th>Conteneur Docker</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Contient</strong></td><td>OS complet + application</td><td>Application + bibliothèques</td></tr>
+              <tr><td><strong>Démarrage</strong></td><td>1 à 2 minutes</td><td>Quelques secondes</td></tr>
+              <tr><td><strong>Taille</strong></td><td>Plusieurs Go</td><td>Quelques dizaines de Mo</td></tr>
+              <tr><td><strong>Isolation</strong></td><td>Totale (noyau propre)</td><td>Partielle (noyau partagé)</td></tr>
+            </tbody>
+          </table>
+          <div class="info-box" style="margin-top:18px;">
+            <p>Un conteneur n'est pas une VM légère — c'est un <strong>processus isolé</strong> sur le noyau hôte</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== SECTION : 3 CONCEPTS ===================== -->
+      <section id="divider-concepts" class="section-divider" data-state="is-section-divider">
+        <h1>Les 3 concepts clés</h1>
+      </section>
+
+      <section id="concept-image">
+        <h2>1. L'Image</h2>
+        <div class="content" style="justify-content:center;">
+          <div class="concept-card">
+            <p class="label">Définition</p>
+            <p class="desc text-lg">Un modèle <strong>immuable</strong> qui décrit ce que contiendra un conteneur.</p>
+            <p class="desc text-lg" style="margin-top:8px;">Une image ne s'exécute pas directement — elle sert de base pour créer des conteneurs.</p>
+          </div>
+          <div style="margin-top:16px; text-align:center;">
+            <span class="analogy">🍳 Analogie : la recette de cuisine</span>
+          </div>
+          <div class="cmd-box" style="margin-top:20px;">
+            <p>docker pull httpd <span class="cmd-comment"># télécharger l'image Apache</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="concept-conteneur">
+        <h2>2. Le Conteneur</h2>
+        <div class="content" style="justify-content:center;">
+          <div class="concept-card">
+            <p class="label">Définition</p>
+            <p class="desc text-lg">Une instance <strong>en cours d'exécution</strong> d'une image.</p>
+            <p class="desc text-lg" style="margin-top:8px;">On peut créer autant de conteneurs qu'on veut à partir de la même image.</p>
+          </div>
+          <div style="margin-top:16px; text-align:center;">
+            <span class="analogy">🍽️ Analogie : le plat cuisiné</span>
+          </div>
+          <div class="cmd-box" style="margin-top:20px;">
+            <p>docker run httpd <span class="cmd-comment"># créer et démarrer un conteneur</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="concept-registry">
+        <h2>3. Le Registry</h2>
+        <div class="content" style="justify-content:center;">
+          <div class="concept-card">
+            <p class="label">Définition</p>
+            <p class="desc text-lg">Un serveur qui stocke et distribue des images Docker.</p>
+            <p class="desc text-lg" style="margin-top:8px;"><strong>Docker Hub</strong> est le registry public principal — des milliers d'images prêtes à l'emploi.</p>
+          </div>
+          <div style="margin-top:16px; text-align:center;">
+            <span class="analogy">🛒 Analogie : le supermarché d'images</span>
+          </div>
+          <div class="cmd-box" style="margin-top:20px;">
+            <p><span class="cmd-comment"># hub.docker.com → httpd, mysql, wordpress…</span></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== SECTION : COMMANDES ===================== -->
+      <section id="divider-commandes" class="section-divider" data-state="is-section-divider">
+        <h1>Les commandes de base</h1>
+      </section>
+
+      <section id="cmd-images">
+        <h2>Télécharger et lister des images</h2>
+        <div class="content">
+          <div class="cmd-box">
+            <p>docker pull httpd <span class="cmd-comment"># télécharger l'image depuis Docker Hub</span></p>
+          </div>
+          <div class="cmd-box" style="margin-top:10px;">
+            <p>docker images <span class="cmd-comment"># lister toutes les images locales</span></p>
+          </div>
+          <div class="info-box" style="margin-top:22px;">
+            <p>Les images sont construites en <strong>couches</strong> — chaque ligne "Pull complete" est une couche. Elles se partagent entre images, ce qui économise de l'espace.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="cmd-run">
+        <h2>Lancer un conteneur</h2>
+        <div class="content">
+          <div class="cmd-box">
+            <p>docker run httpd <span class="cmd-comment"># au premier plan (bloque le terminal)</span></p>
+          </div>
+          <div class="cmd-box" style="margin-top:10px;">
+            <p>docker run <strong style="color:#f9c74f;">-d</strong> httpd <span class="cmd-comment"># en arrière-plan (détaché)</span></p>
+          </div>
+          <div class="cmd-box" style="margin-top:10px;">
+            <p>docker run -d <strong style="color:#f9c74f;">--name web</strong> httpd <span class="cmd-comment"># avec un nom fixe</span></p>
+          </div>
+          <ul class="text-lg" style="margin-top:20px;">
+            <li><strong>-d</strong> → détaché, le terminal reste libre</li>
+            <li><strong>--name</strong> → nom fixe plutôt qu'un nom aléatoire</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="cmd-gestion">
+        <h2>Gérer les conteneurs</h2>
+        <div class="content">
+          <div class="cmd-box">
+            <p>docker ps <span class="cmd-comment"># conteneurs en cours d'exécution</span></p>
+            <p>docker ps -a <span class="cmd-comment"># tous les conteneurs (même arrêtés)</span></p>
+          </div>
+          <div class="cmd-box" style="margin-top:10px;">
+            <p>docker stop web <span class="cmd-comment"># arrêter (conserve le conteneur)</span></p>
+            <p>docker start web <span class="cmd-comment"># redémarrer</span></p>
+            <p>docker rm web <span class="cmd-comment"># supprimer définitivement</span></p>
+          </div>
+          <div class="info-box" style="margin-top:18px;">
+            <p><strong>stop ≠ rm</strong> — Un conteneur arrêté conserve ses données. rm les supprime définitivement.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== SECTION : RÉSEAU ===================== -->
+      <section id="divider-reseau" class="section-divider" data-state="is-section-divider">
+        <h1>Réseau</h1>
+      </section>
+
+      <section id="isolation-reseau">
+        <h2>Les conteneurs sont isolés</h2>
+        <div class="content" style="justify-content:center;">
+          <p class="text-xl">Par défaut, un conteneur <strong>n'est pas accessible</strong> depuis l'extérieur.</p>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:24px;">
+            <div class="concept-card" style="border-left-color:#d93025;">
+              <p class="label" style="color:#d93025 !important;">Sans mapping</p>
+              <p class="desc">Apache tourne sur le port 80 <em>à l'intérieur</em> du conteneur, mais personne ne peut y accéder</p>
+            </div>
+            <div class="concept-card">
+              <p class="label">Avec mapping</p>
+              <p class="desc">On crée un "tunnel" entre un port de la machine hôte et le port du conteneur</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="exposer-port">
+        <h2>Exposer un port</h2>
+        <div class="content">
+          <div class="cmd-box">
+            <p>docker run -d <strong style="color:#f9c74f;">-p 8080:80</strong> --name web httpd</p>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:20px;">
+            <div class="concept-card">
+              <p class="label">Port hôte</p>
+              <p class="title">8080</p>
+              <p class="desc">Port de votre machine, accessible depuis le navigateur</p>
+            </div>
+            <div class="concept-card">
+              <p class="label">Port conteneur</p>
+              <p class="title">80</p>
+              <p class="desc">Port interne sur lequel Apache écoute</p>
+            </div>
+          </div>
+          <div class="cmd-box" style="margin-top:14px;">
+            <p><span class="cmd-comment"># Accessible via http://[IP-VM]:8080</span></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== SECTION : VOLUMES ===================== -->
+      <section id="divider-volumes" class="section-divider" data-state="is-section-divider">
+        <h1>Volumes</h1>
+      </section>
+
+      <section id="donnees-perdues">
+        <h2>Attention aux données !</h2>
+        <div class="content" style="justify-content:center;">
+          <p class="text-xl" style="margin-bottom:20px;">Tout ce qu'on écrit <strong>dans</strong> un conteneur…</p>
+          <div class="cmd-box">
+            <p>docker exec -it web bash</p>
+            <p>echo "Bonjour" &gt; /usr/local/apache2/htdocs/index.html</p>
+            <p>exit</p>
+          </div>
+          <div style="text-align:center; margin:20px 0; font-size:28pt;">⬇️</div>
+          <div class="cmd-box">
+            <p>docker rm -f web <span class="cmd-comment"># supprime le conteneur</span></p>
+          </div>
+          <p class="text-xl text-bad" style="margin-top:16px; text-align:center;">Les données sont perdues pour toujours.</p>
+        </div>
+      </section>
+
+      <section id="solution-volumes">
+        <h2>La solution : les volumes</h2>
+        <div class="content">
+          <p class="text-lg">Un volume existe <strong>en dehors</strong> du cycle de vie du conteneur.</p>
+          <ul class="text-lg" style="margin-top:12px;">
+            <li>Les données survivent à <code>docker rm</code></li>
+            <li>Partageable entre plusieurs conteneurs</li>
+            <li>Géré par Docker dans <code>/var/lib/docker/volumes/</code></li>
+          </ul>
+          <div class="cmd-box" style="margin-top:18px;">
+            <p>docker run -d -p 8080:80 \</p>
+            <p>&nbsp;&nbsp;<strong style="color:#f9c74f;">-v mon-volume:/usr/local/apache2/htdocs</strong> \</p>
+            <p>&nbsp;&nbsp;--name web httpd</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== SECTION : DOCKER COMPOSE ===================== -->
+      <section id="divider-compose" class="section-divider" data-state="is-section-divider">
+        <h1>Docker Compose</h1>
+      </section>
+
+      <section id="pourquoi-compose">
+        <h2>Pourquoi Docker Compose ?</h2>
+        <div class="content">
+          <p class="text-lg">Un site WordPress, c'est <strong>deux conteneurs</strong> :</p>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:16px;">
+            <div class="concept-card" style="text-align:center;">
+              <p style="font-size:26pt; margin:0;">🌐</p>
+              <p class="title">WordPress</p>
+              <p class="desc">Le site web</p>
+            </div>
+            <div class="concept-card" style="text-align:center;">
+              <p style="font-size:26pt; margin:0;">🗄️</p>
+              <p class="title">MySQL</p>
+              <p class="desc">La base de données</p>
+            </div>
+          </div>
+          <div class="info-box" style="margin-top:20px;">
+            <p>Gérer chaque conteneur à la main → compliqué. Compose centralise tout dans <strong>un seul fichier</strong>.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="fichier-compose">
+        <h2>Le fichier docker-compose.yml</h2>
+        <div class="content">
+          <div class="cmd-box">
+            <p>services:</p>
+            <p>&nbsp;&nbsp;web:</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;image: httpd</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;ports:</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- "8080:80"</p>
+            <p>&nbsp;&nbsp;mysql:</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;image: mysql:8.0</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;environment:</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MYSQL_ROOT_PASSWORD: secret</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;volumes:</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- db_data:/var/lib/mysql</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="commandes-compose">
+        <h2>Une commande pour tout</h2>
+        <div class="content">
+          <div class="cmd-box">
+            <p>docker compose up -d <span class="cmd-comment"># démarrer tous les services</span></p>
+          </div>
+          <div class="cmd-box" style="margin-top:10px;">
+            <p>docker compose ps <span class="cmd-comment"># état des services</span></p>
+            <p>docker compose logs -f <span class="cmd-comment"># suivre les logs</span></p>
+          </div>
+          <div class="cmd-box" style="margin-top:10px;">
+            <p>docker compose down <span class="cmd-comment"># tout arrêter et supprimer</span></p>
+          </div>
+          <div class="info-box" style="margin-top:18px;">
+            <p>Le réseau entre conteneurs est créé <strong>automatiquement</strong> — ils se trouvent par leur nom de service.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== CLOSING ===================== -->
+      <section id="closing" class="section-divider" data-state="is-section-divider">
+        <p style="font-size:40pt; margin-bottom:10px;">🚀</p>
+        <h1>À vous de jouer !</h1>
+        <div style="margin-top:30px; display:grid; grid-template-columns:1fr 1fr; gap:20px; max-width:700px;">
+          <div style="background:rgba(255,255,255,0.15); border-radius:10px; padding:20px;">
+            <p style="color:#fff; font-weight:700; font-size:16pt; margin:0;">TP 1</p>
+            <p style="color:rgba(255,255,255,0.8); font-size:14pt; margin:6px 0 0 0;">Découverte de Docker</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.15); border-radius:10px; padding:20px;">
+            <p style="color:#fff; font-weight:700; font-size:16pt; margin:0;">TP 2</p>
+            <p style="color:rgba(255,255,255,0.8); font-size:14pt; margin:6px 0 0 0;">Docker Compose + WordPress</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: true,
+      hash: true,
+      transition: 'slide',
+      center: false,
+    });
+  </script>
+</body>
+</html>

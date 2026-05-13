@@ -154,6 +154,7 @@ export default withMermaid ({
               { text: 'Routeur', link: '/memo/routeur.md' },
               { text: 'PowerShell', link: '/memo/powershell.md' },
               { text: 'WordPress', link: '/memo/wordpress.md' },
+              { text: 'Docker', link: '/memo/docker.md' },
 
             ]
           },

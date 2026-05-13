@@ -346,6 +346,17 @@ Sortie de `docker system prune` — espace disque récupéré affiché.
 
 ---
 
+## Questions de réflexion
+
+Répondez à ces questions **dans votre tête ou à l'oral avec votre voisin** — elles n'ont pas à être rendues, mais elles seront à la base de la discussion en fin de séance :
+
+1. Quelle différence concrète avez-vous observée entre `docker stop` et `docker rm` ?
+2. Pourquoi a-t-on besoin du flag `-p` pour accéder à Apache depuis le navigateur ?
+3. Qu'arrive-t-il à la modification de `index.html` si on supprime le conteneur ?
+4. Si on peut lancer deux Apache sur le même serveur Debian, que faudrait-il faire sans Docker pour obtenir le même résultat ?
+
+---
+
 ## Récapitulatif des commandes
 
 | Commande | Effet |
@@ -362,14 +373,3 @@ Sortie de `docker system prune` — espace disque récupéré affiché.
 | `docker exec -it <nom> bash` | Ouvrir un shell dans le conteneur |
 | `docker rmi <image>` | Supprimer une image |
 | `docker system prune` | Nettoyer les ressources inutilisées |
-
----
-
-## Questions de réflexion
-
-Répondez à ces questions **dans votre tête ou à l'oral avec votre voisin** — elles n'ont pas à être rendues, mais elles seront à la base de la discussion en fin de séance :
-
-1. Quelle différence concrète avez-vous observée entre `docker stop` et `docker rm` ?
-2. Pourquoi a-t-on besoin du flag `-p` pour accéder à Apache depuis le navigateur ?
-3. Qu'arrive-t-il à la modification de `index.html` si on supprime le conteneur ?
-4. Si on peut lancer deux Apache sur le même serveur Debian, que faudrait-il faire sans Docker pour obtenir le même résultat ?

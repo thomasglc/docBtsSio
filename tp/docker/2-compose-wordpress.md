@@ -424,6 +424,15 @@ Interface phpMyAdmin accessible à `http://[IP-VM]:8081` — la base `wordpress`
 
 ---
 
+## Questions de réflexion
+
+1. Pourquoi utilise-t-on des **variables d'environnement** plutôt que d'écrire directement les mots de passe dans les fichiers de configuration ?
+2. Qu'est-ce qui se passerait si on supprimait le service `mysql` du fichier Compose et qu'on relançait `docker compose up -d` ?
+3. Dans quel cas préféreriez-vous utiliser `docker compose stop` plutôt que `docker compose down` ?
+4. En entreprise, le fichier `docker-compose.yml` est souvent versionné dans Git. Quel avantage cela apporte-t-il pour la gestion de l'infrastructure ?
+
+---
+
 ## Récapitulatif des commandes Compose
 
 | Commande | Effet |
@@ -437,12 +446,3 @@ Interface phpMyAdmin accessible à `http://[IP-VM]:8081` — la base `wordpress`
 | `docker compose exec <service> bash` | Shell dans un conteneur |
 | `docker compose stop` | Arrêter sans supprimer |
 | `docker compose start` | Redémarrer des services arrêtés |
-
----
-
-## Questions de réflexion
-
-1. Pourquoi utilise-t-on des **variables d'environnement** plutôt que d'écrire directement les mots de passe dans les fichiers de configuration ?
-2. Qu'est-ce qui se passerait si on supprimait le service `mysql` du fichier Compose et qu'on relançait `docker compose up -d` ?
-3. Dans quel cas préféreriez-vous utiliser `docker compose stop` plutôt que `docker compose down` ?
-4. En entreprise, le fichier `docker-compose.yml` est souvent versionné dans Git. Quel avantage cela apporte-t-il pour la gestion de l'infrastructure ?
