@@ -114,10 +114,10 @@ Docker a cherché l'image `hello-world` localement → ne l'a pas trouvée → l
 ### Tâche 2.1 — Télécharger une image
 
 ```bash
-docker pull nginx
+docker pull httpd
 ```
 
-Docker télécharge l'image officielle **Nginx** depuis Docker Hub. Observez les lignes `Pull complete` : chaque ligne correspond à une **couche** (layer) de l'image. Les images sont construites en couches empilées — c'est ce qui les rend légères et partageables.
+Docker télécharge l'image officielle **Apache** depuis Docker Hub. Observez les lignes `Pull complete` : chaque ligne correspond à une **couche** (layer) de l'image. Les images sont construites en couches empilées — c'est ce qui les rend légères et partageables.
 
 Listez les images disponibles localement :
 
@@ -126,21 +126,21 @@ docker images
 ```
 
 ::: tip 📸 Capture 2
-Sortie de `docker images` — l'image `nginx` apparaît avec sa taille et son tag (`latest`).
+Sortie de `docker images` — l'image `httpd` apparaît avec sa taille et son tag (`latest`).
 :::
 
 ### Tâche 2.2 — Lancer un conteneur
 
 ```bash
-docker run nginx
+docker run httpd
 ```
 
-Le terminal est bloqué — Nginx tourne au premier plan. Faites `Ctrl+C` pour l'arrêter.
+Le terminal est bloqué — Apache tourne au premier plan. Faites `Ctrl+C` pour l'arrêter.
 
 Pour lancer un conteneur **en arrière-plan** (mode détaché), utilisez le flag `-d` :
 
 ```bash
-docker run -d nginx
+docker run -d httpd
 ```
 
 Docker affiche un long identifiant hexadécimal — c'est l'ID du conteneur.
@@ -151,13 +151,13 @@ Docker affiche un long identifiant hexadécimal — c'est l'ID du conteneur.
 docker ps
 ```
 
-Vous voyez votre conteneur Nginx en cours d'exécution avec son ID, son image, la commande lancée, et depuis combien de temps il tourne.
+Vous voyez votre conteneur Apache en cours d'exécution avec son ID, son image, la commande lancée, et depuis combien de temps il tourne.
 
 ```bash
 docker ps -a
 ```
 
-Le flag `-a` (all) affiche **tous** les conteneurs, y compris ceux qui sont arrêtés. Vous devriez voir le conteneur Nginx lancé sans `-d` à la tâche précédente, avec le statut `Exited`.
+Le flag `-a` (all) affiche **tous** les conteneurs, y compris ceux qui sont arrêtés. Vous devriez voir le conteneur Apache lancé sans `-d` à la tâche précédente, avec le statut `Exited`.
 
 ::: tip 📸 Capture 3
 Sortie de `docker ps -a` — un conteneur en cours (`Up`) et un arrêté (`Exited`) visibles.
@@ -192,7 +192,7 @@ Jusqu'ici Docker attribue des noms aléatoires (`hopeful_morse`, `crazy_einstein
 ### Tâche 3.1 — Lancer un conteneur nommé
 
 ```bash
-docker run -d --name monserveur nginx
+docker run -d --name monserveur httpd
 ```
 
 Le flag `--name` donne un nom fixe au conteneur. Vérifiez avec `docker ps`.
@@ -215,10 +215,10 @@ docker exec -it monserveur bash
 Vous êtes maintenant **à l'intérieur** du conteneur. Explorez :
 
 ```bash
-ls /etc/nginx/         # configuration de nginx
-cat /etc/nginx/nginx.conf
-ls /usr/share/nginx/html/    # fichiers servis par défaut
-cat /usr/share/nginx/html/index.html
+ls /usr/local/apache2/conf/          # configuration d'Apache
+cat /usr/local/apache2/conf/httpd.conf
+ls /usr/local/apache2/htdocs/        # fichiers servis par défaut
+cat /usr/local/apache2/htdocs/index.html
 exit
 ```
 
@@ -234,7 +234,7 @@ Shell interactif à l'intérieur du conteneur — invite de commande différente
 
 ## Mission 4 — Exposer des ports
 
-Pour l'instant Nginx tourne dans le conteneur mais n'est pas accessible depuis l'extérieur. Docker isole les ports : il faut explicitement faire un **mapping de port** entre l'hôte et le conteneur.
+Pour l'instant Apache tourne dans le conteneur mais n'est pas accessible depuis l'extérieur. Docker isole les ports : il faut explicitement faire un **mapping de port** entre l'hôte et le conteneur.
 
 ### Tâche 4.1 — Comprendre le mapping de port
 
@@ -244,10 +244,10 @@ La syntaxe est `-p <port_hote>:<port_conteneur>`.
 docker stop monserveur
 docker rm monserveur
 
-docker run -d --name web -p 8080:80 nginx
+docker run -d --name web -p 8080:80 httpd
 ```
 
-Nginx écoute sur le port **80 à l'intérieur du conteneur**. On le rend accessible sur le port **8080 de la VM**.
+Apache écoute sur le port **80 à l'intérieur du conteneur**. On le rend accessible sur le port **8080 de la VM**.
 
 ### Tâche 4.2 — Accéder au serveur depuis un navigateur
 
@@ -263,22 +263,22 @@ Depuis votre navigateur (sur votre poste hôte), accédez à :
 http://[IP-de-la-VM]:8080
 ```
 
-La page de bienvenue Nginx s'affiche.
+La page de bienvenue Apache (`It works!`) s'affiche.
 
 ::: tip 📸 Capture 5
-Page de bienvenue Nginx accessible depuis le navigateur via `http://[IP]:8080`.
+Page de bienvenue Apache (`It works!`) accessible depuis le navigateur via `http://[IP]:8080`.
 :::
 
 ### Tâche 4.3 — Lancer deux serveurs simultanément
 
-Chaque conteneur a son propre espace réseau interne. On peut donc lancer deux Nginx sur des ports différents :
+Chaque conteneur a son propre espace réseau interne. On peut donc lancer deux Apache sur des ports différents :
 
 ```bash
-docker run -d --name web2 -p 8081:80 nginx
+docker run -d --name web2 -p 8081:80 httpd
 docker ps
 ```
 
-Accédez à `http://[IP]:8081` — un deuxième Nginx tourne en parallèle.
+Accédez à `http://[IP]:8081` — un deuxième Apache tourne en parallèle.
 
 ::: info Ce qui se passerait avec des VMs
 Faire tourner deux serveurs web simultanément sur deux VMs séparées demanderait deux OS complets. Ici, les deux conteneurs partagent le même noyau Debian et démarrent en quelques secondes.
@@ -290,7 +290,7 @@ Entrez dans le conteneur `web` et modifiez la page d'accueil :
 
 ```bash
 docker exec -it web bash
-echo "<h1>Bienvenue sur TechServices !</h1>" > /usr/share/nginx/html/index.html
+echo "<h1>Bienvenue sur TechServices !</h1>" > /usr/local/apache2/htdocs/index.html
 exit
 ```
 
@@ -330,7 +330,7 @@ docker rm -f $(docker ps -aq)
 
 ```bash
 docker images
-docker rmi nginx
+docker rmi httpd
 docker images       # l'image a été supprimée
 ```
 
@@ -370,6 +370,6 @@ Sortie de `docker system prune` — espace disque récupéré affiché.
 Répondez à ces questions **dans votre tête ou à l'oral avec votre voisin** — elles n'ont pas à être rendues, mais elles seront à la base de la discussion en fin de séance :
 
 1. Quelle différence concrète avez-vous observée entre `docker stop` et `docker rm` ?
-2. Pourquoi a-t-on besoin du flag `-p` pour accéder à Nginx depuis le navigateur ?
+2. Pourquoi a-t-on besoin du flag `-p` pour accéder à Apache depuis le navigateur ?
 3. Qu'arrive-t-il à la modification de `index.html` si on supprime le conteneur ?
-4. Si on peut lancer deux Nginx sur le même serveur Debian, que faudrait-il faire sans Docker pour obtenir le même résultat ?
+4. Si on peut lancer deux Apache sur le même serveur Debian, que faudrait-il faire sans Docker pour obtenir le même résultat ?

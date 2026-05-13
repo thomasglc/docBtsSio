@@ -54,7 +54,7 @@ Copiez ce contenu :
 ```yaml
 services:
   web:
-    image: nginx
+    image: httpd
     ports:
       - "8080:80"
 ```
@@ -73,7 +73,7 @@ docker compose up -d
 docker compose ps
 ```
 
-Accédez à `http://[IP-VM]:8080` — Nginx répond.
+Accédez à `http://[IP-VM]:8080` — Apache répond.
 
 Consultez les logs du service `web` :
 
@@ -105,12 +105,12 @@ C'est le concept le plus important à comprendre avant de déployer WordPress.
 
 ### Tâche 2.1 — Démontrer la perte de données
 
-Modifiez `docker-compose.yml` pour ajouter un conteneur Nginx avec une page personnalisée :
+Modifiez `docker-compose.yml` pour ajouter un conteneur Apache avec une page personnalisée :
 
 ```yaml
 services:
   web:
-    image: nginx
+    image: httpd
     ports:
       - "8080:80"
 ```
@@ -118,7 +118,7 @@ services:
 ```bash
 docker compose up -d
 docker compose exec web bash
-echo "<h1>Donnee importante !</h1>" > /usr/share/nginx/html/index.html
+echo "<h1>Donnee importante !</h1>" > /usr/local/apache2/htdocs/index.html
 exit
 ```
 
@@ -131,7 +131,7 @@ docker compose down
 docker compose up -d
 ```
 
-Accédez à nouveau à `http://[IP-VM]:8080` — la page d'accueil Nginx par défaut est revenue. **La modification est perdue.**
+Accédez à nouveau à `http://[IP-VM]:8080` — la page d'accueil Apache par défaut est revenue. **La modification est perdue.**
 
 ### Tâche 2.2 — Ajouter un volume
 
@@ -142,11 +142,11 @@ Modifiez `docker-compose.yml` :
 ```yaml
 services:
   web:
-    image: nginx
+    image: httpd
     ports:
       - "8080:80"
     volumes:
-      - donnees-web:/usr/share/nginx/html
+      - donnees-web:/usr/local/apache2/htdocs
 
 volumes:
   donnees-web:
@@ -156,7 +156,7 @@ volumes:
 docker compose down
 docker compose up -d
 docker compose exec web bash
-echo "<h1>Donnee persistante !</h1>" > /usr/share/nginx/html/index.html
+echo "<h1>Donnee persistante !</h1>" > /usr/local/apache2/htdocs/index.html
 exit
 ```
 
