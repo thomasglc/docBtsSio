@@ -251,47 +251,15 @@ Propriétés de `Jean Martin` — onglet **Membre de** affichant `GRP-Comptabili
 
 ---
 
-## Mission 4 — Préparer la VM cliente Windows
+## Mission 4 — Configurer la VM cliente Windows
 
-Avant de joindre un poste au domaine, il faut préparer une VM Windows 10 ou 11 correctement configurée pour communiquer avec le contrôleur de domaine.
+::: info VM déjà installée depuis le TP 1
+Si vous avez suivi la **Mission 7 du TP 1**, votre VM `PC-CLIENT-01` est déjà créée et Windows est installé. Passez directement à la **Tâche 4.1** ci-dessous pour la configurer.
 
-### Tâche 4.1 — Créer la VM cliente dans VirtualBox
-
-Créez une nouvelle VM dans VirtualBox avec les paramètres suivants :
-
-| Paramètre | Valeur |
-|---|---|
-| Nom | `PC-CLIENT-01` |
-| Type | `Microsoft Windows` |
-| Version | `Windows 10 (64-bit)` ou `Windows 11 (64-bit)` |
-| RAM | `2048 Mo` minimum |
-| CPU | `2` processeurs |
-| Disque dur | `50 Go` (dynamiquement alloué) |
-
-Montez l'ISO Windows 10 ou 11 (disponible sur le NAS) dans le lecteur optique, et configurez l'adaptateur réseau en **Réseau interne** avec le nom `adlab` — comme pour le serveur.
-
-::: danger Windows 11 — Sélectionnez impérativement l'édition **Pro**
-Lors de l'installation de Windows 11, un écran vous demande de choisir l'édition. Sélectionnez **Windows 11 Professionnel** (Pro), jamais **Famille** (Home).
-
-L'édition Home ne permet pas de joindre un domaine Active Directory : l'option est tout simplement absente de l'interface. Si vous installez la mauvaise édition, vous devrez tout recommencer depuis le début.
+Si ce n'est pas le cas, créez la VM et installez Windows maintenant en vous référant aux Tâches 7.1 et 7.2 du TP 1 (pensez à choisir l'édition **Pro** si vous utilisez Windows 11).
 :::
 
-### Tâche 4.2 — Installer Windows
-
-Démarrez la VM et installez Windows normalement. À l'étape **"Comment souhaitez-vous configurer ?"**, choisissez **Configurer pour une utilisation personnelle** (ou **Configurer pour une organisation** selon la version).
-
-::: warning Créer un compte local, pas un compte Microsoft
-Lors de l'installation, Windows peut demander de se connecter avec un compte Microsoft. Choisissez **Compte hors connexion** (ou **Options limitées** selon la version) pour créer un simple compte local. Le compte Microsoft n'est pas adapté à un poste de domaine.
-:::
-
-Créez le compte local avec :
-
-| Champ | Valeur | defaut |
-|---|---|---|
-| Nom d'utilisateur | `LocalAdmin` | `vboxuser` |
-| Mot de passe | `Admin@1234` | `changeme` (attention à la disposition du clavier) |
-
-### Tâche 4.3 — Renommer le poste
+### Tâche 4.1 — Renommer le poste
 
 Une fois sur le bureau, renommez le poste pour lui donner un nom cohérent :
 
@@ -300,7 +268,7 @@ Une fois sur le bureau, renommez le poste pour lui donner un nom cohérent :
 3. Entrez le nom : `PC-CLIENT-01`
 4. Redémarrez
 
-### Tâche 4.4 — Configurer le DNS vers le contrôleur de domaine
+### Tâche 4.2 — Configurer le DNS vers le contrôleur de domaine
 
 C'est l'étape **la plus importante** de la préparation. Pour rejoindre le domaine `techservices.local`, le poste client doit pouvoir résoudre ce nom via le DNS — et ce DNS, c'est votre serveur AD.
 
@@ -328,7 +296,7 @@ Si le DNS n'est pas correctement configuré, la jonction au domaine échouera av
 Propriétés TCP/IPv4 du poste `PC-CLIENT-01` — adresse IP statique `192.168.1.20` et DNS préféré `192.168.1.10` configurés.
 :::
 
-### Tâche 4.5 — Vérifier la connectivité avec le serveur
+### Tâche 4.3 — Vérifier la connectivité avec le serveur
 
 Ouvrez **PowerShell** ou l'**Invite de commandes** et testez :
 

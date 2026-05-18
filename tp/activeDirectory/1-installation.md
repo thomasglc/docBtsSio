@@ -126,6 +126,10 @@ Sur l'écran **Où installer Windows ?**, sélectionnez le disque disponible (le
 
 L'installation démarre et dure entre **10 et 20 minutes**. La VM redémarre plusieurs fois automatiquement — c'est normal, ne l'éteignez pas.
 
+::: tip Profitez de cette attente — Mission 7
+Pendant ces 10 à 20 minutes d'installation, lancez la création et l'installation de la **VM cliente Windows** qui sera utilisée au TP 2. Rendez-vous directement à la **Mission 7** en fin de ce TP, puis revenez ici une fois l'installation du serveur terminée.
+:::
+
 ### Tâche 2.4 — Définir le mot de passe administrateur
 
 À la fin de l'installation, Windows vous demande de définir le mot de passe du compte **Administrateur** local :
@@ -414,6 +418,56 @@ Cette commande confirme que votre serveur `SRV-AD-01` est bien enregistré comme
 
 ::: tip 📸 Capture 15
 Sorties de `Get-ADDomain` et `Get-ADDomainController` dans PowerShell — domaine `techservices.local` et serveur `SRV-AD-01` confirmés.
+:::
+
+---
+
+## Mission 7 — Préparer la VM cliente Windows (en parallèle)
+
+::: info Pourquoi maintenant ?
+L'installation de Windows sur une VM prend entre 15 et 30 minutes. En lançant cette mission pendant l'installation du serveur (Tâche 2.3) ou pendant les redémarrages, vous évitez une longue attente au début du TP 2. La VM sera prête à configurer dès que le domaine sera opérationnel.
+:::
+
+### Tâche 7.1 — Créer la VM cliente dans VirtualBox
+
+Créez une nouvelle VM dans VirtualBox avec les paramètres suivants :
+
+| Paramètre | Valeur |
+|---|---|
+| Nom | `PC-CLIENT-01` |
+| Type | `Microsoft Windows` |
+| Version | `Windows 10 (64-bit)` ou `Windows 11 (64-bit)` |
+| RAM | `2048 Mo` minimum |
+| CPU | `2` processeurs |
+| Disque dur | `50 Go` (dynamiquement alloué) |
+
+Montez l'ISO Windows 10 ou 11 (disponible sur le NAS) dans le lecteur optique, et configurez l'adaptateur réseau en **Réseau interne** avec le nom `adlab` — comme pour le serveur.
+
+::: danger Windows 11 — Sélectionnez impérativement l'édition **Pro**
+Lors de l'installation de Windows 11, un écran vous demande de choisir l'édition. Sélectionnez **Windows 11 Professionnel** (Pro), jamais **Famille** (Home).
+
+L'édition Home ne permet pas de joindre un domaine Active Directory : l'option est tout simplement absente de l'interface. Si vous installez la mauvaise édition, vous devrez tout recommencer depuis le début.
+:::
+
+### Tâche 7.2 — Installer Windows
+
+Démarrez la VM et installez Windows normalement. À l'étape **"Comment souhaitez-vous configurer ?"**, choisissez **Configurer pour une utilisation personnelle** (ou **Configurer pour une organisation** selon la version).
+
+
+
+::: warning Créer un compte local, pas un compte Microsoft
+Lors de l'installation, Windows peut demander de se connecter avec un compte Microsoft. Choisissez **Compte hors connexion** (ou **Options limitées** selon la version) pour créer un simple compte local.
+:::
+
+Créez le compte local avec :
+
+| Champ | Valeur par défaut VirtualBox |
+|---|---|
+| Nom d'utilisateur | `LocalAdmin` (`vboxuser`) |
+| Mot de passe | `Admin@1234` (`changeme`) |
+
+::: tip L'installation peut tourner en arrière-plan
+Une fois l'installation lancée, vous pouvez réduire la fenêtre VirtualBox et continuer à travailler sur la configuration du serveur. Revenez vérifier l'avancement de temps en temps. La configuration réseau et la jonction au domaine se feront au TP 2.
 :::
 
 ---
