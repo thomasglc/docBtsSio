@@ -5,3 +5,5 @@ node_modules
 .claude/
 
 CLAUDE.md
+
+.vitepress/dist/
