@@ -35,23 +35,73 @@ Visual Studio est développé par **Microsoft** et est l'un des IDE les plus uti
 
 ---
 
-## Mission 1 — Découverte de l'interface
+## Mission 1 — Créer votre premier projet C#
 
-### Tâche 1.1 — Ouvrir Visual Studio
+### Tâche 1.1 — Lancer Visual Studio et créer un projet
 
-Lancez **Visual Studio 2022** depuis le bureau ou le menu Démarrer. Sur l'écran d'accueil, choisissez **"Continuer sans code"** pour ouvrir l'IDE sans projet.
+Lancez **Visual Studio 2022** depuis le bureau ou le menu Démarrer. Sur l'écran d'accueil, cliquez sur **"Créer un projet"**.
+
+La fenêtre de création de projet s'ouvre :
+
+1. Dans la barre de recherche en haut, tapez `Console`
+2. Sélectionnez **"Application console"** — vérifiez que le badge **C#** est bien visible (et non VB.NET ou F#)
+3. Cliquez sur **Suivant**
+
+<!-- 📷 IMAGE REQUISE : fenêtre "Créer un projet" avec le modèle "Application console C#" sélectionné -->
 
 ::: tip 📸 Capture 1
-La fenêtre principale de Visual Studio — écran d'accueil ou IDE vide ouvert.
+La fenêtre de sélection du modèle — "Application console C#" sélectionné.
 :::
 
-### Tâche 1.2 — Identifier les zones de l'interface
+### Tâche 1.2 — Configurer le projet
 
-Revenez sur cette tâche après avoir créé un projet (Mission 2) — l'interface sera alors complète.
+Renseignez les informations suivantes :
+
+| Champ | Valeur |
+|---|---|
+| Nom du projet | `MonPremierProgramme` |
+| Emplacement | Le dossier à votre nom sur le disque D |
+| Nom de la solution | `MonPremierProgramme` (identique au projet) |
+
+Cliquez sur **Suivant**, choisissez **.NET 8.0** comme framework cible, puis cliquez sur **Créer**.
+
+::: info Qu'est-ce que .NET ?
+**.NET** est la plateforme logicielle développée par Microsoft sur laquelle s'exécutent les programmes C#. C'est elle qui fournit toutes les bibliothèques (fonctions prêtes à l'emploi) que vous utiliserez, comme `Console.WriteLine`. La version 8.0 est la version stable recommandée.
+:::
+
+### Tâche 1.3 — Explorer la structure générée
+
+Visual Studio a automatiquement créé plusieurs fichiers. Observez l'**Explorateur de solutions** :
+
+```
+MonPremierProgramme/
+├── MonPremierProgramme.sln        ← Fichier Solution (.sln)
+└── MonPremierProgramme/
+    ├── MonPremierProgramme.csproj ← Fichier Projet (.csproj)
+    └── Program.cs                 ← Votre code source
+```
+
+- Le **`.sln`** (Solution) est le conteneur de plus haut niveau. Une solution peut regrouper plusieurs projets liés entre eux.
+- Le **`.csproj`** (C# Project) décrit votre projet : ses dépendances, la version de .NET utilisée, les options de compilation.
+- **`Program.cs`** est le fichier où vous écrirez votre code.
+
+::: tip 📸 Capture 2
+L'Explorateur de solutions montrant les fichiers générés.
+:::
+
+::: tip Document de restitution — Question 2
+Complétez la **Question 2** dans votre document.
+:::
+
+---
+
+## Mission 2 — Découverte de l'interface
+
+Maintenant que votre projet est ouvert, l'IDE est entièrement chargé. Profitez-en pour faire le tour des différentes zones de Visual Studio.
 
 <!-- 📷 IMAGE REQUISE : capture annotée de l'interface VS avec zones A-E indiquées -->
 
-L'interface de Visual Studio est découpée en plusieurs **zones**, chacune ayant un rôle précis. Voici un tour du propriétaire :
+L'interface est découpée en plusieurs **zones**, chacune ayant un rôle précis :
 
 ---
 
@@ -103,68 +153,12 @@ Allez dans **Affichage → Sortie** (ou `Ctrl + Alt + O`).
 
 ---
 
+::: tip 📸 Capture 3
+Vue d'ensemble de l'interface Visual Studio avec votre projet ouvert — repérez les 5 zones sur votre capture.
+:::
+
 ::: tip Document de restitution — Question 1
 Complétez la **Question 1** dans votre document.
-:::
-
----
-
-## Mission 2 — Créer votre premier projet C#
-
-### Tâche 2.1 — Nouveau projet
-
-Dans Visual Studio, ouvrez le menu **Fichier → Nouveau → Projet…** (ou `Ctrl + Maj + N`).
-
-La fenêtre de création de projet s'ouvre :
-
-1. Dans la barre de recherche en haut, tapez `Console`
-2. Sélectionnez **"Application console"** — vérifiez que le badge **C#** est bien visible (et non VB.NET ou F#)
-3. Cliquez sur **Suivant**
-
-<!-- 📷 IMAGE REQUISE : fenêtre "Créer un projet" avec le modèle "Application console C#" sélectionné -->
-
-::: tip 📸 Capture 2
-La fenêtre de sélection du modèle — "Application console C#" sélectionné.
-:::
-
-### Tâche 2.2 — Configurer le projet
-
-Renseignez les informations suivantes :
-
-| Champ | Valeur |
-|---|---|
-| Nom du projet | `MonPremierProgramme` |
-| Emplacement | Votre dossier Documents |
-| Nom de la solution | `MonPremierProgramme` (identique au projet) |
-
-Cliquez sur **Suivant**, choisissez **.NET 8.0** comme framework cible, puis cliquez sur **Créer**.
-
-::: info Qu'est-ce que .NET ?
-**.NET** est la plateforme logicielle développée par Microsoft sur laquelle s'exécutent les programmes C#. C'est elle qui fournit toutes les bibliothèques (fonctions prêtes à l'emploi) que vous utiliserez, comme `Console.WriteLine`. La version 8.0 est la version stable recommandée.
-:::
-
-### Tâche 2.3 — Explorer la structure générée
-
-Visual Studio a automatiquement créé plusieurs fichiers. Observez l'**Explorateur de solutions** :
-
-```
-MonPremierProgramme/
-├── MonPremierProgramme.sln        ← Fichier Solution (.sln)
-└── MonPremierProgramme/
-    ├── MonPremierProgramme.csproj ← Fichier Projet (.csproj)
-    └── Program.cs                 ← Votre code source
-```
-
-- Le **`.sln`** (Solution) est le conteneur de plus haut niveau. Une solution peut regrouper plusieurs projets liés entre eux.
-- Le **`.csproj`** (C# Project) décrit votre projet : ses dépendances, la version de .NET utilisée, les options de compilation.
-- **`Program.cs`** est le fichier où vous écrirez votre code.
-
-::: tip 📸 Capture 3
-L'Explorateur de solutions montrant les 3 fichiers générés.
-:::
-
-::: tip Document de restitution — Question 2
-Complétez la **Question 2** dans votre document.
 :::
 
 ---
@@ -251,7 +245,7 @@ Testez ce code :
 ```csharp
 Console.Write("Je m'appelle ");
 Console.Write("Thomas");
-Console.WriteLine(" et je suis en BTS SIO SLAM.");
+Console.WriteLine(" et je suis en BTS SIO.");
 Console.WriteLine("Bonne journée !");
 ```
 
@@ -322,7 +316,7 @@ Complétez la **Question 6** dans votre document.
 Créez un programme qui affiche une **carte de visite** dans la console en utilisant `Console.WriteLine` et `Console.Write`. Elle doit contenir :
 
 - Votre nom et prénom
-- Votre classe : BTS SIO SLAM 1
+- Votre classe : BTS SIO 1
 - L'établissement : Lycée Camille Sée — Colmar
 - L'année scolaire : 2026-2027
 
@@ -333,7 +327,7 @@ Voici un exemple de mise en forme à reproduire (adaptez avec vos informations) 
 ║         CARTE DE VISITE          ║
 ╠══════════════════════════════════╣
 ║  Nom    : MARTIN Lucie           ║
-║  Classe : BTS SIO SLAM 1         ║
+║  Classe : BTS SIO 1              ║
 ║  École  : Lycée Camille Sée      ║
 ║           Colmar                 ║
 ║  Année  : 2026-2027              ║
