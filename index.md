@@ -17,12 +17,21 @@ hero:
       alt: BTS SIO
 
 features:
-  - title: 💻 Travaux Pratiques
-    link: /presentation/tp
-    details: Liste des travaux pratiques à réaliser
-  - title: 🧠 Les mémos
+  - title: 🖥️ Programmation C#
+    link: /tp/csharp/1-prise-en-main
+    details: Initiation au développement — Visual Studio, premiers programmes en C#
+  - title: 🌐 Développement web
+    link: /presentation/dev-web
+    details: PHP, tests unitaires, Git
+  - title: ⚙️ Infrastructure & Systèmes
+    link: /presentation/infra-systemes
+    details: LAMP, Docker, Active Directory, GLPI, PowerShell
+  - title: 🔒 Réseau & Sécurité
+    link: /presentation/reseau-securite
+    details: ACL, pfSense, DMZ
+  - title: 🧠 Mémos
     link: /presentation/memo
-    details: Aides mémoires pour les cours et les TP
+    details: Aides-mémoires pour les cours et les TP
   
 ---
 
