@@ -13,7 +13,7 @@ Bienvenue en BTS SIO ! Ce premier TP est votre point de départ dans le dévelop
 :::
 
 ::: warning Modalités
-Ce TP se déroule **individuellement**. Vous devez remplir le **document de restitution** au fur et à mesure de la séance — des questions vous sont posées à chaque étape clé. Ce document est à déposer sur Moodle **avant la fin du TP**.
+Ce TP se déroule **individuellement**. Vous devez remplir le **document de restitution** au fur et à mesure de la séance — des questions vous sont posées à chaque étape clé. Ce document est à déposer sur Moodle **avant la fin du TP**, au format **PDF**.
 
 📥 <a href="/tp1-csharp-restitution.docx" download style="font-weight:600">Télécharger le document de restitution</a>
 
@@ -89,8 +89,8 @@ MonPremierProgramme/
 L'Explorateur de solutions montrant les fichiers générés.
 :::
 
-::: tip Document de restitution — Question 2
-Complétez la **Question 2** dans votre document.
+::: tip Document de restitution — Question 1
+Complétez la **Question 1** dans votre document.
 :::
 
 ---
@@ -157,8 +157,8 @@ Allez dans **Affichage → Sortie** (ou `Ctrl + Alt + O`).
 Vue d'ensemble de l'interface Visual Studio avec votre projet ouvert — repérez les 5 zones sur votre capture.
 :::
 
-::: tip Document de restitution — Question 1
-Complétez la **Question 1** dans votre document.
+::: tip Document de restitution — Question 2
+Complétez la **Question 2** dans votre document.
 :::
 
 ---
@@ -365,7 +365,9 @@ La table de calculs affichée dans la console avec les résultats calculés par 
 
 ### Exercice 3 — Changer de nombre
 
-Modifiez votre table de calculs pour qu'elle fonctionne avec les nombres **17** et **5**, puis avec **100** et **7**. Vous ne devez changer **que deux chiffres** dans votre code pour que tout s'adapte.
+Modifiez votre table de calculs pour qu'elle affiche les opérations avec **17** et **5** à la place de **8** et **3**. Combien de modifications avez-vous dû faire dans le code ?
+
+Recommencez ensuite avec **100** et **7**.
 
 ::: tip Document de restitution — Question 7
 Complétez la **Question 7** dans votre document.
@@ -384,5 +386,5 @@ Complétez la **Question 8** dans votre document pour conclure ce TP.
 ## Rendu
 
 ::: danger Rendu sur Moodle
-Déposez votre **document de restitution complété** (`.docx` ou PDF) sur Moodle avant la fin de la séance. Il doit contenir les réponses aux 8 questions et les 7 captures d'écran demandées.
+Déposez votre **document de restitution complété au format PDF** sur Moodle avant la fin de la séance. Il doit contenir les réponses aux 8 questions et les 7 captures d'écran demandées.
 :::
