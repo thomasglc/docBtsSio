@@ -176,6 +176,7 @@ export default withMermaid ({
             text: 'Mémos',
             collapsed: true,
             items: [
+              { text: 'Erreur SDK .NET', link: '/memo/csharp-sdk-erreur.md' },
               { text: 'HTML', link: '/memo/html.md' },
               { text: 'CSS', link: '/memo/css.md' },
               { text: 'JS', link: '/memo/js.md' },
