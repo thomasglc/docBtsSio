@@ -86,6 +86,7 @@ export default withMermaid ({
                 collapsed: true,
                 items: [
                   { text: '1 - Observer le trafic HTTP', link: '/tp/cybersecurite/1-http-devtools.md' },
+                  { text: '2 - Sécuriser les mots de passe', link: '/tp/cybersecurite/2-mots-de-passe.md' },
                 ]
               },
               {
