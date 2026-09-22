@@ -50,6 +50,7 @@ Les travaux pratiques de cette section couvrent les technologies du développeme
     </div>
     <ul>
       <li><a href="/tp/cybersecurite/1-http-devtools">1 — Observer le trafic HTTP</a></li>
+      <li><a href="/tp/cybersecurite/2-mots-de-passe">2 — Sécuriser les mots de passe</a></li>
     </ul>
   </div>
 
