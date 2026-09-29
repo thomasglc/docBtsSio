@@ -46,10 +46,10 @@ export default withMermaid ({
             text: 'Programmation C#',
             collapsed: true,
             items: [
-              { text: 'TP 1 — Prise en main', link: '/tp/csharp/1-prise-en-main.md' },
-              { text: 'TP 2 — Anatomie d\'un programme', link: '/tp/csharp/2-anatomie.md' },
-              { text: 'TP 3 — Variables et types', link: '/tp/csharp/3-variables-types.md' },
-              { text: 'TP 4 — Les conditions', link: '/tp/csharp/4-conditions.md' },
+              { text: 'TP 1 - Prise en main', link: '/tp/csharp/1-prise-en-main.md' },
+              { text: 'TP 2 - Anatomie d\'un programme', link: '/tp/csharp/2-anatomie.md' },
+              { text: 'TP 3 - Variables et types', link: '/tp/csharp/3-variables-types.md' },
+              { text: 'TP 4 - Les conditions', link: '/tp/csharp/4-conditions.md' },
             ]
           },
         ]

@@ -1,13 +1,13 @@
----
+﻿---
 outline: deep
 ---
 
-# TP 3 — Variables et types
+# TP 3 - Variables et types
 
-<Badge type="info" text="BTS SIO 1ère année" />  <Badge type="warning" text="Bloc 1 — Initiation C#" />  <Badge type="danger" text="Visual Studio 2022 · C#" />
+<Badge type="info" text="BTS SIO 1ère année" />  <Badge type="warning" text="Bloc 1 - Initiation C#" />  <Badge type="danger" text="Visual Studio 2022 · C#" />
 
 ::: info Contexte
-Dans le TP 2, vous avez découvert les variables `string` et appris à lire des saisies clavier. Mais que se passe-t-il quand on veut faire des **calculs** ? Une chaîne de caractères ne se multiplie pas ! Ce TP vous présente les types numériques de C# — `int` et `double` — et vous apprend à convertir les saisies utilisateur pour effectuer de vraies opérations mathématiques.
+Dans le TP 2, vous avez découvert les variables `string` et appris à lire des saisies clavier. Mais que se passe-t-il quand on veut faire des **calculs** ? Une chaîne de caractères ne se multiplie pas ! Ce TP vous présente les types numériques de C# - `int` et `double` - et vous apprend à convertir les saisies utilisateur pour effectuer de vraies opérations mathématiques.
 :::
 
 ::: warning Modalités
@@ -24,17 +24,17 @@ Les captures d'écran demandées 📸 sont à coller directement dans ce documen
 
 | Concept | Ce que c'est |
 |---|---|
-| **int** | Entier : `int age = 20;` — nombres sans décimales |
-| **double** | Décimal : `double taille = 1.75;` — nombres avec virgule |
+| **int** | Entier : `int age = 20;` - nombres sans décimales |
+| **double** | Décimal : `double taille = 1.75;` - nombres avec virgule |
 | **Convert.ToInt32()** | Transformer la chaîne `"42"` en entier `42` |
 | **Convert.ToDouble()** | Transformer la chaîne `"3,14"` en décimal `3.14` |
 | **FormatException** | L'erreur qui survient quand la conversion échoue |
 
 ---
 
-## Mission 1 — Les types numériques
+## Mission 1 - Les types numériques
 
-### Tâche 1.1 — Créer un nouveau projet
+### Tâche 1.1 - Créer un nouveau projet
 
 Créez un nouveau projet dans Visual Studio :
 
@@ -45,7 +45,7 @@ Créez un nouveau projet dans Visual Studio :
 | Emplacement | Le dossier à votre nom sur le disque D |
 | Framework | .NET 8.0 |
 
-### Tâche 1.2 — Le type int
+### Tâche 1.2 - Le type int
 
 **`int`** (abréviation de *integer*, entier en anglais) stocke des **nombres entiers**, c'est-à-dire sans décimales :
 
@@ -73,10 +73,10 @@ Console.WriteLine(a % b);   // 1  ← reste de la division (modulo)
 ```
 
 ::: warning La division entière
-Avec `int`, `10 / 3` donne `3` — **pas** `3,33`. C# conserve uniquement la partie entière. C'est une source fréquente d'erreurs : si vous attendez un résultat décimal, il faut utiliser `double`.
+Avec `int`, `10 / 3` donne `3` - **pas** `3,33`. C# conserve uniquement la partie entière. C'est une source fréquente d'erreurs : si vous attendez un résultat décimal, il faut utiliser `double`.
 :::
 
-### Tâche 1.3 — Le type double
+### Tâche 1.3 - Le type double
 
 **`double`** stocke des **nombres à virgule** :
 
@@ -110,19 +110,19 @@ Console.WriteLine(da / db);   // 3,3333... ← division décimale
 La console affichant les résultats des deux types de division (entière et décimale).
 :::
 
-::: tip Document de restitution — Question 1
+::: tip Document de restitution - Question 1
 Complétez la **Question 1** dans votre document.
 :::
 
 ---
 
-## Mission 2 — Convertir une saisie en nombre
+## Mission 2 - Convertir une saisie en nombre
 
-### Tâche 2.1 — Le problème avec Console.ReadLine()
+### Tâche 2.1 - Le problème avec Console.ReadLine()
 
-`Console.ReadLine()` renvoie **toujours un `string`**. Si l'utilisateur tape `25`, le programme reçoit la chaîne de caractères `"25"` — pas le nombre `25`. Et vous ne pouvez pas faire de calcul avec une chaîne !
+`Console.ReadLine()` renvoie **toujours un `string`**. Si l'utilisateur tape `25`, le programme reçoit la chaîne de caractères `"25"` - pas le nombre `25`. Et vous ne pouvez pas faire de calcul avec une chaîne !
 
-Essayez ce code — Visual Studio refusera de compiler :
+Essayez ce code - Visual Studio refusera de compiler :
 
 ```csharp
 Console.Write("Entrez un nombre : ");
@@ -132,9 +132,9 @@ int resultat = saisie * 2;  // ❌ Erreur de compilation !
 Console.WriteLine(resultat);
 ```
 
-Visual Studio souligne `saisie * 2` en rouge. Il ne sait pas multiplier du texte par un nombre — ce n'est pas logique pour le compilateur.
+Visual Studio souligne `saisie * 2` en rouge. Il ne sait pas multiplier du texte par un nombre - ce n'est pas logique pour le compilateur.
 
-### Tâche 2.2 — La solution : la classe Convert
+### Tâche 2.2 - La solution : la classe Convert
 
 La classe `Convert` fournie par .NET permet de transformer un type en un autre :
 
@@ -163,7 +163,7 @@ int nombre = Convert.ToInt32(Console.ReadLine());
 La saisie est convertie directement, sans variable intermédiaire. C'est la forme la plus utilisée en pratique.
 :::
 
-Remplacez maintenant le contenu de `Program.cs` par un programme plus utile — calculer l'âge approximatif d'une personne :
+Remplacez maintenant le contenu de `Program.cs` par un programme plus utile - calculer l'âge approximatif d'une personne :
 
 ```csharp
 Console.Write("Entrez votre année de naissance : ");
@@ -179,17 +179,17 @@ Exécutez, entrez votre année de naissance, observez le résultat.
 La console affichant votre âge calculé à partir de l'année de naissance saisie.
 :::
 
-::: tip Document de restitution — Question 2
+::: tip Document de restitution - Question 2
 Complétez la **Question 2** dans votre document.
 :::
 
 ---
 
-## Mission 3 — Quand la conversion échoue
+## Mission 3 - Quand la conversion échoue
 
-### Tâche 3.1 — Provoquer volontairement une erreur
+### Tâche 3.1 - Provoquer volontairement une erreur
 
-Relancez le programme de calcul d'âge. Cette fois, au lieu d'une année, tapez **des lettres** — par exemple `bonjour` — et appuyez sur Entrée.
+Relancez le programme de calcul d'âge. Cette fois, au lieu d'une année, tapez **des lettres** - par exemple `bonjour` - et appuyez sur Entrée.
 
 Le programme s'arrête brutalement avec un message d'erreur :
 
@@ -204,9 +204,9 @@ Unhandled exception. System.FormatException: Input string was not in a correct f
 Le message d'erreur `FormatException` affiché dans la console après avoir saisi du texte à la place d'un nombre.
 :::
 
-### Tâche 3.2 — Comprendre l'erreur
+### Tâche 3.2 - Comprendre l'erreur
 
-Ce type d'erreur s'appelle une **exception** — une erreur qui survient pendant l'**exécution** du programme (et non à la compilation, comme dans la tâche 2.1).
+Ce type d'erreur s'appelle une **exception** - une erreur qui survient pendant l'**exécution** du programme (et non à la compilation, comme dans la tâche 2.1).
 
 | Élément | Signification |
 |---|---|
@@ -218,17 +218,17 @@ Ce type d'erreur s'appelle une **exception** — une erreur qui survient pendant
 Dans les programmes professionnels, on protège les conversions avec un bloc `try / catch` pour éviter que le programme plante. Vous apprendrez cette technique dans les prochains mois. Pour l'instant, **on suppose que l'utilisateur saisit toujours des données valides**.
 :::
 
-::: tip Document de restitution — Question 3
+::: tip Document de restitution - Question 3
 Complétez la **Question 3** dans votre document.
 :::
 
 ---
 
-## Mission 4 — Calculs avec des variables
+## Mission 4 - Calculs avec des variables
 
-### Tâche 4.1 — Calculer une surface
+### Tâche 4.1 - Calculer une surface
 
-Construisez un programme qui calcule la **surface d'une pièce** rectangulaire. Ici on va utiliser `int` pour simplifier — les dimensions sont des nombres entiers de mètres :
+Construisez un programme qui calcule la **surface d'une pièce** rectangulaire. Ici on va utiliser `int` pour simplifier - les dimensions sont des nombres entiers de mètres :
 
 ```csharp
 Console.WriteLine("=== Calculateur de surface ===");
@@ -247,12 +247,12 @@ Console.WriteLine($"Surface de la pièce : {surface} m²");
 ```
 
 ::: info Console.WriteLine() sans argument
-`Console.WriteLine()` sans texte affiche une **ligne vide** — utile pour aérer l'affichage dans la console.
+`Console.WriteLine()` sans texte affiche une **ligne vide** - utile pour aérer l'affichage dans la console.
 :::
 
 Testez avec la largeur `5` et la longueur `4` : vous devriez obtenir `20 m²`.
 
-### Tâche 4.2 — Calculer avec double
+### Tâche 4.2 - Calculer avec double
 
 Certains calculs donnent des résultats décimaux. Voici un convertisseur de température qui nécessite `double` :
 
@@ -272,22 +272,22 @@ Console.WriteLine($"{celsius}°C = {fahrenheit}°F");
 Vérifiez avec des valeurs connues : `0°C = 32°F`, `100°C = 212°F`.
 
 ::: info Mélanger int et double
-Quand C# calcule `celsius * 1.8`, il convertit automatiquement `celsius` (int) en double pour effectuer la multiplication. Le résultat est un `double`. Stocker ce résultat dans une variable `int` provoquerait une erreur — il faut bien déclarer `fahrenheit` en `double`.
+Quand C# calcule `celsius * 1.8`, il convertit automatiquement `celsius` (int) en double pour effectuer la multiplication. Le résultat est un `double`. Stocker ce résultat dans une variable `int` provoquerait une erreur - il faut bien déclarer `fahrenheit` en `double`.
 :::
 
 ::: tip 📸 Capture 4
-La console affichant le résultat du calculateur de surface **ou** du convertisseur de température — votre choix.
+La console affichant le résultat du calculateur de surface **ou** du convertisseur de température - votre choix.
 :::
 
-::: tip Document de restitution — Question 4
+::: tip Document de restitution - Question 4
 Complétez la **Question 4** dans votre document.
 :::
 
 ---
 
-## Mission 5 — Exercices de consolidation
+## Mission 5 - Exercices de consolidation
 
-### Exercice 1 — Mini-calculatrice
+### Exercice 1 - Mini-calculatrice
 
 Créez un programme qui :
 1. Demande deux **nombres entiers** à l'utilisateur
@@ -311,7 +311,7 @@ Deuxième nombre : 4
 Votre mini-calculatrice en fonctionnement avec les nombres de votre choix.
 :::
 
-### Exercice 2 — Convertisseur km/miles
+### Exercice 2 - Convertisseur km/miles
 
 La formule de conversion est : `1 kilomètre = 0,621371 miles`
 
@@ -330,7 +330,7 @@ Distance en miles : 26,097582
 Votre convertisseur km/miles en fonctionnement.
 :::
 
-### Exercice 3 — Calculateur d'IMC
+### Exercice 3 - Calculateur d'IMC
 
 L'**Indice de Masse Corporelle** se calcule avec la formule suivante :
 
@@ -359,11 +359,11 @@ Vous allez devoir diviser la taille en cm par 100 pour obtenir la taille en mèt
 Votre calculateur d'IMC avec vos propres valeurs.
 :::
 
-### Exercice 4 — Moyenne pondérée
+### Exercice 4 - Moyenne pondérée
 
 En BTS, les notes sont souvent affectées d'un **coefficient**. Créez un programme qui calcule la moyenne pondérée entre une note de TP et une note d'examen.
 
-Exemple de résultat attendu (TP : 16/20 coef 1 — Examen : 13/20 coef 2) :
+Exemple de résultat attendu (TP : 16/20 coef 1 - Examen : 13/20 coef 2) :
 
 ```
 === Calculateur de moyenne pondérée ===
@@ -377,7 +377,7 @@ Moyenne pondérée : 14/20
 ::: tip Aide au calcul
 La formule est : `(noteTP × coefTP + noteExamen × coefExamen) ÷ (coefTP + coefExamen)`
 
-Pour obtenir un résultat décimal, déclarez le résultat en `double` — C# se chargera de la conversion automatiquement.
+Pour obtenir un résultat décimal, déclarez le résultat en `double` - C# se chargera de la conversion automatiquement.
 :::
 
 ::: tip 📸 Capture 8

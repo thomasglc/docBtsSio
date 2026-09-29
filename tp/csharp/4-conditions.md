@@ -1,10 +1,10 @@
----
+﻿---
 outline: deep
 ---
 
-# TP 4 — Les conditions
+# TP 4 - Les conditions
 
-<Badge type="info" text="BTS SIO 1ère année" />  <Badge type="warning" text="Bloc 1 — Initiation C#" />  <Badge type="danger" text="Visual Studio 2022 · C#" />
+<Badge type="info" text="BTS SIO 1ère année" />  <Badge type="warning" text="Bloc 1 - Initiation C#" />  <Badge type="danger" text="Visual Studio 2022 · C#" />
 
 ::: info Contexte
 Jusqu'à présent, vos programmes s'exécutaient toujours de la même façon, ligne par ligne. Les **structures conditionnelles** permettent d'exécuter un bloc de code **seulement si une condition est vraie**. C'est ce mécanisme qui donne de l'intelligence à un programme.
@@ -29,9 +29,9 @@ Ce TP se déroule **individuellement**. Vous devez remplir le **document de rest
 
 ---
 
-## Mission 1 — Syntaxe et premiers tests
+## Mission 1 - Syntaxe et premiers tests
 
-### Tâche 1.1 — Créer un nouveau projet
+### Tâche 1.1 - Créer un nouveau projet
 
 Créez un nouveau projet dans Visual Studio :
 
@@ -43,7 +43,7 @@ Créez un nouveau projet dans Visual Studio :
 | Framework | .NET 8.0 |
 | Case | ✅ N'utilisez pas d'instructions de niveau supérieur |
 
-### Tâche 1.2 — Structure d'un if / else
+### Tâche 1.2 - Structure d'un if / else
 
 ```csharp
 if (condition)
@@ -73,7 +73,7 @@ Les **opérateurs de comparaison** disponibles :
 Écrire `if (x = 5)` est une erreur classique que le compilateur C# refuse dès la compilation.
 :::
 
-### Tâche 1.3 — Premier test : pair ou impair
+### Tâche 1.3 - Premier test : pair ou impair
 
 Testez ce programme pour comprendre le fonctionnement avant de passer aux exercices :
 
@@ -95,11 +95,11 @@ L'opérateur `%` (modulo) donne le **reste de la division entière**. Si `nombre
 
 Testez avec plusieurs valeurs : `4`, `7`, `0`, `-3`.
 
-::: tip Document de restitution — Question 1
+::: tip Document de restitution - Question 1
 Complétez la **Question 1** dans votre document.
 :::
 
-### Tâche 1.4 — Enchaîner les alternatives : else if
+### Tâche 1.4 - Enchaîner les alternatives : else if
 
 Quand il y a plus de deux cas, on utilise `else if` :
 
@@ -123,11 +123,11 @@ else
 
 C# évalue les conditions **de haut en bas** et s'arrête dès que la première condition vraie est rencontrée.
 
-::: tip Document de restitution — Question 2
+::: tip Document de restitution - Question 2
 Complétez la **Question 2** dans votre document.
 :::
 
-### Tâche 1.5 — Combiner des conditions : opérateurs logiques
+### Tâche 1.5 - Combiner des conditions : opérateurs logiques
 
 | Opérateur | Signification | Exemple |
 |---|---|---|
@@ -149,13 +149,13 @@ else
 }
 ```
 
-::: tip Document de restitution — Question 3
+::: tip Document de restitution - Question 3
 Complétez la **Question 3** dans votre document.
 :::
 
 ---
 
-## Mission 2 — Exercices
+## Mission 2 - Exercices
 
 À partir d'ici, vous travaillez en autonomie. Chaque exercice indique ce que le programme doit faire et un exemple de résultat attendu.
 
@@ -164,7 +164,7 @@ Complétez la **Question 3** dans votre document.
 - Testez toujours avec plusieurs valeurs, notamment les **cas limites** (0, valeurs négatives, valeurs exactement sur les bornes...).
 :::
 
-### Exercice 1 — Signe d'un nombre
+### Exercice 1 - Signe d'un nombre
 
 Écrivez un programme qui demande un nombre entier et affiche s'il est positif, négatif ou nul.
 
@@ -173,7 +173,7 @@ Entrez un nombre : -7
 -7 est négatif.
 ```
 
-### Exercice 2 — Dans un intervalle
+### Exercice 2 - Dans un intervalle
 
 Écrivez un programme qui demande un nombre entier et indique s'il se trouve dans l'intervalle **[1 ; 100]** (bornes incluses).
 
@@ -187,7 +187,7 @@ Entrez un nombre : 150
 150 est hors de l'intervalle [1 ; 100].
 ```
 
-### Exercice 3 — Validation d'âge
+### Exercice 3 - Validation d'âge
 
 Écrivez un programme qui demande un âge et affiche un message selon la catégorie :
 
@@ -202,7 +202,7 @@ Entrez un nombre : 150
 Réfléchissez à l'ordre dans lequel vous placez vos `if / else if`. Quand une condition est atteinte, les suivantes sont ignorées, ce qui peut simplifier vos expressions.
 :::
 
-### Exercice 4 — Validation d'une note
+### Exercice 4 - Validation d'une note
 
 Écrivez un programme qui demande une note entière et affiche la **mention** correspondante :
 
@@ -220,11 +220,11 @@ Entrez votre note : 14
 Mention : Bien
 ```
 
-::: tip Document de restitution — Question 4
+::: tip Document de restitution - Question 4
 Complétez la **Question 4** dans votre document.
 :::
 
-### Exercice 5 — Année bissextile
+### Exercice 5 - Année bissextile
 
 Une année est **bissextile** si elle est divisible par 4 et pas par 100, **ou** si elle est divisible par 400.
 
@@ -244,7 +244,7 @@ Entrez une année : 1900
 La règle comporte deux cas reliés par `||`. Chaque cas peut lui-même nécessiter `&&`. Écrivez la condition en suivant directement la règle mathématique.
 :::
 
-### Exercice 6 — Mini-simulateur de caisse
+### Exercice 6 - Mini-simulateur de caisse
 
 Écrivez un programme qui :
 1. Demande le montant d'un achat (décimal)
