@@ -224,7 +224,7 @@ Mention : Bien
 Complétez la **Question 4** dans votre document.
 :::
 
-### Exercice 5 - Année bissextile
+### Bonus - Exercice 5 - Année bissextile
 
 Une année est **bissextile** si elle est divisible par 4 et pas par 100, **ou** si elle est divisible par 400.
 
@@ -244,7 +244,7 @@ Entrez une année : 1900
 La règle comporte deux cas reliés par `||`. Chaque cas peut lui-même nécessiter `&&`. Écrivez la condition en suivant directement la règle mathématique.
 :::
 
-### Exercice 6 - Mini-simulateur de caisse
+### Bonus - Exercice 6 - Mini-simulateur de caisse
 
 Écrivez un programme qui :
 1. Demande le montant d'un achat (décimal)

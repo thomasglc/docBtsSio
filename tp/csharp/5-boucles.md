@@ -229,7 +229,7 @@ Hauteur : 5
 Pour afficher plusieurs étoiles sur une même ligne sans retour à la ligne, utilisez `Console.Write("*")` à l'intérieur d'une première boucle, puis `Console.WriteLine()` pour passer à la ligne suivante.
 :::
 
-### Exercice 5 - Calculateur de moyenne
+### Bonus - Exercice 5 - Calculateur de moyenne
 
 Écrivez un programme qui demande des notes à l'utilisateur une par une, jusqu'à ce qu'il saisisse `-1` pour terminer. Le programme affiche ensuite la moyenne.
 
@@ -248,7 +248,7 @@ Moyenne : 12,75
 Le `-1` est ce qu'on appelle une **valeur sentinelle** : une valeur spéciale qui signale la fin de la saisie. Ce pattern est très courant. La boucle doit continuer `while (note != -1)` - mais attention, vous devez lire la première note *avant* d'entrer dans la boucle.
 :::
 
-### Exercice 6 - Le juste prix
+### Bonus - Exercice 6 - Le juste prix
 
 Écrivez un programme qui tire un nombre secret au hasard entre 1 et 100, puis invite l'utilisateur à le deviner. Après chaque tentative, le programme indique si le nombre à trouver est plus grand ou plus petit. La boucle s'arrête quand le joueur trouve la bonne réponse.
 
