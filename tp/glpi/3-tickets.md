@@ -1,17 +1,17 @@
----
+﻿---
 outline: deep
 ---
 
-# TP 3 — Gestion des tickets d'assistance avec GLPI
+# TP 3 - Gestion des tickets d'assistance avec GLPI
 
-<Badge type="info" text="BTS SIO SISR 1ère année" />  <Badge type="warning" text="Bloc 2 — Administration système" />  <Badge type="danger" text="GLPI + Helpdesk + ITIL" />
+<Badge type="info" text="BTS SIO SISR 1ère année" />  <Badge type="warning" text="Bloc 2 - Administration système" />  <Badge type="danger" text="GLPI + Helpdesk + ITIL" />
 
 ::: info Contexte
 La société **TechServices** dispose désormais d'un GLPI opérationnel avec un parc informatique alimenté. Votre responsable souhaite maintenant **ouvrir le helpdesk** : les employés pourront soumettre leurs demandes d'assistance directement dans GLPI, et les techniciens les traiteront depuis l'interface. Votre mission est de configurer ce système et d'en simuler l'utilisation de bout en bout.
 :::
 
 ::: warning Modalités
-Vous avez besoin de votre VM-Serveur GLPI issue du TP 1. Aucune VM supplémentaire n'est nécessaire — vous allez simuler plusieurs rôles en changeant de compte dans le navigateur (ou en utilisant une navigation privée pour un deuxième compte simultané).
+Vous avez besoin de votre VM-Serveur GLPI issue du TP 1. Aucune VM supplémentaire n'est nécessaire - vous allez simuler plusieurs rôles en changeant de compte dans le navigateur (ou en utilisant une navigation privée pour un deuxième compte simultané).
 
 Vous devrez constituer un **rapport-annexe** contenant les captures d'écran demandées à chaque étape. Les captures sont indiquées par 📸.
 :::
@@ -34,11 +34,11 @@ Le module **Assistance** de GLPI est un système de ticketing conforme aux bonne
 
 ---
 
-## Mission 1 — Créer les utilisateurs du helpdesk
+## Mission 1 - Créer les utilisateurs du helpdesk
 
-Pour simuler un vrai helpdesk, vous allez créer deux comptes : un **utilisateur lambda** (qui soumet les tickets) et un **technicien** (qui les traite). GLPI gère les droits via des **profils** — un profil définit ce que chaque type de compte peut voir et faire.
+Pour simuler un vrai helpdesk, vous allez créer deux comptes : un **utilisateur lambda** (qui soumet les tickets) et un **technicien** (qui les traite). GLPI gère les droits via des **profils** - un profil définit ce que chaque type de compte peut voir et faire.
 
-### Tâche 1.1 — Explorer les profils existants
+### Tâche 1.1 - Explorer les profils existants
 
 Connectez-vous à GLPI avec le compte administrateur (**glpi**), puis naviguez dans **Administration → Profils**.
 
@@ -56,10 +56,10 @@ Observez les profils disponibles et notez leur rôle :
 Cliquez sur le profil **Self-Service** pour consulter les droits associés. Ce profil correspond à ce que voient les employés non-techniciens.
 
 ::: tip 📸 Capture 1
-Page **Administration → Profils** — liste des profils. Le profil **Self-Service** est ouvert et ses droits sont visibles.
+Page **Administration → Profils** - liste des profils. Le profil **Self-Service** est ouvert et ses droits sont visibles.
 :::
 
-### Tâche 1.2 — Créer un utilisateur standard
+### Tâche 1.2 - Créer un utilisateur standard
 
 Naviguez dans **Administration → Utilisateurs**, puis cliquez sur **+ Ajouter**.
 
@@ -77,14 +77,14 @@ Renseignez les champs suivants :
 Cliquez sur **Ajouter**.
 
 ::: info Pourquoi le profil Self-Service ?
-Ce profil donne accès à un portail simplifié où l'utilisateur ne voit que ses propres tickets. Il ne peut pas parcourir le parc ou modifier la configuration — exactement ce qu'il faut pour un employé ordinaire.
+Ce profil donne accès à un portail simplifié où l'utilisateur ne voit que ses propres tickets. Il ne peut pas parcourir le parc ou modifier la configuration - exactement ce qu'il faut pour un employé ordinaire.
 :::
 
 ::: tip 📸 Capture 2
-Formulaire de création de l'utilisateur `m.dupont` — champs remplis avant validation.
+Formulaire de création de l'utilisateur `m.dupont` - champs remplis avant validation.
 :::
 
-### Tâche 1.3 — Créer un utilisateur technicien
+### Tâche 1.3 - Créer un utilisateur technicien
 
 Toujours dans **Administration → Utilisateurs**, créez un second compte :
 
@@ -100,22 +100,22 @@ Toujours dans **Administration → Utilisateurs**, créez un second compte :
 Cliquez sur **Ajouter**.
 
 ::: tip 📸 Capture 3
-Formulaire de création de l'utilisateur `j.martin` — profil **Technician** sélectionné.
+Formulaire de création de l'utilisateur `j.martin` - profil **Technician** sélectionné.
 :::
 
 ---
 
-## Mission 2 — Configurer les catégories de tickets
+## Mission 2 - Configurer les catégories de tickets
 
 Les **catégories** permettent de classer les tickets par nature (matériel, réseau, logiciel…). Elles facilitent le routage des demandes vers le bon technicien et la production de statistiques par domaine.
 
-### Tâche 2.1 — Accéder aux catégories ITIL
+### Tâche 2.1 - Accéder aux catégories ITIL
 
 Naviguez dans **Configuration → Intitulés** (accessible via l'icône de roue dentée en haut à droite).
 
 Dans la liste des intitulés, repérez la section **Assistance** et cliquez sur **Catégories ITIL**.
 
-### Tâche 2.2 — Créer les catégories
+### Tâche 2.2 - Créer les catégories
 
 Créez les quatre catégories suivantes en cliquant sur **+ Ajouter** pour chacune :
 
@@ -136,11 +136,11 @@ Page **Catégories ITIL** listant les quatre catégories créées.
 
 ---
 
-## Mission 3 — Créer des tickets (côté utilisateur)
+## Mission 3 - Créer des tickets (côté utilisateur)
 
 Vous allez maintenant jouer le rôle de **Marie Dupont**, une employée de TechServices qui rencontre deux problèmes. Ouvrez une fenêtre de navigation privée pour vous connecter simultanément avec son compte sans déconnecter l'administrateur.
 
-### Tâche 3.1 — Se connecter avec le compte utilisateur
+### Tâche 3.1 - Se connecter avec le compte utilisateur
 
 Ouvrez une **fenêtre de navigation privée** (Ctrl+Maj+N) et accédez à l'URL de votre GLPI.
 
@@ -148,13 +148,13 @@ Connectez-vous avec :
 - Identifiant : `m.dupont`
 - Mot de passe : `Password1!`
 
-Vous arrivez sur le **portail Self-Service** — une vue épurée, très différente de l'interface administrateur. Marie ne voit que les éléments qui la concernent.
+Vous arrivez sur le **portail Self-Service** - une vue épurée, très différente de l'interface administrateur. Marie ne voit que les éléments qui la concernent.
 
 ::: tip 📸 Capture 5
-Portail Self-Service de `m.dupont` après connexion — interface simplifiée visible.
+Portail Self-Service de `m.dupont` après connexion - interface simplifiée visible.
 :::
 
-### Tâche 3.2 — Créer un ticket incident
+### Tâche 3.2 - Créer un ticket incident
 
 Cliquez sur **Créer un ticket**.
 
@@ -175,10 +175,10 @@ Vous sélectionnez **Incident** car il s'agit d'une interruption de service non 
 :::
 
 ::: tip 📸 Capture 6
-Récapitulatif du ticket incident créé depuis le portail de `m.dupont` — numéro de ticket visible.
+Récapitulatif du ticket incident créé depuis le portail de `m.dupont` - numéro de ticket visible.
 :::
 
-### Tâche 3.3 — Créer une demande de service
+### Tâche 3.3 - Créer une demande de service
 
 Revenez sur le portail et cliquez à nouveau sur **Créer un ticket**.
 
@@ -198,21 +198,21 @@ Portail de `m.dupont` affichant ses **deux tickets** créés (l'incident et la d
 
 ---
 
-## Mission 4 — Traiter les tickets (côté technicien)
+## Mission 4 - Traiter les tickets (côté technicien)
 
 Repassez sur votre navigateur principal (administrateur) et **déconnectez-vous** du compte admin. Connectez-vous maintenant avec le compte technicien **j.martin**.
 
-### Tâche 4.1 — Consulter la file des tickets
+### Tâche 4.1 - Consulter la file des tickets
 
 Après connexion, naviguez dans **Assistance → Tickets**.
 
 Jean Martin voit tous les tickets ouverts assignés à son groupe ou non attribués. Repérez les deux tickets créés par Marie Dupont.
 
 ::: tip 📸 Capture 8
-Liste des tickets dans l'interface du technicien `j.martin` — les deux tickets de `m.dupont` sont visibles avec leur statut **Nouveau**.
+Liste des tickets dans l'interface du technicien `j.martin` - les deux tickets de `m.dupont` sont visibles avec leur statut **Nouveau**.
 :::
 
-### Tâche 4.2 — S'attribuer le ticket incident
+### Tâche 4.2 - S'attribuer le ticket incident
 
 Ouvrez le ticket **"Mon PC ne démarre plus depuis ce matin"**.
 
@@ -221,10 +221,10 @@ Dans la section **Techniciens**, cliquez sur **Attribuer à moi-même**.
 Observez que le statut du ticket passe automatiquement de **Nouveau** à **En cours (attribué)**.
 
 ::: tip 📸 Capture 9
-Fiche du ticket incident — statut **En cours (attribué)** et technicien `j.martin` affiché dans la section assignation.
+Fiche du ticket incident - statut **En cours (attribué)** et technicien `j.martin` affiché dans la section assignation.
 :::
 
-### Tâche 4.3 — Ajouter un suivi
+### Tâche 4.3 - Ajouter un suivi
 
 Un **suivi** est un commentaire visible par toutes les parties (technicien et utilisateur). Il sert à communiquer sur l'avancement du ticket.
 
@@ -235,10 +235,10 @@ Dans la fiche du ticket, cliquez sur **Répondre**, puis saisissez :
 Cochez **Notifier par e-mail** si l'option est disponible, puis cliquez sur **Ajouter**.
 
 ::: tip 📸 Capture 10
-Suivi ajouté au ticket — le message du technicien apparaît dans le fil de discussion du ticket.
+Suivi ajouté au ticket - le message du technicien apparaît dans le fil de discussion du ticket.
 :::
 
-### Tâche 4.4 — Ajouter une tâche
+### Tâche 4.4 - Ajouter une tâche
 
 Une **tâche** représente une action concrète à réaliser, avec une durée estimée. Elle sert à planifier et tracer le temps de travail.
 
@@ -254,10 +254,10 @@ Dans la fiche du ticket, cliquez sur le bouton **Tâche** en bas de page (à cô
 Cliquez sur **Ajouter**.
 
 ::: tip 📸 Capture 11
-Onglet **Tâches** du ticket — la tâche de diagnostic est créée avec sa durée estimée.
+Onglet **Tâches** du ticket - la tâche de diagnostic est créée avec sa durée estimée.
 :::
 
-### Tâche 4.5 — Lier le ticket à un asset du parc
+### Tâche 4.5 - Lier le ticket à un asset du parc
 
 L'un des atouts de GLPI est de pouvoir **relier un ticket à l'équipement concerné**. Cela permet de retrouver l'historique des interventions directement depuis la fiche d'un asset.
 
@@ -266,42 +266,42 @@ Dans la fiche du ticket, repérez la section **Éléments** (ou **Matériel asso
 Recherchez et sélectionnez l'ordinateur **PC-Direction-01** (créé lors du TP 2).
 
 ::: info Pourquoi lier le ticket à l'asset ?
-En ouvrant la fiche de `PC-Direction-01` dans **Parc → Ordinateurs**, vous verrez désormais tous les tickets qui lui ont été rattachés. Un technicien qui intervient sur ce poste dans 6 mois pourra consulter l'historique complet des pannes — un gain de temps considérable.
+En ouvrant la fiche de `PC-Direction-01` dans **Parc → Ordinateurs**, vous verrez désormais tous les tickets qui lui ont été rattachés. Un technicien qui intervient sur ce poste dans 6 mois pourra consulter l'historique complet des pannes - un gain de temps considérable.
 :::
 
 ::: tip 📸 Capture 12
-Section **Éléments** du ticket — `PC-Direction-01` apparaît en tant qu'équipement associé.
+Section **Éléments** du ticket - `PC-Direction-01` apparaît en tant qu'équipement associé.
 :::
 
-### Tâche 4.6 — Vérifier l'avancement côté utilisateur
+### Tâche 4.6 - Vérifier l'avancement côté utilisateur
 
 Avant de résoudre le ticket, repassez sur la fenêtre de navigation privée (compte `m.dupont`).
 
 Marie peut suivre l'évolution de son ticket en temps réel : le statut est passé à **En cours (attribué)** et le suivi laissé par Jean Martin est visible dans le fil de discussion.
 
 ::: tip 📸 Capture 13
-Portail de `m.dupont` — ticket incident en statut **En cours (attribué)** avec le message du technicien visible dans le fil de discussion.
+Portail de `m.dupont` - ticket incident en statut **En cours (attribué)** avec le message du technicien visible dans le fil de discussion.
 :::
 
 Repassez ensuite sur le compte **j.martin** pour continuer le traitement.
 
-### Tâche 4.7 — Résoudre le ticket
+### Tâche 4.7 - Résoudre le ticket
 
 Jean a terminé son intervention. Il va maintenant renseigner la solution et passer le ticket en **Résolu**.
 
 Dans la fiche du ticket, allez dans la section **Solution** et saisissez :
 
-> Le condensateur de l'alimentation était défaillant. Remplacement de l'alimentation par une unité de rechange (réf. PSU-450W-01 issue du stock). Le poste a redémarré correctement. Test de stabilité effectué pendant 15 minutes — aucun incident. Le poste est rendu à l'utilisatrice.
+> Le condensateur de l'alimentation était défaillant. Remplacement de l'alimentation par une unité de rechange (réf. PSU-450W-01 issue du stock). Le poste a redémarré correctement. Test de stabilité effectué pendant 15 minutes - aucun incident. Le poste est rendu à l'utilisatrice.
 
 Dans le champ **Type de solution**, sélectionnez **Solution connue**.
 
-Cliquez sur **Sauvegarder** — le statut du ticket passe en **Résolu**.
+Cliquez sur **Sauvegarder** - le statut du ticket passe en **Résolu**.
 
 ::: tip 📸 Capture 14
-Fiche du ticket avec la solution renseignée — statut **Résolu** visible en haut du ticket.
+Fiche du ticket avec la solution renseignée - statut **Résolu** visible en haut du ticket.
 :::
 
-### Tâche 4.8 — Vérifier la clôture côté utilisateur
+### Tâche 4.8 - Vérifier la clôture côté utilisateur
 
 Repassez sur la fenêtre de navigation privée (compte `m.dupont`).
 
@@ -310,12 +310,12 @@ Marie voit maintenant son ticket en statut **Résolu**. En entreprise, GLPI peut
 Depuis le portail de Marie, cliquez sur le ticket résolu puis sur le bouton **Clore le ticket** (ou **Marquer comme résolu**).
 
 ::: tip 📸 Capture 15
-Portail de `m.dupont` affichant le ticket incident en statut **Clos** — cycle de vie complet.
+Portail de `m.dupont` affichant le ticket incident en statut **Clos** - cycle de vie complet.
 :::
 
 ---
 
-## Mission 5 — Comprendre les priorités (urgence × impact)
+## Mission 5 - Comprendre les priorités (urgence × impact)
 
 GLPI calcule automatiquement la **priorité** d'un ticket en croisant deux critères saisis à la création :
 
@@ -330,7 +330,7 @@ La priorité résultante détermine l'ordre de traitement et peut déclencher de
 | **Urgence moyenne** | Basse | Moyenne | Haute |
 | **Urgence forte** | Moyenne | Haute | Très haute |
 
-### Tâche 5.1 — Créer un ticket de priorité critique
+### Tâche 5.1 - Créer un ticket de priorité critique
 
 Connectez-vous avec le compte **glpi** (administrateur) depuis votre navigateur principal.
 
@@ -344,7 +344,7 @@ Renseignez :
 | Catégorie | `Réseau` |
 | Urgence | `Très haute` |
 | Impact | `Très haut` |
-| Titre | `Coupure réseau totale — tous les postes hors ligne` |
+| Titre | `Coupure réseau totale - tous les postes hors ligne` |
 | Description | `Suite à une panne du switch principal (SW-Principal-01), tous les postes du réseau sont coupés d'Internet et des ressources partagées. La production est à l'arrêt.` |
 | Technicien assigné | `Jean Martin` |
 
@@ -353,10 +353,10 @@ Cliquez sur **Ajouter**.
 Observez la **couleur rouge** et le badge **Très haute** associés à ce ticket dans la liste.
 
 ::: tip 📸 Capture 16
-Fiche du ticket "Coupure réseau totale" — priorité **Très haute** affichée en rouge, urgence et impact renseignés.
+Fiche du ticket "Coupure réseau totale" - priorité **Très haute** affichée en rouge, urgence et impact renseignés.
 :::
 
-### Tâche 5.2 — Comparer les priorités dans la liste
+### Tâche 5.2 - Comparer les priorités dans la liste
 
 Retournez dans **Assistance → Tickets**. Vous avez maintenant plusieurs tickets avec des priorités différentes.
 
@@ -368,11 +368,11 @@ Liste **Assistance → Tickets** affichant plusieurs tickets avec des codes coul
 
 ---
 
-## Mission 6 — Exploiter les statistiques du helpdesk
+## Mission 6 - Exploiter les statistiques du helpdesk
 
 GLPI propose des tableaux de bord et des statistiques pour piloter l'activité du helpdesk. Un responsable informatique peut ainsi mesurer la charge de travail, les délais de traitement et les catégories les plus sollicitées.
 
-### Tâche 6.1 — Consulter le tableau de bord Assistance
+### Tâche 6.1 - Consulter le tableau de bord Assistance
 
 Naviguez dans **Assistance → Tableau de bord** (ou **Accueil** si le tableau de bord global s'affiche).
 
@@ -383,10 +383,10 @@ Observez les indicateurs présents :
 - Répartition par **statut**
 
 ::: tip 📸 Capture 18
-Tableau de bord **Assistance** — indicateurs clés visibles (tickets ouverts, résolus, en retard).
+Tableau de bord **Assistance** - indicateurs clés visibles (tickets ouverts, résolus, en retard).
 :::
 
-### Tâche 6.2 — Consulter les statistiques par catégorie
+### Tâche 6.2 - Consulter les statistiques par catégorie
 
 Naviguez dans **Assistance → Statistiques → Ticket global**.
 
@@ -397,7 +397,7 @@ Dans le formulaire, sélectionnez :
 Cliquez sur **Valider** et observez la répartition des tickets selon les catégories créées en Mission 2.
 
 ::: tip 📸 Capture 19
-Page des statistiques GLPI — répartition des tickets par catégorie affichée sous forme de tableau ou graphique.
+Page des statistiques GLPI - répartition des tickets par catégorie affichée sous forme de tableau ou graphique.
 :::
 
 ---

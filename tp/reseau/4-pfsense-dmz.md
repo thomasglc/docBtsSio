@@ -1,10 +1,10 @@
----
+﻿---
 outline: deep
 ---
 
-# TP 4 — DMZ & Règles de pare-feu avec pfSense
+# TP 4 - DMZ & Règles de pare-feu avec pfSense
 
-<Badge type="info" text="BTS SIO SISR 1ère année" />  <Badge type="warning" text="Bloc 2 — Sécurité réseau & Pare-feu" />  <Badge type="danger" text="pfSense + VirtualBox" />
+<Badge type="info" text="BTS SIO SISR 1ère année" />  <Badge type="warning" text="Bloc 2 - Sécurité réseau & Pare-feu" />  <Badge type="danger" text="pfSense + VirtualBox" />
 
 ::: info Contexte
 La société **InfoSecure** souhaite héberger un serveur web accessible depuis son réseau interne tout en le **isolant des postes clients**. Votre mission est de mettre en place une architecture **DMZ** (Zone démilitarisée) à l'aide de pfSense et d'y appliquer une politique de sécurité stricte contrôlant les flux entre les trois zones du réseau.
@@ -39,7 +39,7 @@ Le pare-feu contrôle **tous les flux** entre ces trois zones. C'est le cœur de
 
   <!-- Zone WAN (Internet) -->
   <rect x="270" y="10" width="220" height="70" rx="10" fill="#f0f0f0" stroke="#888" stroke-width="1.5" stroke-dasharray="6,3"/>
-  <text x="380" y="28" fill="#444" font-weight="bold" text-anchor="middle" font-size="9">WAN — Internet (simulé)</text>
+  <text x="380" y="28" fill="#444" font-weight="bold" text-anchor="middle" font-size="9">WAN - Internet (simulé)</text>
   <ellipse cx="380" cy="52" rx="40" ry="22" fill="#ddd" stroke="#888" stroke-width="1.5"/>
   <text x="380" y="55" fill="#444" text-anchor="middle" font-size="9">NAT / DHCP</text>
 
@@ -51,12 +51,12 @@ Le pare-feu contrôle **tous les flux** entre ces trois zones. C'est le cœur de
   <!-- Lien WAN -->
   <line x1="380" y1="80" x2="380" y2="140" stroke="#888" stroke-width="2"/>
   <rect x="348" y="101" width="64" height="16" rx="3" fill="#888"/>
-  <text x="380" y="113" fill="#fff" text-anchor="middle" font-size="8">em0 — WAN</text>
+  <text x="380" y="113" fill="#fff" text-anchor="middle" font-size="8">em0 - WAN</text>
   <text x="420" y="99" fill="#555" font-size="8">DHCP</text>
 
   <!-- Zone LAN -->
   <rect x="30" y="260" width="240" height="140" rx="10" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="6,3"/>
-  <text x="42" y="277" fill="#27ae60" font-weight="bold" font-size="9">LAN — 192.168.10.0/24</text>
+  <text x="42" y="277" fill="#27ae60" font-weight="bold" font-size="9">LAN - 192.168.10.0/24</text>
 
   <!-- Client LAN -->
   <rect x="60" y="300" width="130" height="50" rx="7" fill="#fff" stroke="#27ae60" stroke-width="1.5"/>
@@ -67,12 +67,12 @@ Le pare-feu contrôle **tous les flux** entre ces trois zones. C'est le cœur de
   <!-- Lien LAN -->
   <line x1="300" y1="168" x2="190" y2="260" stroke="#27ae60" stroke-width="2"/>
   <rect x="196" y="202" width="80" height="16" rx="3" fill="#27ae60"/>
-  <text x="236" y="214" fill="#fff" text-anchor="middle" font-size="8">em1 — LAN</text>
+  <text x="236" y="214" fill="#fff" text-anchor="middle" font-size="8">em1 - LAN</text>
   <text x="186" y="200" fill="#27ae60" font-size="8">192.168.10.1</text>
 
   <!-- Zone DMZ -->
   <rect x="490" y="260" width="240" height="140" rx="10" fill="#fdf6e3" stroke="#b7770d" stroke-width="1.5" stroke-dasharray="6,3"/>
-  <text x="502" y="277" fill="#b7770d" font-weight="bold" font-size="9">DMZ — 10.0.50.0/24</text>
+  <text x="502" y="277" fill="#b7770d" font-weight="bold" font-size="9">DMZ - 10.0.50.0/24</text>
 
   <!-- Serveur DMZ -->
   <rect x="520" y="300" width="150" height="50" rx="7" fill="#fff" stroke="#b7770d" stroke-width="1.5"/>
@@ -83,7 +83,7 @@ Le pare-feu contrôle **tous les flux** entre ces trois zones. C'est le cœur de
   <!-- Lien DMZ -->
   <line x1="460" y1="168" x2="570" y2="260" stroke="#b7770d" stroke-width="2"/>
   <rect x="475" y="202" width="80" height="16" rx="3" fill="#b7770d"/>
-  <text x="515" y="214" fill="#fff" text-anchor="middle" font-size="8">em2 — DMZ</text>
+  <text x="515" y="214" fill="#fff" text-anchor="middle" font-size="8">em2 - DMZ</text>
   <text x="560" y="200" fill="#b7770d" font-size="8">10.0.50.1</text>
 
   <!-- Flèches de flux bloqués DMZ → LAN -->
@@ -105,34 +105,34 @@ Le pare-feu contrôle **tous les flux** entre ces trois zones. C'est le cœur de
 
 | Machine | Interface VM | Interface pfSense | Adresse IP | Masque | Passerelle | Zone |
 |---|---|---|---|---|---|---|
-| **pfSense** | Adaptateur 1 (NAT) | `em0` | DHCP | — | — | WAN |
-| **pfSense** | Adaptateur 2 (Réseau interne `lan`) | `em1` | 192.168.10.1 | /24 | — | LAN |
-| **pfSense** | Adaptateur 3 (Réseau interne `dmz`) | `em2` | 10.0.50.1 | /24 | — | DMZ |
-| **VM-Client** | Adaptateur 1 (Réseau interne `lan`) | — | 192.168.10.10 | /24 | 192.168.10.1 | LAN |
-| **VM-Serveur** | Adaptateur 1 (Réseau interne `dmz`) | — | 10.0.50.10 | /24 | 10.0.50.1 | DMZ |
+| **pfSense** | Adaptateur 1 (NAT) | `em0` | DHCP | - | - | WAN |
+| **pfSense** | Adaptateur 2 (Réseau interne `lan`) | `em1` | 192.168.10.1 | /24 | - | LAN |
+| **pfSense** | Adaptateur 3 (Réseau interne `dmz`) | `em2` | 10.0.50.1 | /24 | - | DMZ |
+| **VM-Client** | Adaptateur 1 (Réseau interne `lan`) | - | 192.168.10.10 | /24 | 192.168.10.1 | LAN |
+| **VM-Serveur** | Adaptateur 1 (Réseau interne `dmz`) | - | 10.0.50.10 | /24 | 10.0.50.1 | DMZ |
 
 ---
 
-## Politique de sécurité — Règles à mettre en place
+## Politique de sécurité - Règles à mettre en place
 
 Une fois l'infrastructure montée, les règles suivantes doivent être appliquées sur pfSense :
 
-**Règles LAN** — appliquées sur l'interface `LAN` (trafic entrant depuis les clients)
+**Règles LAN** - appliquées sur l'interface `LAN` (trafic entrant depuis les clients)
 
 | # | Source | Destination | Service | Action |
 |---|---|---|---|---|
-| 1 | LAN `192.168.10.0/24` | VM-Serveur `10.0.50.10` | HTTP — TCP/80 | ✅ PERMIT |
-| 2 | LAN `192.168.10.0/24` | DMZ `10.0.50.0/24` | SSH — TCP/22 | ❌ DENY |
+| 1 | LAN `192.168.10.0/24` | VM-Serveur `10.0.50.10` | HTTP - TCP/80 | ✅ PERMIT |
+| 2 | LAN `192.168.10.0/24` | DMZ `10.0.50.0/24` | SSH - TCP/22 | ❌ DENY |
 | 3 | LAN `192.168.10.0/24` | DMZ `10.0.50.0/24` | Tout | ❌ DENY |
 | 4 | LAN `192.168.10.0/24` | Toutes destinations | Tout | ✅ PERMIT |
 
-**Règles DMZ** — appliquées sur l'interface `DMZ`
+**Règles DMZ** - appliquées sur l'interface `DMZ`
 
 | # | Source | Destination | Service | Action |
 |---|---|---|---|---|
 | 5 | DMZ `10.0.50.0/24` | LAN `192.168.10.0/24` | Tout | ❌ DENY |
-| 6 | DMZ `10.0.50.0/24` | Toutes destinations | DNS — UDP/53 | ✅ PERMIT |
-| 7 | DMZ `10.0.50.0/24` | Toutes destinations | HTTP/HTTPS — TCP/80,443 | ✅ PERMIT |
+| 6 | DMZ `10.0.50.0/24` | Toutes destinations | DNS - UDP/53 | ✅ PERMIT |
+| 7 | DMZ `10.0.50.0/24` | Toutes destinations | HTTP/HTTPS - TCP/80,443 | ✅ PERMIT |
 | 8 | DMZ `10.0.50.0/24` | Toutes destinations | Tout | ❌ DENY |
 
 ::: info Pourquoi ces règles ?
@@ -151,11 +151,11 @@ Les chemins de navigation dans l'interface pfSense sont indiqués en **gras** : 
 
 ---
 
-### Mission 1 — Ajout de la troisième interface réseau sur pfSense
+### Mission 1 - Ajout de la troisième interface réseau sur pfSense
 
 Votre pfSense dispose actuellement de deux interfaces (WAN et LAN). Il faut lui ajouter une troisième pour la DMZ.
 
-**Tâche 1.1 — Éteindre la VM pfSense**
+**Tâche 1.1 - Éteindre la VM pfSense**
 
 Dans VirtualBox, **éteignez** la VM pfSense (clic droit → Fermer → Éteindre).
 
@@ -163,7 +163,7 @@ Dans VirtualBox, **éteignez** la VM pfSense (clic droit → Fermer → Éteindr
 Modifier les adaptateurs réseau d'une VM en cours d'exécution peut corrompre la configuration réseau de pfSense.
 :::
 
-**Tâche 1.2 — Ajouter l'adaptateur réseau DMZ**
+**Tâche 1.2 - Ajouter l'adaptateur réseau DMZ**
 
 Dans les paramètres VirtualBox de la VM pfSense :
 - Allez dans **Réseau → Adaptateur 3**
@@ -171,7 +171,7 @@ Dans les paramètres VirtualBox de la VM pfSense :
 - Mode d'accès : **Réseau interne**
 - Nom : `dmz` (tapez exactement ce nom, il doit correspondre à la VM-Serveur)
 
-**Tâche 1.3 — Vérifier les adaptateurs des VMs Client et Serveur**
+**Tâche 1.3 - Vérifier les adaptateurs des VMs Client et Serveur**
 
 | VM | Adaptateur | Mode | Nom réseau interne |
 |---|---|---|---|
@@ -181,24 +181,24 @@ Dans les paramètres VirtualBox de la VM pfSense :
 Démarrez la VM pfSense.
 
 ::: tip 📸 Capture 1
-Fenêtre des paramètres VirtualBox de pfSense — onglet Réseau, montrant les 3 adaptateurs activés.
+Fenêtre des paramètres VirtualBox de pfSense - onglet Réseau, montrant les 3 adaptateurs activés.
 :::
 
 ---
 
-### Mission 2 — Assignation de l'interface DMZ dans pfSense
+### Mission 2 - Assignation de l'interface DMZ dans pfSense
 
-**Tâche 2.1 — Identifier la nouvelle interface**
+**Tâche 2.1 - Identifier la nouvelle interface**
 
 Dans la console pfSense (écran de la VM), vous devriez voir trois interfaces listées (`em0`, `em1`, `em2`). Si ce n'est pas le cas, choisissez l'option **1) Assign Interfaces** dans le menu et assignez `em2` comme interface supplémentaire.
 
-**Tâche 2.2 — Assigner l'interface dans l'interface web**
+**Tâche 2.2 - Assigner l'interface dans l'interface web**
 
 Depuis la VM-Client (ou votre machine), connectez-vous à `http://192.168.10.1` puis naviguez dans **Interfaces → Assignments**.
 
 Vous devriez voir `em2` listée comme interface disponible. Cliquez sur **+ Add** pour l'ajouter. Elle apparaît sous le nom `OPT1`.
 
-**Tâche 2.3 — Configurer l'interface OPT1 (future DMZ)**
+**Tâche 2.3 - Configurer l'interface OPT1 (future DMZ)**
 
 Cliquez sur **OPT1** dans le menu **Interfaces** pour la configurer :
 
@@ -212,10 +212,10 @@ Cliquez sur **OPT1** dans le menu **Interfaces** pour la configurer :
 Cliquez sur **Save** puis sur **Apply Changes**.
 
 ::: tip 📸 Capture 2
-Page de configuration de l'interface DMZ dans pfSense — champs remplis avant de sauvegarder.
+Page de configuration de l'interface DMZ dans pfSense - champs remplis avant de sauvegarder.
 :::
 
-**Tâche 2.4 — Vérifier les interfaces**
+**Tâche 2.4 - Vérifier les interfaces**
 
 Allez dans **Interfaces → Overview**. Vous devez voir trois interfaces actives :
 
@@ -231,19 +231,19 @@ Page Interfaces → Overview montrant les 3 interfaces actives avec leurs adress
 
 ---
 
-### Mission 3 — Configuration du serveur DHCP pour la DMZ
+### Mission 3 - Configuration du serveur DHCP pour la DMZ
 
 pfSense peut distribuer des adresses IP aux machines en DMZ, tout comme il le fait pour le LAN.
 
-**Tâche 3.1 — Activer le DHCP sur l'interface DMZ**
+**Tâche 3.1 - Activer le DHCP sur l'interface DMZ**
 
 Naviguez dans **Services → DHCP Server → DMZ** et configurez :
 
 | Champ | Valeur |
 |---|---|
 | Enable | ✅ Coché |
-| Range — From | `10.0.50.100` |
-| Range — To | `10.0.50.200` |
+| Range - From | `10.0.50.100` |
+| Range - To | `10.0.50.200` |
 
 Cliquez sur **Save**.
 
@@ -253,9 +253,9 @@ Pour ce TP, VM-Serveur aura une **adresse IP statique** (10.0.50.10), pas DHCP. 
 
 ---
 
-### Mission 4 — Configuration de VM-Serveur (DMZ)
+### Mission 4 - Configuration de VM-Serveur (DMZ)
 
-**Tâche 4.0 — Vérifier l'obtention d'une adresse DHCP**
+**Tâche 4.0 - Vérifier l'obtention d'une adresse DHCP**
 
 Démarrez VM-Serveur (Debian). Avant toute configuration manuelle, vérifiez que la machine obtient bien une adresse IP depuis le serveur DHCP de pfSense.
 
@@ -266,11 +266,11 @@ ip a
 Vous devriez voir une adresse dans la plage `10.0.50.100 – 10.0.50.200` sur votre interface réseau.
 
 ::: info
-Ne tentez pas de pinguer pfSense à cette étape — pfSense bloque par défaut tout le trafic initié depuis une interface DMZ tant qu'aucune règle n'est créée. Le ping échouera, c'est normal.
+Ne tentez pas de pinguer pfSense à cette étape - pfSense bloque par défaut tout le trafic initié depuis une interface DMZ tant qu'aucune règle n'est créée. Le ping échouera, c'est normal.
 :::
 
 ::: tip 📸 Capture 4
-Sortie de `ip a` sur VM-Serveur — adresse DHCP obtenue dans la plage 10.0.50.100–10.0.50.200.
+Sortie de `ip a` sur VM-Serveur - adresse DHCP obtenue dans la plage 10.0.50.100–10.0.50.200.
 :::
 
 ::: warning Si vous n'obtenez pas d'adresse DHCP
@@ -279,9 +279,9 @@ Sortie de `ip a` sur VM-Serveur — adresse DHCP obtenue dans la plage 10.0.50.1
 - Relancez la demande DHCP manuellement : `systemctl restart networking`
 :::
 
-**Tâche 4.1 — Configurer l'adresse IP statique**
+**Tâche 4.1 - Configurer l'adresse IP statique**
 
-Le serveur web doit toujours être joignable à la même adresse — on passe donc en IP statique. Créez un fichier dédié dans `/etc/network/interfaces.d/` :
+Le serveur web doit toujours être joignable à la même adresse - on passe donc en IP statique. Créez un fichier dédié dans `/etc/network/interfaces.d/` :
 
 ```bash
 nano /etc/network/interfaces.d/customNetwork
@@ -299,7 +299,7 @@ iface enp0s3 inet static
 ```
 
 ::: tip
-`/etc/network/interfaces` ne doit pas être modifié directement — il est réservé à la configuration de base du système (`lo`). Les fichiers placés dans `/etc/network/interfaces.d/` sont automatiquement inclus.
+`/etc/network/interfaces` ne doit pas être modifié directement - il est réservé à la configuration de base du système (`lo`). Les fichiers placés dans `/etc/network/interfaces.d/` sont automatiquement inclus.
 :::
 
 Appliquez la configuration :
@@ -318,7 +318,7 @@ ip a
 Sortie de `ip a` sur VM-Serveur montrant l'adresse 10.0.50.10/24.
 :::
 
-**Tâche 4.2 — Installer Apache2**
+**Tâche 4.2 - Installer Apache2**
 
 ```bash
 apt update && apt install apache2 -y
@@ -327,7 +327,7 @@ apt update && apt install apache2 -y
 Modifiez la page d'accueil pour identifier clairement le serveur :
 
 ```bash
-echo "<h1>Serveur InfoSecure — DMZ</h1><p>Accès autorisé depuis le LAN uniquement.</p>" > /var/www/html/index.html
+echo "<h1>Serveur InfoSecure - DMZ</h1><p>Accès autorisé depuis le LAN uniquement.</p>" > /var/www/html/index.html
 ```
 
 Vérifiez qu'Apache tourne :
@@ -337,65 +337,65 @@ systemctl status apache2
 ```
 
 ::: tip 📸 Capture 6
-Sortie de `systemctl status apache2` sur VM-Serveur — état `active (running)`.
+Sortie de `systemctl status apache2` sur VM-Serveur - état `active (running)`.
 :::
 
 ---
 
-### Mission 5 — Configuration de VM-Client (LAN)
+### Mission 5 - Configuration de VM-Client (LAN)
 
-**Tâche 5.1 — Configurer l'adresse IP statique**
+**Tâche 5.1 - Configurer l'adresse IP statique**
 
 Sur VM-Client, configurez l'adresse IP statique `192.168.10.10/24` avec la passerelle `192.168.10.1` (même méthode que VM-Serveur).
 
-**Tâche 5.2 — Tests de connectivité initiaux (avant les règles de pare-feu)**
+**Tâche 5.2 - Tests de connectivité initiaux (avant les règles de pare-feu)**
 
 Depuis VM-Client, effectuez les tests suivants et notez les résultats dans votre rapport :
 
 ```bash
-# Test 1 — Passerelle LAN
+# Test 1 - Passerelle LAN
 ping -c 3 192.168.10.1
 
-# Test 2 — Interface DMZ de pfSense
+# Test 2 - Interface DMZ de pfSense
 ping -c 3 10.0.50.1
 
-# Test 3 — VM-Serveur
+# Test 3 - VM-Serveur
 ping -c 3 10.0.50.10
 
-# Test 4 — Internet
+# Test 4 - Internet
 ping -c 3 8.8.8.8
 ```
 
 ::: info À ce stade
-Par défaut, pfSense autorise tout le trafic sortant depuis le LAN. Les tests 1, 2, 3 et 4 devraient réussir. Le test 3 peut échouer si aucune règle par défaut n'existe encore sur l'interface DMZ — c'est normal, notez simplement le résultat.
+Par défaut, pfSense autorise tout le trafic sortant depuis le LAN. Les tests 1, 2, 3 et 4 devraient réussir. Le test 3 peut échouer si aucune règle par défaut n'existe encore sur l'interface DMZ - c'est normal, notez simplement le résultat.
 :::
 
 ::: tip 📸 Capture 7
 Résultats des 4 commandes ping depuis VM-Client (avant configuration des règles).
 :::
 
-**Tâche 5.3 — Test HTTP initial**
+**Tâche 5.3 - Test HTTP initial**
 
 Ouvrez un navigateur sur VM-Client et accédez à `http://10.0.50.10`. Si la page Apache s'affiche, notez-le dans votre rapport.
 
 ::: tip 📸 Capture 8
-Navigateur de VM-Client affichant (ou non) la page Apache de VM-Serveur — avant les règles.
+Navigateur de VM-Client affichant (ou non) la page Apache de VM-Serveur - avant les règles.
 :::
 
 ---
 
-### Mission 6 — Mise en place des règles de pare-feu
+### Mission 6 - Mise en place des règles de pare-feu
 
 ::: warning Avant de commencer
-Relisez attentivement la politique de sécurité définie plus haut. Dans pfSense, les règles sont lues **de haut en bas** — la première règle qui correspond au trafic est appliquée. L'ordre est donc primordial.
+Relisez attentivement la politique de sécurité définie plus haut. Dans pfSense, les règles sont lues **de haut en bas** - la première règle qui correspond au trafic est appliquée. L'ordre est donc primordial.
 :::
 
 ::: info Règles existantes sur l'interface LAN
 En ouvrant **Firewall → Rules → LAN**, vous constaterez que pfSense a déjà créé **3 règles** :
 
-- **Anti-Lockout Rule** — règle spéciale qui garantit que vous ne pouvez jamais vous couper l'accès à l'interface web de pfSense depuis le LAN, même si vous créez des règles trop restrictives. Elle autorise toujours l'accès aux ports 80 et 443 de pfSense depuis le LAN. Elle ne peut pas être supprimée ici (elle se désactive uniquement dans **System → Advanced**).
-- **Default allow LAN to any rule (IPv4)** — autorise tout le trafic IPv4 sortant depuis le LAN vers n'importe quelle destination.
-- **Default allow LAN to any rule (IPv6)** — même chose pour IPv6.
+- **Anti-Lockout Rule** - règle spéciale qui garantit que vous ne pouvez jamais vous couper l'accès à l'interface web de pfSense depuis le LAN, même si vous créez des règles trop restrictives. Elle autorise toujours l'accès aux ports 80 et 443 de pfSense depuis le LAN. Elle ne peut pas être supprimée ici (elle se désactive uniquement dans **System → Advanced**).
+- **Default allow LAN to any rule (IPv4)** - autorise tout le trafic IPv4 sortant depuis le LAN vers n'importe quelle destination.
+- **Default allow LAN to any rule (IPv6)** - même chose pour IPv6.
 
 Vos nouvelles règles devront être placées **au-dessus** de ces règles par défaut pour être évaluées en premier.
 :::
@@ -404,7 +404,7 @@ Vos nouvelles règles devront être placées **au-dessus** de ces règles par d�
 
 Naviguez dans **Firewall → Rules → LAN**.
 
-**Tâche 6.1 — Règle 1 : Autoriser HTTP du LAN vers VM-Serveur**
+**Tâche 6.1 - Règle 1 : Autoriser HTTP du LAN vers VM-Serveur**
 
 Cliquez sur **Add ↑** (ajouter en haut de la liste) :
 
@@ -414,13 +414,13 @@ Cliquez sur **Add ↑** (ajouter en haut de la liste) :
 | Interface | LAN |
 | Protocol | TCP |
 | Source | LAN subnets |
-| Destination | Single host — `10.0.50.10` |
+| Destination | Single host - `10.0.50.10` |
 | Destination Port | HTTP (80) |
 | Description | `LAN → DMZ : HTTP autorisé` |
 
 Sauvegardez.
 
-**Tâche 6.2 — Règle 2 : Bloquer SSH du LAN vers la DMZ**
+**Tâche 6.2 - Règle 2 : Bloquer SSH du LAN vers la DMZ**
 
 Ajoutez une règle **en dessous de la règle 1** (Add ↓ depuis la règle 1) :
 
@@ -433,7 +433,7 @@ Ajoutez une règle **en dessous de la règle 1** (Add ↓ depuis la règle 1) :
 | Destination Port | SSH (22) |
 | Description | `LAN → DMZ : SSH bloqué` |
 
-**Tâche 6.3 — Règle 3 : Bloquer tout autre trafic LAN → DMZ**
+**Tâche 6.3 - Règle 3 : Bloquer tout autre trafic LAN → DMZ**
 
 | Champ | Valeur |
 |---|---|
@@ -450,7 +450,7 @@ La règle 4 (PERMIT tout vers toutes destinations) est déjà couverte par la r�
 Cliquez sur **Apply Changes**.
 
 ::: tip 📸 Capture 9
-Liste des règles LAN dans pfSense — les 3 règles créées visibles dans l'ordre correct, au-dessus des règles par défaut.
+Liste des règles LAN dans pfSense - les 3 règles créées visibles dans l'ordre correct, au-dessus des règles par défaut.
 :::
 
 #### Règles sur l'interface DMZ
@@ -461,7 +461,7 @@ Naviguez dans **Firewall → Rules → DMZ**.
 Par défaut, pfSense ne crée aucune règle sur les interfaces OPT (comme DMZ). Tout le trafic initié depuis la DMZ est donc **bloqué**. Vous allez créer uniquement les règles nécessaires.
 :::
 
-**Tâche 6.4 — Règle 5 : Bloquer explicitement DMZ → LAN**
+**Tâche 6.4 - Règle 5 : Bloquer explicitement DMZ → LAN**
 
 | Champ | Valeur |
 |---|---|
@@ -471,7 +471,7 @@ Par défaut, pfSense ne crée aucune règle sur les interfaces OPT (comme DMZ). 
 | Destination | LAN subnets (`192.168.10.0/24`) |
 | Description | `DMZ → LAN : totalement bloqué` |
 
-**Tâche 6.5 — Règle 6 : Autoriser DNS sortant depuis la DMZ**
+**Tâche 6.5 - Règle 6 : Autoriser DNS sortant depuis la DMZ**
 
 | Champ | Valeur |
 |---|---|
@@ -482,7 +482,7 @@ Par défaut, pfSense ne crée aucune règle sur les interfaces OPT (comme DMZ). 
 | Destination Port | DNS (53) |
 | Description | `DMZ → WAN : DNS autorisé` |
 
-**Tâche 6.6 — Règles 7a et 7b : Autoriser HTTP et HTTPS sortants**
+**Tâche 6.6 - Règles 7a et 7b : Autoriser HTTP et HTTPS sortants**
 
 Créez deux règles séparées (ou une seule avec un alias) :
 
@@ -495,7 +495,7 @@ Créez deux règles séparées (ou une seule avec un alias) :
 | Destination Port | HTTP (80) | HTTPS (443) |
 | Description | `DMZ → WAN : HTTP` | `DMZ → WAN : HTTPS` |
 
-**Tâche 6.7 — Règle 8 : Bloquer tout le reste depuis la DMZ**
+**Tâche 6.7 - Règle 8 : Bloquer tout le reste depuis la DMZ**
 
 | Champ | Valeur |
 |---|---|
@@ -508,12 +508,12 @@ Créez deux règles séparées (ou une seule avec un alias) :
 Cliquez sur **Apply Changes**.
 
 ::: tip 📸 Capture 10
-Liste des règles DMZ dans pfSense — les 5 règles créées dans l'ordre correct.
+Liste des règles DMZ dans pfSense - les 5 règles créées dans l'ordre correct.
 :::
 
 ---
 
-### Mission 7 — Tests de validation
+### Mission 7 - Tests de validation
 
 Effectuez l'ensemble des tests ci-dessous depuis VM-Client et VM-Serveur et renseignez les résultats dans votre rapport.
 
@@ -542,32 +542,32 @@ Vérifiez que le **DNS Resolver** de pfSense est actif : **Services → DNS Reso
 :::
 
 ::: tip 📸 Capture 11
-Résultat de T1 — sortie de `curl http://10.0.50.10` depuis VM-Client (HTML visible).
+Résultat de T1 - sortie de `curl http://10.0.50.10` depuis VM-Client (HTML visible).
 :::
 
 ::: tip 📸 Capture 12
-Résultat de T2 — navigateur de VM-Client affichant la page du serveur DMZ.
+Résultat de T2 - navigateur de VM-Client affichant la page du serveur DMZ.
 :::
 
 ::: tip 📸 Capture 13
-Résultat de T3 — tentative SSH depuis VM-Client vers VM-Serveur (connexion refusée).
+Résultat de T3 - tentative SSH depuis VM-Client vers VM-Serveur (connexion refusée).
 :::
 
 ::: tip 📸 Capture 14
-Résultat de T7 — ping depuis VM-Serveur vers VM-Client (timeout).
+Résultat de T7 - ping depuis VM-Serveur vers VM-Client (timeout).
 :::
 
 ::: tip 📸 Capture 15
-Résultat de T10 — sortie de `apt update` sur VM-Serveur (téléchargement des dépôts réussi).
+Résultat de T10 - sortie de `apt update` sur VM-Serveur (téléchargement des dépôts réussi).
 :::
 
 ---
 
-### Mission 8 — Observation des logs du pare-feu
+### Mission 8 - Observation des logs du pare-feu
 
 pfSense enregistre les connexions bloquées en temps réel.
 
-**Tâche 8.1 — Consulter les logs de filtrage**
+**Tâche 8.1 - Consulter les logs de filtrage**
 
 Naviguez dans **Status → System Logs → Firewall**.
 
@@ -577,7 +577,7 @@ Effectuez un ping depuis VM-Client vers VM-Serveur (T4) puis observez les logs.
 Extrait des logs du pare-feu pfSense montrant un paquet ICMP bloqué en provenance de 192.168.10.10 vers 10.0.50.10.
 :::
 
-**Tâche 8.2 — Analyser une entrée de log**
+**Tâche 8.2 - Analyser une entrée de log**
 
 Repérez une ligne de log correspondant à un paquet bloqué et identifiez dans votre rapport :
 - L'interface concernée

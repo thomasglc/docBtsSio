@@ -1,19 +1,19 @@
----
+﻿---
 outline: deep
 ---
 
-# TP 3 — Stratégies de groupe (GPO)
+# TP 3 - Stratégies de groupe (GPO)
 
-<Badge type="info" text="BTS SIO SISR 1ère année" />  <Badge type="warning" text="Bloc 2 — Administration système" />  <Badge type="danger" text="Windows Server 2022 + Active Directory + GPO" />
+<Badge type="info" text="BTS SIO SISR 1ère année" />  <Badge type="warning" text="Bloc 2 - Administration système" />  <Badge type="danger" text="Windows Server 2022 + Active Directory + GPO" />
 
 ::: info Contexte
-Les utilisateurs et postes sont organisés dans l'AD depuis le TP 2. Votre responsable vous demande maintenant d'**uniformiser et sécuriser l'environnement de travail** : imposer une politique de mots de passe robuste, verrouiller automatiquement les sessions inactives, restreindre l'accès aux paramètres système et personnaliser l'environnement selon les services. Tout cela sans intervenir poste par poste — c'est précisément le rôle des **GPO**.
+Les utilisateurs et postes sont organisés dans l'AD depuis le TP 2. Votre responsable vous demande maintenant d'**uniformiser et sécuriser l'environnement de travail** : imposer une politique de mots de passe robuste, verrouiller automatiquement les sessions inactives, restreindre l'accès aux paramètres système et personnaliser l'environnement selon les services. Tout cela sans intervenir poste par poste - c'est précisément le rôle des **GPO**.
 :::
 
 ::: warning Modalités
 Vous avez besoin des deux VMs configurées au TP 2 :
-- **SRV-AD-01** — contrôleur de domaine avec les OUs, utilisateurs et groupes créés
-- **PC-CLIENT-01** — poste Windows joint au domaine `techservices.local`
+- **SRV-AD-01** - contrôleur de domaine avec les OUs, utilisateurs et groupes créés
+- **PC-CLIENT-01** - poste Windows joint au domaine `techservices.local`
 
 Vous devrez constituer un **rapport-annexe** contenant les captures d'écran demandées à chaque étape. Les captures sont indiquées par 📸.
 :::
@@ -22,7 +22,7 @@ Vous devrez constituer un **rapport-annexe** contenant les captures d'écran dem
 
 ## Qu'est-ce qu'une GPO ?
 
-Une **GPO** (Group Policy Object — Stratégie de groupe) est un ensemble de paramètres de configuration appliqués automatiquement aux **utilisateurs** et **ordinateurs** d'un domaine Active Directory. Elle remplace des dizaines de modifications manuelles poste par poste par une configuration centralisée sur le serveur.
+Une **GPO** (Group Policy Object - Stratégie de groupe) est un ensemble de paramètres de configuration appliqués automatiquement aux **utilisateurs** et **ordinateurs** d'un domaine Active Directory. Elle remplace des dizaines de modifications manuelles poste par poste par une configuration centralisée sur le serveur.
 
 ::: info Ce qu'une GPO peut faire
 
@@ -53,15 +53,15 @@ Local → Site → Domaine → OU (de la racine vers la feuille)
 
 ::: info GPO Utilisateur vs GPO Ordinateur
 Chaque GPO contient deux sections indépendantes :
-- **Configuration ordinateur** — appliquée au démarrage de la machine, quelle que soit la personne connectée
-- **Configuration utilisateur** — appliquée à l'ouverture de session de l'utilisateur, quel que soit le poste utilisé
+- **Configuration ordinateur** - appliquée au démarrage de la machine, quelle que soit la personne connectée
+- **Configuration utilisateur** - appliquée à l'ouverture de session de l'utilisateur, quel que soit le poste utilisé
 :::
 
 ---
 
-## Mission 1 — Découverte de la console de gestion des GPO
+## Mission 1 - Découverte de la console de gestion des GPO
 
-### Tâche 1.1 — Ouvrir la console GPMC
+### Tâche 1.1 - Ouvrir la console GPMC
 
 Sur `SRV-AD-01`, ouvrez la **Console de gestion des stratégies de groupe** (GPMC) :
 
@@ -69,7 +69,7 @@ Sur `SRV-AD-01`, ouvrez la **Console de gestion des stratégies de groupe** (GPM
 
 Ou tapez `gpmc.msc` dans la barre de recherche Windows.
 
-### Tâche 1.2 — Explorer la structure de la console
+### Tâche 1.2 - Explorer la structure de la console
 
 Dans l'arborescence de gauche, développez :
 `Forêt : techservices.local → Domaines → techservices.local`
@@ -88,10 +88,10 @@ Ces stratégies sont fondamentales au fonctionnement d'Active Directory. Les mod
 Développez ensuite l'OU `TechServices` dans l'arborescence. Pour l'instant, aucune GPO n'y est liée.
 
 ::: tip 📸 Capture 1
-Console GPMC — arborescence dépliée affichant `techservices.local`, les deux GPO par défaut, et l'OU `TechServices`.
+Console GPMC - arborescence dépliée affichant `techservices.local`, les deux GPO par défaut, et l'OU `TechServices`.
 :::
 
-### Tâche 1.3 — Comprendre les onglets d'une GPO
+### Tâche 1.3 - Comprendre les onglets d'une GPO
 
 Cliquez sur **Default Domain Policy** dans l'arborescence. Le panneau de droite affiche plusieurs onglets :
 
@@ -106,17 +106,17 @@ Cliquez sur l'onglet **Paramètres** et cliquez sur **Afficher tout** pour voir 
 
 ---
 
-## Mission 2 — Politique de mots de passe et verrouillage de compte
+## Mission 2 - Politique de mots de passe et verrouillage de compte
 
 La politique de mots de passe du domaine se configure dans la **Default Domain Policy**. C'est la seule GPO dont les paramètres de mots de passe s'appliquent réellement à tous les comptes du domaine.
 
-### Tâche 2.1 — Ouvrir l'éditeur de la Default Domain Policy
+### Tâche 2.1 - Ouvrir l'éditeur de la Default Domain Policy
 
 Dans la console GPMC, faites un **clic droit sur Default Domain Policy** → **Modifier**.
 
 L'éditeur de gestion des stratégies de groupe s'ouvre.
 
-### Tâche 2.2 — Configurer la politique de mots de passe
+### Tâche 2.2 - Configurer la politique de mots de passe
 
 Dans l'arborescence de gauche de l'éditeur, naviguez vers :
 
@@ -137,10 +137,10 @@ Avec la complexité activée, Windows exige que le mot de passe contienne des ca
 :::
 
 ::: tip 📸 Capture 2
-Éditeur GPO — paramètres de la **Stratégie de mot de passe** configurés dans la Default Domain Policy.
+Éditeur GPO - paramètres de la **Stratégie de mot de passe** configurés dans la Default Domain Policy.
 :::
 
-### Tâche 2.3 — Configurer la stratégie de verrouillage de compte
+### Tâche 2.3 - Configurer la stratégie de verrouillage de compte
 
 Toujours dans l'éditeur, naviguez vers :
 
@@ -162,16 +162,16 @@ Configurez :
 Fermez l'éditeur.
 
 ::: tip 📸 Capture 3
-Éditeur GPO — paramètres de la **Stratégie de verrouillage du compte** configurés.
+Éditeur GPO - paramètres de la **Stratégie de verrouillage du compte** configurés.
 :::
 
 ---
 
-## Mission 3 — GPO appliquée aux utilisateurs
+## Mission 3 - GPO appliquée aux utilisateurs
 
 Vous allez créer une GPO qui s'appliquera à tous les utilisateurs de l'OU `TechServices` : fond d'écran imposé, économiseur d'écran avec verrouillage, et restriction du Panneau de configuration.
 
-### Tâche 3.1 — Préparer le fond d'écran sur le serveur
+### Tâche 3.1 - Préparer le fond d'écran sur le serveur
 
 Pour que tous les postes puissent accéder au fond d'écran, il doit être stocké dans un dossier réseau accessible depuis toutes les machines du domaine. Le partage **NETLOGON** est créé automatiquement sur tous les contrôleurs de domaine.
 
@@ -206,7 +206,7 @@ Renommez l'image copiée en `fond-ecran.jpg`.
 Le partage NETLOGON (`\\techservices.local\NETLOGON`) est accessible automatiquement par tous les postes du domaine sans configuration supplémentaire. C'est l'endroit idéal pour stocker des ressources partagées légères (fond d'écran, scripts de connexion…).
 :::
 
-### Tâche 3.2 — Créer la GPO utilisateurs
+### Tâche 3.2 - Créer la GPO utilisateurs
 
 Dans la console GPMC, faites un **clic droit sur l'OU `TechServices`** → **Créer un objet GPO dans ce domaine, et le lier ici**.
 
@@ -217,10 +217,10 @@ Dans la console GPMC, faites un **clic droit sur l'OU `TechServices`** → **Cr�
 Cliquez sur **OK**. La GPO apparaît liée à l'OU `TechServices` dans la console.
 
 ::: tip 📸 Capture 4
-Console GPMC — GPO `GPO-Utilisateurs-TechServices` visible et liée à l'OU `TechServices`.
+Console GPMC - GPO `GPO-Utilisateurs-TechServices` visible et liée à l'OU `TechServices`.
 :::
 
-### Tâche 3.3 — Imposer un fond d'écran
+### Tâche 3.3 - Imposer un fond d'écran
 
 Faites un **clic droit sur `GPO-Utilisateurs-TechServices`** → **Modifier**.
 
@@ -243,10 +243,10 @@ Le chemin du papier peint doit être un chemin réseau UNC (`\\serveur\partage\.
 :::
 
 ::: tip 📸 Capture 5
-Éditeur GPO — paramètre **Papier peint du Bureau** activé avec le chemin UNC vers le fond d'écran.
+Éditeur GPO - paramètre **Papier peint du Bureau** activé avec le chemin UNC vers le fond d'écran.
 :::
 
-### Tâche 3.4 — Activer l'économiseur d'écran avec verrouillage
+### Tâche 3.4 - Activer l'économiseur d'écran avec verrouillage
 
 Dans le même éditeur, naviguez vers :
 
@@ -261,10 +261,10 @@ Configurez les trois paramètres suivants :
 | Délai avant activation de l'écran de veille | `Activé` → `300` secondes (5 minutes) |
 
 ::: info Pourquoi protéger l'écran de veille ?
-Sans cette option, un utilisateur peut laisser sa session ouverte en partant — n'importe qui peut s'asseoir devant le poste et accéder à ses données. Le verrouillage automatique est une mesure de sécurité physique élémentaire.
+Sans cette option, un utilisateur peut laisser sa session ouverte en partant - n'importe qui peut s'asseoir devant le poste et accéder à ses données. Le verrouillage automatique est une mesure de sécurité physique élémentaire.
 :::
 
-### Tâche 3.5 — Interdire l'accès au Panneau de configuration
+### Tâche 3.5 - Interdire l'accès au Panneau de configuration
 
 Dans l'éditeur, naviguez vers :
 
@@ -283,18 +283,18 @@ Le Panneau de configuration permet de modifier de nombreux paramètres système 
 :::
 
 ::: tip 📸 Capture 6
-Éditeur GPO — paramètres de **Personnalisation** (économiseur d'écran) et restriction du **Panneau de configuration** configurés.
+Éditeur GPO - paramètres de **Personnalisation** (économiseur d'écran) et restriction du **Panneau de configuration** configurés.
 :::
 
 Fermez l'éditeur.
 
 ---
 
-## Mission 4 — GPO appliquée aux ordinateurs
+## Mission 4 - GPO appliquée aux ordinateurs
 
 Vous allez créer une seconde GPO, cette fois appliquée à l'OU `Postes`. Elle s'appliquera aux **machines** (quel que soit l'utilisateur connecté) et affichera un message d'avertissement légal à chaque démarrage de session.
 
-### Tâche 4.1 — Créer la GPO postes
+### Tâche 4.1 - Créer la GPO postes
 
 Dans la console GPMC, faites un **clic droit sur l'OU `Postes`** (dans `TechServices`) → **Créer un objet GPO dans ce domaine, et le lier ici**.
 
@@ -305,10 +305,10 @@ Dans la console GPMC, faites un **clic droit sur l'OU `Postes`** (dans `TechServ
 Cliquez sur **OK**.
 
 ::: tip 📸 Capture 7
-Console GPMC — GPO `GPO-Postes-TechServices` liée à l'OU `Postes`.
+Console GPMC - GPO `GPO-Postes-TechServices` liée à l'OU `Postes`.
 :::
 
-### Tâche 4.2 — Configurer un message d'avertissement à la connexion
+### Tâche 4.2 - Configurer un message d'avertissement à la connexion
 
 Faites un **clic droit sur `GPO-Postes-TechServices`** → **Modifier**.
 
@@ -323,7 +323,7 @@ Faites défiler la liste et configurez les deux paramètres suivants :
 | Champ | Valeur |
 |---|---|
 | État | `Activé` |
-| Texte | `TechServices — Accès restreint` |
+| Texte | `TechServices - Accès restreint` |
 
 **Ouverture de session interactive : texte du message pour les utilisateurs essayant de se connecter**
 
@@ -337,10 +337,10 @@ Ce message a une valeur légale : il avertit toute personne tentant de se connec
 :::
 
 ::: tip 📸 Capture 8
-Éditeur GPO — les deux paramètres de message de connexion (**titre** et **texte**) configurés dans les Options de sécurité.
+Éditeur GPO - les deux paramètres de message de connexion (**titre** et **texte**) configurés dans les Options de sécurité.
 :::
 
-### Tâche 4.3 — Désactiver l'AutoRun des périphériques USB
+### Tâche 4.3 - Désactiver l'AutoRun des périphériques USB
 
 Toujours dans l'éditeur de `GPO-Postes-TechServices`, naviguez vers :
 
@@ -361,13 +361,13 @@ Fermez l'éditeur.
 
 ---
 
-## Mission 5 — Filtrer une GPO par groupe de sécurité
+## Mission 5 - Filtrer une GPO par groupe de sécurité
 
 Par défaut, une GPO s'applique à **tous les objets** de l'OU à laquelle elle est liée. Le **filtrage de sécurité** permet de restreindre l'application d'une GPO à un groupe spécifique.
 
 **Scénario** : la GPO `GPO-Utilisateurs-TechServices` restreint le Panneau de configuration pour tous. Mais le groupe `GRP-Informatique` a besoin d'y accéder pour administrer les postes. Vous allez créer une GPO d'exception qui annule cette restriction pour les membres de l'équipe informatique.
 
-### Tâche 5.1 — Créer la GPO d'exception
+### Tâche 5.1 - Créer la GPO d'exception
 
 Dans la console GPMC, faites un **clic droit sur l'OU `TechServices`** → **Créer un objet GPO dans ce domaine, et le lier ici**.
 
@@ -394,7 +394,7 @@ En mettant `Désactivé` dans cette GPO d'exception, on annule le `Activé` vena
 
 Fermez l'éditeur.
 
-### Tâche 5.2 — Restreindre la GPO au groupe Informatique
+### Tâche 5.2 - Restreindre la GPO au groupe Informatique
 
 Dans la console GPMC, cliquez sur **`GPO-Exception-Informatique`**. Dans le panneau de droite, allez dans l'onglet **Étendue**.
 
@@ -405,20 +405,20 @@ Observez la section **Filtrage de sécurité** : par défaut, `Utilisateurs auth
 3. Cliquez sur **Vérifier les noms** puis **OK**
 
 ::: warning Attention à l'ordre des GPO
-Les GPO d'une même OU s'appliquent dans l'ordre affiché dans la console (de bas en haut — la GPO en tête de liste est appliquée en dernier et a donc la priorité). Vérifiez que `GPO-Exception-Informatique` est au-dessus de `GPO-Utilisateurs-TechServices` dans la liste, ou utilisez le bouton **Priorité** pour la remonter.
+Les GPO d'une même OU s'appliquent dans l'ordre affiché dans la console (de bas en haut - la GPO en tête de liste est appliquée en dernier et a donc la priorité). Vérifiez que `GPO-Exception-Informatique` est au-dessus de `GPO-Utilisateurs-TechServices` dans la liste, ou utilisez le bouton **Priorité** pour la remonter.
 :::
 
 ::: tip 📸 Capture 9
-Onglet **Étendue** de `GPO-Exception-Informatique` — filtrage de sécurité affichant uniquement `GRP-Informatique`.
+Onglet **Étendue** de `GPO-Exception-Informatique` - filtrage de sécurité affichant uniquement `GRP-Informatique`.
 :::
 
 ---
 
-## Mission 6 — Vérifier l'application des GPO sur le poste client
+## Mission 6 - Vérifier l'application des GPO sur le poste client
 
 Les GPO ne s'appliquent pas instantanément après leur création. Elles se propagent toutes les **90 minutes** environ par défaut. Pour ce TP, vous allez forcer la mise à jour immédiatement.
 
-### Tâche 6.1 — Forcer la mise à jour des GPO
+### Tâche 6.1 - Forcer la mise à jour des GPO
 
 Sur **PC-CLIENT-01**, ouvrez **PowerShell en tant qu'administrateur** et tapez :
 
@@ -435,10 +435,10 @@ La mise à jour de la stratégie s'est terminée correctement.
 ```
 
 ::: tip 📸 Capture 10
-Sortie de `gpupdate /force` sur `PC-CLIENT-01` — confirmation de mise à jour réussie.
+Sortie de `gpupdate /force` sur `PC-CLIENT-01` - confirmation de mise à jour réussie.
 :::
 
-### Tâche 6.2 — Afficher les GPO appliquées
+### Tâche 6.2 - Afficher les GPO appliquées
 
 Toujours dans PowerShell, tapez :
 
@@ -449,48 +449,48 @@ gpresult /r
 Cette commande liste toutes les GPO qui se sont effectivement appliquées à la machine et à l'utilisateur courant, ainsi que celles qui ont été refusées et pourquoi.
 
 Repérez dans la sortie :
-- La section **ORDINATEUR** — doit afficher `GPO-Postes-TechServices`
-- La section **UTILISATEUR** — doit afficher `GPO-Utilisateurs-TechServices`
+- La section **ORDINATEUR** - doit afficher `GPO-Postes-TechServices`
+- La section **UTILISATEUR** - doit afficher `GPO-Utilisateurs-TechServices`
 
 ::: info gpresult /h pour un rapport complet
 La commande `gpresult /h rapport.html` génère un rapport HTML détaillé avec toutes les GPO, leurs paramètres et leur statut d'application. Très utile pour le diagnostic.
 :::
 
 ::: tip 📸 Capture 11
-Sortie de `gpresult /r` — sections **ORDINATEUR** et **UTILISATEUR** affichant les GPO correctement appliquées.
+Sortie de `gpresult /r` - sections **ORDINATEUR** et **UTILISATEUR** affichant les GPO correctement appliquées.
 :::
 
-### Tâche 6.3 — Vérifier le message de connexion
+### Tâche 6.3 - Vérifier le message de connexion
 
 Déconnectez-vous du poste (ou verrouillez la session et reconnectez-vous). Avant l'écran de connexion, un message d'avertissement doit apparaître :
 
-> **TechServices — Accès restreint**
+> **TechServices - Accès restreint**
 > *Cet équipement est la propriété de TechServices...*
 
 Cliquez sur **OK** pour le fermer et accéder à l'écran de connexion.
 
 ::: tip 📸 Capture 12
-Message d'avertissement **TechServices — Accès restreint** affiché avant la connexion sur `PC-CLIENT-01`.
+Message d'avertissement **TechServices - Accès restreint** affiché avant la connexion sur `PC-CLIENT-01`.
 :::
 
-### Tâche 6.4 — Vérifier le fond d'écran et les restrictions
+### Tâche 6.4 - Vérifier le fond d'écran et les restrictions
 
 Connectez-vous avec le compte `s.leroy` (Sophie Leroy, Commercial) :
 
-1. **Fond d'écran** — le fond d'écran imposé par la GPO doit s'afficher automatiquement. L'utilisateur ne peut pas le changer.
-2. **Panneau de configuration** — tapez `Panneau de configuration` dans la barre de recherche Windows. Un message d'erreur doit indiquer que l'accès est restreint par l'administrateur.
+1. **Fond d'écran** - le fond d'écran imposé par la GPO doit s'afficher automatiquement. L'utilisateur ne peut pas le changer.
+2. **Panneau de configuration** - tapez `Panneau de configuration` dans la barre de recherche Windows. Un message d'erreur doit indiquer que l'accès est restreint par l'administrateur.
 
 ::: tip 📸 Capture 13
-Bureau de `s.leroy` sur `PC-CLIENT-01` — fond d'écran imposé visible.
+Bureau de `s.leroy` sur `PC-CLIENT-01` - fond d'écran imposé visible.
 :::
 
 ::: tip 📸 Capture 14
 Message de restriction lors de l'accès au **Panneau de configuration** pour l'utilisateur `s.leroy`.
 :::
 
-### Tâche 6.5 — Vérifier l'exception pour l'équipe informatique
+### Tâche 6.5 - Vérifier l'exception pour l'équipe informatique
 
-Déconnectez-vous, puis reconnectez-vous avec le compte `l.bernard` (Lucas Bernard, Informatique — membre de `GRP-Informatique`).
+Déconnectez-vous, puis reconnectez-vous avec le compte `l.bernard` (Lucas Bernard, Informatique - membre de `GRP-Informatique`).
 
 Après connexion, tentez d'accéder au **Panneau de configuration**. Il doit s'ouvrir normalement, grâce à la `GPO-Exception-Informatique`.
 

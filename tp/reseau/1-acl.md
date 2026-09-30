@@ -1,10 +1,10 @@
----
+﻿---
 outline: deep
 ---
 
-# TP 2 — Infrastructure réseau multi-sites & ACL
+# TP 2 - Infrastructure réseau multi-sites & ACL
 
-<Badge type="info" text="BTS SIO SISR 2ème année" />  <Badge type="warning" text="Bloc 2 — Sécurité réseau & Pare-feu" />  <Badge type="danger" text="Cisco Packet Tracer" />
+<Badge type="info" text="BTS SIO SISR 2ème année" />  <Badge type="warning" text="Bloc 2 - Sécurité réseau & Pare-feu" />  <Badge type="danger" text="Cisco Packet Tracer" />
 
 ::: info Contexte
 La société **TechSolutions** possède deux sites géographiques : le **siège social** (Site A) et une **agence distante** (Site B). Les deux sites sont reliés entre eux par une liaison WAN. Une zone **DMZ** héberge les serveurs internes accessibles aux deux sites.
@@ -25,15 +25,15 @@ Toutes les configurations sont à réaliser sur **Cisco Packet Tracer**. Vous de
 
   <!-- Zone Site A -->
   <rect x="10" y="160" width="250" height="220" rx="10" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="6,3"/>
-  <text x="20" y="175" fill="#27ae60" font-weight="bold" font-size="9">SITE A — Siège social</text>
+  <text x="20" y="175" fill="#27ae60" font-weight="bold" font-size="9">SITE A - Siège social</text>
 
   <!-- Zone Site B -->
   <rect x="520" y="160" width="250" height="220" rx="10" fill="#fff4ec" stroke="#e05c00" stroke-width="1.5" stroke-dasharray="6,3"/>
-  <text x="530" y="175" fill="#e05c00" font-weight="bold" font-size="9">SITE B — Agence distante</text>
+  <text x="530" y="175" fill="#e05c00" font-weight="bold" font-size="9">SITE B - Agence distante</text>
 
   <!-- Zone DMZ -->
   <rect x="270" y="10" width="240" height="100" rx="10" fill="#fdf6e3" stroke="#b7770d" stroke-width="1.5" stroke-dasharray="6,3"/>
-  <text x="280" y="25" fill="#b7770d" font-weight="bold" font-size="9">DMZ — 10.0.100.0/24</text>
+  <text x="280" y="25" fill="#b7770d" font-weight="bold" font-size="9">DMZ - 10.0.100.0/24</text>
 
   <!-- SRV-Web -->
   <rect x="285" y="32" width="90" height="38" rx="5" fill="#fff8e1" stroke="#b7770d" stroke-width="1.5"/>
@@ -48,14 +48,14 @@ Toutes les configurations sont à réaliser sur **Cisco Packet Tracer**. Vous de
   <!-- R1 -->
   <rect x="200" y="140" width="110" height="50" rx="8" fill="#1a6fc4" stroke="#0d4a8a" stroke-width="2"/>
   <text x="255" y="161" fill="#fff" font-weight="bold" text-anchor="middle" font-size="12">R1</text>
-  <text x="255" y="178" fill="#cce0ff" text-anchor="middle" font-size="8.5">Cisco 2911 — Siège</text>
+  <text x="255" y="178" fill="#cce0ff" text-anchor="middle" font-size="8.5">Cisco 2911 - Siège</text>
 
   <!-- R2 -->
   <rect x="470" y="140" width="110" height="50" rx="8" fill="#e05c00" stroke="#a34200" stroke-width="2"/>
   <text x="525" y="161" fill="#fff" font-weight="bold" text-anchor="middle" font-size="12">R2</text>
-  <text x="525" y="178" fill="#ffe0cc" text-anchor="middle" font-size="8.5">Cisco 2911 — Agence</text>
+  <text x="525" y="178" fill="#ffe0cc" text-anchor="middle" font-size="8.5">Cisco 2911 - Agence</text>
 
-  <!-- Lien WAN R1 — R2 -->
+  <!-- Lien WAN R1 - R2 -->
   <line x1="310" y1="165" x2="470" y2="165" stroke="#6c3483" stroke-width="3"/>
   <rect x="360" y="152" width="60" height="16" rx="3" fill="#6c3483"/>
   <text x="390" y="163" fill="#fff" text-anchor="middle" font-size="8">WAN</text>
@@ -148,13 +148,13 @@ Toutes les configurations sont à réaliser sur **Cisco Packet Tracer**. Vous de
 
 | Équipement | Interface | Adresse IP | Masque | Passerelle | Zone |
 |---|---|---|---|---|---|
-| **R1** | `Gi0/0.10` | 192.168.10.1 | /24 | — | VLAN 10 |
-| **R1** | `Gi0/0.20` | 192.168.20.1 | /24 | — | VLAN 20 |
-| **R1** | `Gi0/1` | 10.10.12.1 | /30 | — | WAN |
-| **R1** | `Gi0/2` | 10.0.100.1 | /24 | — | DMZ |
-| **R2** | `Gi0/0` | 10.10.12.2 | /30 | — | WAN |
-| **R2** | `Gi0/1.30` | 172.16.30.1 | /24 | — | VLAN 30 |
-| **R2** | `Gi0/1.40` | 172.16.40.1 | /24 | — | VLAN 40 |
+| **R1** | `Gi0/0.10` | 192.168.10.1 | /24 | - | VLAN 10 |
+| **R1** | `Gi0/0.20` | 192.168.20.1 | /24 | - | VLAN 20 |
+| **R1** | `Gi0/1` | 10.10.12.1 | /30 | - | WAN |
+| **R1** | `Gi0/2` | 10.0.100.1 | /24 | - | DMZ |
+| **R2** | `Gi0/0` | 10.10.12.2 | /30 | - | WAN |
+| **R2** | `Gi0/1.30` | 172.16.30.1 | /24 | - | VLAN 30 |
+| **R2** | `Gi0/1.40` | 172.16.40.1 | /24 | - | VLAN 40 |
 | **SRV-Web** | `NIC` | 10.0.100.10 | /24 | 10.0.100.1 | DMZ |
 | **SRV-FTP** | `NIC` | 10.0.100.20 | /24 | 10.0.100.1 | DMZ |
 | PC-Dir-1 / PC-Dir-2 | `NIC` | DHCP (.10 à .100) | /24 | 192.168.10.1 | VLAN 10 |
@@ -164,37 +164,37 @@ Toutes les configurations sont à réaliser sur **Cisco Packet Tracer**. Vous de
 
 ---
 
-## Politique de sécurité — ACL à mettre en place
+## Politique de sécurité - ACL à mettre en place
 
 Une fois l'infrastructure opérationnelle, les règles suivantes doivent être appliquées :
 
-**ACL sur R1** — appliquée sur l'interface `Gi0/0.20` (VLAN 20 — Commerciaux)
+**ACL sur R1** - appliquée sur l'interface `Gi0/0.20` (VLAN 20 - Commerciaux)
 
 | # | Source | Destination | Protocole | Action |
 |---|---|---|---|---|
-| 1 | VLAN 20 — Commerciaux | SRV-Web — 10.0.100.10 | HTTP — TCP/80 | ✅ PERMIT |
-| 2 | VLAN 20 — Commerciaux | SRV-FTP — 10.0.100.20 | FTP — TCP/21 | ❌ DENY |
-| 3 | VLAN 20 — Commerciaux | VLAN 10 — 192.168.10.0/24 | Tout trafic IP | ❌ DENY |
-| 4 | VLAN 20 — Commerciaux | Toutes destinations | Tout trafic IP | ✅ PERMIT |
+| 1 | VLAN 20 - Commerciaux | SRV-Web - 10.0.100.10 | HTTP - TCP/80 | ✅ PERMIT |
+| 2 | VLAN 20 - Commerciaux | SRV-FTP - 10.0.100.20 | FTP - TCP/21 | ❌ DENY |
+| 3 | VLAN 20 - Commerciaux | VLAN 10 - 192.168.10.0/24 | Tout trafic IP | ❌ DENY |
+| 4 | VLAN 20 - Commerciaux | Toutes destinations | Tout trafic IP | ✅ PERMIT |
 
-**ACL sur R2** — appliquée sur l'interface `Gi0/1.40` (VLAN 40 — RH)
+**ACL sur R2** - appliquée sur l'interface `Gi0/1.40` (VLAN 40 - RH)
 
 | # | Source | Destination | Protocole | Action |
 |---|---|---|---|---|
-| 5 | VLAN 40 — RH | VLAN 30 — 172.16.30.0/24 | Tout trafic IP | ❌ DENY |
-| 6 | VLAN 40 — RH | Toutes destinations | Tout trafic IP | ✅ PERMIT |
+| 5 | VLAN 40 - RH | VLAN 30 - 172.16.30.0/24 | Tout trafic IP | ❌ DENY |
+| 6 | VLAN 40 - RH | Toutes destinations | Tout trafic IP | ✅ PERMIT |
 
 ---
 
 ## Missions de configuration
 
 ::: info Rappel
-Les commandes ne sont pas fournies — vous devez les retrouver à partir de vos notes de cours. En cas de blocage, utilisez la commande `?` dans la CLI Cisco ou consultez votre cours.
+Les commandes ne sont pas fournies - vous devez les retrouver à partir de vos notes de cours. En cas de blocage, utilisez la commande `?` dans la CLI Cisco ou consultez votre cours.
 :::
 
 ---
 
-### Mission 1 — Création de la topologie dans Packet Tracer
+### Mission 1 - Création de la topologie dans Packet Tracer
 
 
 Ouvrez Packet Tracer et reproduisez la topologie du schéma ci-dessus.
@@ -210,18 +210,18 @@ Vue d'ensemble de la topologie Packet Tracer avec tous les équipements reliés 
 
 ---
 
-### Mission 2 — Configuration des VLANs sur SW1 et SW2
+### Mission 2 - Configuration des VLANs sur SW1 et SW2
 
 
-#### SW1 — Site A (Siège)
+#### SW1 - Site A (Siège)
 
-**Tâche 2.1 — Création des VLANs**
+**Tâche 2.1 - Création des VLANs**
 
 Créez les deux VLANs suivants sur SW1 et attribuez-leur un nom :
-- **VLAN 10** — nom : _Direction_
-- **VLAN 20** — nom : _Commerciaux_
+- **VLAN 10** - nom : _Direction_
+- **VLAN 20** - nom : _Commerciaux_
 
-**Tâche 2.2 — Affectation des ports d'accès**
+**Tâche 2.2 - Affectation des ports d'accès**
 
 Configurez les ports du switch en mode _access_ et affectez-les aux bons VLANs :
 
@@ -232,7 +232,7 @@ Configurez les ports du switch en mode _access_ et affectez-les aux bons VLANs :
 | Fa0/3 | PC-Com-1 | 20 |
 | Fa0/4 | PC-Com-2 | 20 |
 
-**Tâche 2.3 — Lien trunk vers R1**
+**Tâche 2.3 - Lien trunk vers R1**
 
 Configurez le port **Gi0/1** de SW1 en mode _trunk_ (liaison vers R1).
 
@@ -244,15 +244,15 @@ Sortie de `show vlan brief` sur SW1 (VLANs 10 et 20 visibles avec leurs ports).
 Sortie de `show interfaces trunk` sur SW1 (Gi0/1 en mode trunk).
 :::
 
-#### SW2 — Site B (Agence)
+#### SW2 - Site B (Agence)
 
-**Tâche 2.4 — Création des VLANs**
+**Tâche 2.4 - Création des VLANs**
 
 Créez les deux VLANs suivants sur SW2 :
-- **VLAN 30** — nom : _Technique_
-- **VLAN 40** — nom : _RH_
+- **VLAN 30** - nom : _Technique_
+- **VLAN 40** - nom : _RH_
 
-**Tâche 2.5 — Affectation des ports et trunk**
+**Tâche 2.5 - Affectation des ports et trunk**
 
 Affectez les ports de SW2 aux VLANs correspondants (PC-Tech → VLAN 30, PC-RH → VLAN 40) et configurez le port relié à R2 en mode trunk.
 
@@ -262,16 +262,16 @@ Sortie de `show vlan brief` sur SW2.
 
 ---
 
-### Mission 3 — Routage inter-VLAN et adressage des routeurs
+### Mission 3 - Routage inter-VLAN et adressage des routeurs
 
 
 ::: tip Rappel
 La technique **Router-on-a-Stick** consiste à créer une **sous-interface** par VLAN sur une seule interface physique du routeur, avec encapsulation `dot1Q`. Chaque sous-interface devient la passerelle du VLAN correspondant.
 :::
 
-#### R1 — Siège social
+#### R1 - Siège social
 
-**Tâche 3.1 — Sous-interfaces VLAN 10 et VLAN 20**
+**Tâche 3.1 - Sous-interfaces VLAN 10 et VLAN 20**
 
 Sur l'interface **Gi0/0** de R1, créez deux sous-interfaces :
 - `Gi0/0.10` → encapsulation VLAN 10 → adresse IP : `192.168.10.1/24`
@@ -279,17 +279,17 @@ Sur l'interface **Gi0/0** de R1, créez deux sous-interfaces :
 
 N'oubliez pas d'activer l'interface physique `Gi0/0` avec `no shutdown`.
 
-**Tâche 3.2 — Interface WAN (liaison vers R2)**
+**Tâche 3.2 - Interface WAN (liaison vers R2)**
 
 Configurez l'interface **Gi0/1** de R1 avec l'adresse `10.10.12.1/30`.
 
-**Tâche 3.3 — Interface DMZ (vers les serveurs)**
+**Tâche 3.3 - Interface DMZ (vers les serveurs)**
 
 Configurez l'interface **Gi0/2** de R1 avec l'adresse `10.0.100.1/24`. Reliez SRV-Web et SRV-FTP à R1 via un switch supplémentaire ou directement (au choix).
 
-#### R2 — Agence distante
+#### R2 - Agence distante
 
-**Tâche 3.4 — Interface WAN et sous-interfaces VLAN 30 et VLAN 40**
+**Tâche 3.4 - Interface WAN et sous-interfaces VLAN 30 et VLAN 40**
 
 Sur R2, configurez :
 - **Gi0/0** → adresse IP : `10.10.12.2/30` (liaison WAN vers R1)
@@ -310,10 +310,10 @@ Ping depuis PC-Dir-1 vers sa passerelle (192.168.10.1) : succès attendu.
 
 ---
 
-### Mission 4 — Configuration du service DHCP sur les routeurs
+### Mission 4 - Configuration du service DHCP sur les routeurs
 
 
-**Tâche 4.1 — DHCP sur R1 pour le VLAN 10 (Direction)**
+**Tâche 4.1 - DHCP sur R1 pour le VLAN 10 (Direction)**
 
 Créez un pool DHCP nommé **POOL-VLAN10** sur R1 avec :
 - Réseau : `192.168.10.0/24`
@@ -321,15 +321,15 @@ Créez un pool DHCP nommé **POOL-VLAN10** sur R1 avec :
 - DNS : `8.8.8.8`
 - Excluez les adresses `.1` à `.9` de la distribution automatique.
 
-**Tâche 4.2 — DHCP sur R1 pour le VLAN 20 (Commerciaux)**
+**Tâche 4.2 - DHCP sur R1 pour le VLAN 20 (Commerciaux)**
 
 Créez un pool DHCP nommé **POOL-VLAN20** sur R1 (réseau `192.168.20.0/24`, passerelle `192.168.20.1`).
 
-**Tâche 4.3 — DHCP sur R2 pour les VLANs 30 et 40**
+**Tâche 4.3 - DHCP sur R2 pour les VLANs 30 et 40**
 
 Créez sur R2 un pool **POOL-VLAN30** (`172.16.30.0/24`) et un pool **POOL-VLAN40** (`172.16.40.0/24`).
 
-**Tâche 4.4 — Test d'attribution DHCP**
+**Tâche 4.4 - Test d'attribution DHCP**
 
 Passez les quatre PCs de chaque site en configuration **DHCP automatique** (_Desktop_ → _IP Configuration_ → _DHCP_) et vérifiez qu'ils obtiennent bien une adresse IP.
 
@@ -343,18 +343,18 @@ Configuration IP de PC-Tech-1 et PC-RH-1 montrant les adresses obtenues en DHCP.
 
 ---
 
-### Mission 5 — Configuration des serveurs (HTTP et FTP)
+### Mission 5 - Configuration des serveurs (HTTP et FTP)
 
 
-**Tâche 5.1 — Serveur web (SRV-Web)**
+**Tâche 5.1 - Serveur web (SRV-Web)**
 
-Sur SRV-Web, activez le service **HTTP** (onglet _Services_ → _HTTP_). Modifiez la page `index.html` pour afficher le message : _"Portail interne TechSolutions — accès réservé"_.
+Sur SRV-Web, activez le service **HTTP** (onglet _Services_ → _HTTP_). Modifiez la page `index.html` pour afficher le message : _"Portail interne TechSolutions - accès réservé"_.
 
-**Tâche 5.2 — Serveur FTP (SRV-FTP)**
+**Tâche 5.2 - Serveur FTP (SRV-FTP)**
 
 Sur SRV-FTP, activez le service **FTP** (onglet _Services_ → _FTP_). Créez un utilisateur FTP : login `admin`, mot de passe `cisco123`, avec tous les droits activés.
 
-**Tâche 5.3 — Tests d'accès initiaux (avant ACL)**
+**Tâche 5.3 - Tests d'accès initiaux (avant ACL)**
 
 Avant de configurer les ACL, vérifiez que l'accès aux serveurs fonctionne depuis les deux sites :
 - Depuis **PC-Dir-1** : accédez à `http://10.0.100.10` via Web Browser.
@@ -373,14 +373,14 @@ Connexion FTP réussie depuis PC-Com-1 vers SRV-FTP (avant ACL).
 
 ---
 
-### Mission 6 — Routage dynamique RIP version 2
+### Mission 6 - Routage dynamique RIP version 2
 
 
 ::: tip Rappel
 Utilisez `version 2` pour activer RIPv2 et `no auto-summary` pour désactiver la synthèse automatique des routes (indispensable avec des plages d'adresses discontinues).
 :::
 
-**Tâche 6.1 — RIP sur R1**
+**Tâche 6.1 - RIP sur R1**
 
 Activez RIP v2 sur R1 et déclarez tous les réseaux directement connectés :
 - `192.168.10.0`
@@ -390,18 +390,18 @@ Activez RIP v2 sur R1 et déclarez tous les réseaux directement connectés :
 
 Désactivez la synthèse automatique.
 
-**Tâche 6.2 — RIP sur R2**
+**Tâche 6.2 - RIP sur R2**
 
 Activez RIP v2 sur R2 et déclarez les réseaux directement connectés :
 - `10.10.12.0`
 - `172.16.30.0`
 - `172.16.40.0`
 
-**Tâche 6.3 — Vérification des tables de routage**
+**Tâche 6.3 - Vérification des tables de routage**
 
 Attendez quelques secondes que RIP converge, puis vérifiez les tables de routage sur R1 et R2. Les routes apprises via RIP sont indiquées par la lettre `R` dans la table.
 
-**Tâche 6.4 — Test de connectivité inter-sites**
+**Tâche 6.4 - Test de connectivité inter-sites**
 
 Depuis **PC-Dir-1** (VLAN 10, Site A), effectuez un ping vers **PC-Tech-1** (VLAN 30, Site B). Ce ping doit réussir si RIP et le routage inter-VLAN sont correctement configurés.
 
@@ -419,32 +419,32 @@ Ping réussi depuis PC-Dir-1 vers PC-Tech-1 (adresse IP obtenue en DHCP).
 
 ---
 
-### Mission 7 — Mise en place des ACL de sécurité
+### Mission 7 - Mise en place des ACL de sécurité
 
 
 ::: warning Avant de commencer
 Relisez attentivement la politique de sécurité définie plus haut. Identifiez pour chaque ACL : le type (étendue nommée), l'interface d'application, le sens (in/out) et l'ordre des règles. Réfléchissez aux wildcards nécessaires.
 :::
 
-#### ACL 1 — Filtrage des Commerciaux (sur R1)
+#### ACL 1 - Filtrage des Commerciaux (sur R1)
 
-**Tâche 7.1 — Création de l'ACL `SECURITE-COMMERCIAUX`**
+**Tâche 7.1 - Création de l'ACL `SECURITE-COMMERCIAUX`**
 
 Sur R1, créez une ACL étendue nommée **SECURITE-COMMERCIAUX** qui applique les règles 1, 2, 3 et 4 de la politique de sécurité.
 - Respectez l'ordre : les règles les plus spécifiques en premier.
 - Pensez à terminer par une règle autorisant le reste du trafic (règle 4).
 
-**Tâche 7.2 — Application de l'ACL sur l'interface**
+**Tâche 7.2 - Application de l'ACL sur l'interface**
 
 Appliquez **SECURITE-COMMERCIAUX** sur la sous-interface `Gi0/0.20` de R1, dans le bon sens (trafic entrant depuis les Commerciaux).
 
-#### ACL 2 — Filtrage des RH (sur R2)
+#### ACL 2 - Filtrage des RH (sur R2)
 
-**Tâche 7.3 — Création de l'ACL `SECURITE-RH`**
+**Tâche 7.3 - Création de l'ACL `SECURITE-RH`**
 
 Sur R2, créez une ACL étendue nommée **SECURITE-RH** qui applique les règles 5 et 6 de la politique de sécurité.
 
-**Tâche 7.4 — Application de l'ACL sur l'interface**
+**Tâche 7.4 - Application de l'ACL sur l'interface**
 
 Appliquez **SECURITE-RH** sur la sous-interface `Gi0/1.40` de R2, dans le bon sens.
 
@@ -454,14 +454,14 @@ Effectuez les tests suivants et vérifiez que les résultats correspondent aux a
 
 | # | Source | Test | Résultat attendu |
 |---|---|---|---|
-| T1 | PC-Com-1 | Web Browser → `http://10.0.100.10` | ✅ Succès — page web visible |
-| T2 | PC-Com-1 | `ftp 10.0.100.20` | ❌ Échec — connexion refusée |
-| T3 | PC-Com-1 | Ping → `192.168.10.x` (PC-Dir-1) | ❌ Échec — bloqué par ACL |
-| T4 | PC-Com-1 | Ping → `172.16.30.x` (PC-Tech-1, Site B) | ✅ Succès — non bloqué |
-| T5 | PC-Dir-1 | Web Browser → `http://10.0.100.10` | ✅ Succès — accès total Direction |
-| T6 | PC-Dir-1 | `ftp 10.0.100.20` | ✅ Succès — accès total Direction |
-| T7 | PC-RH-1 | Ping → `172.16.30.x` (PC-Tech-1) | ❌ Échec — bloqué par ACL |
-| T8 | PC-RH-1 | Web Browser → `http://10.0.100.10` | ✅ Succès — RH peut accéder au web |
+| T1 | PC-Com-1 | Web Browser → `http://10.0.100.10` | ✅ Succès - page web visible |
+| T2 | PC-Com-1 | `ftp 10.0.100.20` | ❌ Échec - connexion refusée |
+| T3 | PC-Com-1 | Ping → `192.168.10.x` (PC-Dir-1) | ❌ Échec - bloqué par ACL |
+| T4 | PC-Com-1 | Ping → `172.16.30.x` (PC-Tech-1, Site B) | ✅ Succès - non bloqué |
+| T5 | PC-Dir-1 | Web Browser → `http://10.0.100.10` | ✅ Succès - accès total Direction |
+| T6 | PC-Dir-1 | `ftp 10.0.100.20` | ✅ Succès - accès total Direction |
+| T7 | PC-RH-1 | Ping → `172.16.30.x` (PC-Tech-1) | ❌ Échec - bloqué par ACL |
+| T8 | PC-RH-1 | Web Browser → `http://10.0.100.10` | ✅ Succès - RH peut accéder au web |
 
 ::: tip 📸 Capture 15
 `show ip access-lists SECURITE-COMMERCIAUX` sur R1 (après les tests, avec les _matches_).
@@ -472,20 +472,20 @@ Effectuez les tests suivants et vérifiez que les résultats correspondent aux a
 :::
 
 ::: tip 📸 Capture 17
-Test T1 — page web visible depuis PC-Com-1.
+Test T1 - page web visible depuis PC-Com-1.
 :::
 
 ::: tip 📸 Capture 18
-Test T2 — connexion FTP refusée depuis PC-Com-1.
+Test T2 - connexion FTP refusée depuis PC-Com-1.
 :::
 
 ::: tip 📸 Capture 19
-Test T7 — ping refusé depuis PC-RH-1 vers PC-Tech-1.
+Test T7 - ping refusé depuis PC-RH-1 vers PC-Tech-1.
 :::
 
 ---
 
-## Récapitulatif — Rapport annexe à rendre
+## Récapitulatif - Rapport annexe à rendre
 
 ::: danger À rendre
 Votre rapport annexe doit contenir les **19 captures d'écran** listées ci-dessous, dans l'ordre, avec pour chaque capture une légende indiquant ce qu'elle montre.
@@ -509,9 +509,9 @@ Votre rapport annexe doit contenir les **19 captures d'écran** listées ci-dess
 | 14 | Ping réussi PC-Dir-1 → PC-Tech-1 (inter-sites) | 6 |
 | 15 | `show ip access-lists SECURITE-COMMERCIAUX` | 7 |
 | 16 | `show ip access-lists SECURITE-RH` | 7 |
-| 17 | Test T1 — page web depuis PC-Com-1 | 7 |
-| 18 | Test T2 — FTP refusé depuis PC-Com-1 | 7 |
-| 19 | Test T7 — ping refusé PC-RH-1 → PC-Tech-1 | 7 |
+| 17 | Test T1 - page web depuis PC-Com-1 | 7 |
+| 18 | Test T2 - FTP refusé depuis PC-Com-1 | 7 |
+| 19 | Test T7 - ping refusé PC-RH-1 → PC-Tech-1 | 7 |
 
 ::: warning Attention
 Vérifiez que chaque capture montre clairement le résultat (pas de fenêtre coupée, texte lisible). Numérotez chaque capture et mentionnez dans votre rapport le nom de l'équipement et la commande utilisée pour chaque capture CLI.

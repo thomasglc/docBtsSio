@@ -1,8 +1,8 @@
----
+﻿---
 outline: deep
 ---
 
-# TP 2 — Docker Compose et déploiement de WordPress
+# TP 2 - Docker Compose et déploiement de WordPress
 
 <Badge type="info" text="BTS SIO SISR 1ère année" />  <Badge type="warning" text="Durée : 2 heures" />  <Badge type="danger" text="Docker Compose + WordPress + MySQL" />
 
@@ -31,9 +31,9 @@ Au TP 1, vous avez lancé des conteneurs **un par un** à la main. Imaginez devo
 
 ---
 
-## Mission 1 — Premiers pas avec Docker Compose
+## Mission 1 - Premiers pas avec Docker Compose
 
-### Tâche 1.1 — Créer un dossier de travail
+### Tâche 1.1 - Créer un dossier de travail
 
 ```bash
 mkdir ~/tp-compose && cd ~/tp-compose
@@ -41,7 +41,7 @@ mkdir ~/tp-compose && cd ~/tp-compose
 
 Travaillez toujours dans un dossier dédié : Docker Compose utilise le nom du dossier comme préfixe pour nommer les ressources qu'il crée.
 
-### Tâche 1.2 — Écrire un premier fichier Compose
+### Tâche 1.2 - Écrire un premier fichier Compose
 
 Créez le fichier `docker-compose.yml` :
 
@@ -60,20 +60,20 @@ services:
 ```
 
 ::: info Structure d'un fichier Compose
-- `services` — liste des conteneurs à créer
-- `web` — nom du service (et du conteneur)
-- `image` — l'image Docker à utiliser
-- `ports` — mapping de ports (hôte:conteneur)
+- `services` - liste des conteneurs à créer
+- `web` - nom du service (et du conteneur)
+- `image` - l'image Docker à utiliser
+- `ports` - mapping de ports (hôte:conteneur)
 :::
 
-### Tâche 1.3 — Démarrer et observer
+### Tâche 1.3 - Démarrer et observer
 
 ```bash
 docker compose up -d
 docker compose ps
 ```
 
-Accédez à `http://[IP-VM]:8080` — Apache répond.
+Accédez à `http://[IP-VM]:8080` - Apache répond.
 
 Consultez les logs du service `web` :
 
@@ -90,7 +90,7 @@ docker ps -a    # les conteneurs ont disparu
 ```
 
 ::: tip 📸 Capture 1
-Sortie de `docker compose ps` — le service `web` est visible avec son statut et son port.
+Sortie de `docker compose ps` - le service `web` est visible avec son statut et son port.
 :::
 
 ::: info `down` vs `stop`
@@ -99,11 +99,11 @@ Sortie de `docker compose ps` — le service `web` est visible avec son statut e
 
 ---
 
-## Mission 2 — Volumes et persistance des données
+## Mission 2 - Volumes et persistance des données
 
 C'est le concept le plus important à comprendre avant de déployer WordPress.
 
-### Tâche 2.1 — Démontrer la perte de données
+### Tâche 2.1 - Démontrer la perte de données
 
 Modifiez `docker-compose.yml` pour ajouter un conteneur Apache avec une page personnalisée :
 
@@ -131,9 +131,9 @@ docker compose down
 docker compose up -d
 ```
 
-Accédez à nouveau à `http://[IP-VM]:8080` — la page d'accueil Apache par défaut est revenue. **La modification est perdue.**
+Accédez à nouveau à `http://[IP-VM]:8080` - la page d'accueil Apache par défaut est revenue. **La modification est perdue.**
 
-### Tâche 2.2 — Ajouter un volume
+### Tâche 2.2 - Ajouter un volume
 
 Un **volume** est un espace de stockage géré par Docker, qui existe **en dehors du cycle de vie des conteneurs**. Les données y survivent aux `docker compose down`.
 
@@ -177,7 +177,7 @@ Page `http://[IP-VM]:8080` affichant "Donnee persistante !" après un `docker co
 Les volumes nommés sont gérés par Docker dans `/var/lib/docker/volumes/`. Vous pouvez les inspecter avec `docker volume ls` et `docker volume inspect <nom>`.
 :::
 
-### Tâche 2.3 — Nettoyer avant la suite
+### Tâche 2.3 - Nettoyer avant la suite
 
 ```bash
 docker compose down --volumes
@@ -187,18 +187,18 @@ Le flag `--volumes` supprime aussi les volumes associés. Utile pour repartir de
 
 ---
 
-## Mission 3 — Déployer WordPress avec Docker Compose
+## Mission 3 - Déployer WordPress avec Docker Compose
 
 Vous avez tous les outils en main. Place au projet.
 
-### Tâche 3.1 — Créer un dossier pour le projet
+### Tâche 3.1 - Créer un dossier pour le projet
 
 ```bash
 cd ~
 mkdir wordpress && cd wordpress
 ```
 
-### Tâche 3.2 — Comprendre l'architecture
+### Tâche 3.2 - Comprendre l'architecture
 
 WordPress a besoin de deux services :
 
@@ -219,7 +219,7 @@ WordPress a besoin de deux services :
 
 Docker Compose crée automatiquement un réseau partagé entre tous les services du fichier. Les services peuvent se joindre **par leur nom** (`mysql` est joignable depuis `wordpress` directement).
 
-### Tâche 3.3 — Écrire le fichier docker-compose.yml
+### Tâche 3.3 - Écrire le fichier docker-compose.yml
 
 ```bash
 nano docker-compose.yml
@@ -261,18 +261,18 @@ volumes:
 
 ::: info Décryptage du fichier
 
-**`restart: always`** — le conteneur redémarre automatiquement s'il plante ou si la VM redémarre. Indispensable en production.
+**`restart: always`** - le conteneur redémarre automatiquement s'il plante ou si la VM redémarre. Indispensable en production.
 
-**`environment`** — variables d'environnement injectées dans le conteneur. C'est ainsi que WordPress connaît le mot de passe de la base de données sans qu'on ait à modifier de fichier de configuration manuellement.
+**`environment`** - variables d'environnement injectées dans le conteneur. C'est ainsi que WordPress connaît le mot de passe de la base de données sans qu'on ait à modifier de fichier de configuration manuellement.
 
-**`WORDPRESS_DB_HOST: mysql`** — WordPress se connecte au service nommé `mysql`. Docker Compose traduit ce nom en adresse IP grâce au réseau interne qu'il crée automatiquement.
+**`WORDPRESS_DB_HOST: mysql`** - WordPress se connecte au service nommé `mysql`. Docker Compose traduit ce nom en adresse IP grâce au réseau interne qu'il crée automatiquement.
 
-**`depends_on`** — WordPress attend que le service `mysql` soit **démarré** avant de se lancer. (Note : cela ne garantit pas que MySQL soit prêt à accepter des connexions — c'est pourquoi `restart: always` est important.)
+**`depends_on`** - WordPress attend que le service `mysql` soit **démarré** avant de se lancer. (Note : cela ne garantit pas que MySQL soit prêt à accepter des connexions - c'est pourquoi `restart: always` est important.)
 
-**`volumes`** — deux volumes nommés persistent les données de MySQL et les fichiers WordPress.
+**`volumes`** - deux volumes nommés persistent les données de MySQL et les fichiers WordPress.
 :::
 
-### Tâche 3.4 — Démarrer la stack
+### Tâche 3.4 - Démarrer la stack
 
 ```bash
 docker compose up -d
@@ -290,10 +290,10 @@ docker compose logs -f
 Attendez que les deux services soient en statut `running`. Faites `Ctrl+C` pour quitter le suivi.
 
 ::: tip 📸 Capture 3
-Sortie de `docker compose ps` — les services `mysql` et `wordpress` sont tous les deux en statut `running`.
+Sortie de `docker compose ps` - les services `mysql` et `wordpress` sont tous les deux en statut `running`.
 :::
 
-### Tâche 3.5 — Installer WordPress
+### Tâche 3.5 - Installer WordPress
 
 Ouvrez votre navigateur et accédez à :
 
@@ -317,10 +317,10 @@ Page d'accueil de l'assistant d'installation WordPress accessible à `http://[IP
 :::
 
 ::: tip 📸 Capture 5
-Tableau de bord WordPress après installation — confirmation que le site fonctionne.
+Tableau de bord WordPress après installation - confirmation que le site fonctionne.
 :::
 
-### Tâche 3.6 — Vérifier la persistance
+### Tâche 3.6 - Vérifier la persistance
 
 Vous venez d'installer WordPress. Vérifiez que vos données survivent à un redémarrage complet de la stack :
 
@@ -329,13 +329,13 @@ docker compose down
 docker compose up -d
 ```
 
-Accédez à nouveau à `http://[IP-VM]:8080` — WordPress est directement accessible, **sans passer par l'assistant d'installation**. Les données sont persistées dans les volumes.
+Accédez à nouveau à `http://[IP-VM]:8080` - WordPress est directement accessible, **sans passer par l'assistant d'installation**. Les données sont persistées dans les volumes.
 
 ::: tip 📸 Capture 6
-Site WordPress directement accessible après `docker compose down` puis `docker compose up -d` — l'installation n'est pas reperdue.
+Site WordPress directement accessible après `docker compose down` puis `docker compose up -d` - l'installation n'est pas reperdue.
 :::
 
-### Tâche 3.7 — Explorer l'infrastructure
+### Tâche 3.7 - Explorer l'infrastructure
 
 Observez ce que Docker Compose a créé :
 
@@ -354,14 +354,14 @@ docker network inspect wordpress_default
 Vous pouvez voir les deux conteneurs connectés à ce réseau avec leurs adresses IP internes.
 
 ::: tip 📸 Capture 7
-Sortie de `docker network inspect wordpress_default` — les deux services et leurs adresses IP internes visibles.
+Sortie de `docker network inspect wordpress_default` - les deux services et leurs adresses IP internes visibles.
 :::
 
 ---
 
-## Mission 4 — Comprendre ce qu'on a fait
+## Mission 4 - Comprendre ce qu'on a fait
 
-### Tâche 4.1 — Comparer avec l'installation manuelle
+### Tâche 4.1 - Comparer avec l'installation manuelle
 
 Lors du TP Système, l'installation de WordPress sur une pile LAMP a nécessité :
 - Installer et configurer Apache
@@ -374,7 +374,7 @@ Lors du TP Système, l'installation de WordPress sur une pile LAMP a nécessité
 
 Avec Docker Compose, tout cela se résume à **un fichier de 30 lignes** et **une commande**.
 
-### Tâche 4.2 — Tester la destruction des volumes
+### Tâche 4.2 - Tester la destruction des volumes
 
 Pour comprendre l'importance des volumes, testez la destruction complète :
 
@@ -382,7 +382,7 @@ Pour comprendre l'importance des volumes, testez la destruction complète :
 docker compose down --volumes
 ```
 
-Accédez à `http://[IP-VM]:8080` — l'assistant d'installation WordPress réapparaît. Toutes les données ont été supprimées avec les volumes.
+Accédez à `http://[IP-VM]:8080` - l'assistant d'installation WordPress réapparaît. Toutes les données ont été supprimées avec les volumes.
 
 Relancez :
 
@@ -394,7 +394,7 @@ docker compose up -d
 On ne lance **jamais** `docker compose down --volumes` sur une infrastructure de production. Les volumes contiennent les données réelles. La commande sans `--volumes` suffit pour redémarrer proprement.
 :::
 
-### Tâche 4.3 — Ajouter un service phpMyAdmin (bonus)
+### Tâche 4.3 - Ajouter un service phpMyAdmin (bonus)
 
 Si vous avez terminé en avance, ajoutez un accès phpMyAdmin pour administrer la base de données graphiquement.
 
@@ -416,10 +416,10 @@ Modifiez `docker-compose.yml` et ajoutez ce service :
 docker compose up -d
 ```
 
-Accédez à `http://[IP-VM]:8081` — phpMyAdmin vous permet de voir la base `wordpress` et ses tables créées par WordPress.
+Accédez à `http://[IP-VM]:8081` - phpMyAdmin vous permet de voir la base `wordpress` et ses tables créées par WordPress.
 
 ::: tip 📸 Capture 8 (bonus)
-Interface phpMyAdmin accessible à `http://[IP-VM]:8081` — la base `wordpress` est visible avec ses tables.
+Interface phpMyAdmin accessible à `http://[IP-VM]:8081` - la base `wordpress` est visible avec ses tables.
 :::
 
 ---

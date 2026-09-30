@@ -1,20 +1,20 @@
----
+﻿---
 outline: deep
 ---
 
-# TP 1 — Observer le trafic HTTP
+# TP 1 - Observer le trafic HTTP
 
 <Badge type="info" text="BTS SIO SLAM 2ème année" />  <Badge type="warning" text="Durée : 1 heure" />  <Badge type="danger" text="PHP + JavaScript + DevTools" />
 
 ::: info Contexte
-Vous commencez la construction de l'application fil rouge du cours de cybersécurité : une **API de gestion de notes personnelles**. Dans ce premier TP, l'objectif n'est pas encore la sécurité — c'est de **comprendre ce qui se passe** entre le client et le serveur, avant de le sécuriser.
+Vous commencez la construction de l'application fil rouge du cours de cybersécurité : une **API de gestion de notes personnelles**. Dans ce premier TP, l'objectif n'est pas encore la sécurité - c'est de **comprendre ce qui se passe** entre le client et le serveur, avant de le sécuriser.
 :::
 
 ---
 
-## Mission 1 — Mise en place du projet
+## Mission 1 - Mise en place du projet
 
-### Tâche 1.1 — Structure des fichiers
+### Tâche 1.1 - Structure des fichiers
 
 Créez le dossier `notes-app` dans votre répertoire web (htdocs pour XAMPP, www pour Laragon) avec la structure suivante :
 
@@ -27,7 +27,7 @@ notes-app/
 └── index.html
 ```
 
-### Tâche 1.2 — Fichier de données initial
+### Tâche 1.2 - Fichier de données initial
 
 Créez `data/notes.json` avec le contenu suivant :
 
@@ -40,9 +40,9 @@ Créez `data/notes.json` avec le contenu suivant :
 
 ---
 
-## Mission 2 — Créer l'API PHP
+## Mission 2 - Créer l'API PHP
 
-### Tâche 2.1 — Le fichier notes.php
+### Tâche 2.1 - Le fichier notes.php
 
 Créez `api/notes.php` :
 
@@ -94,13 +94,13 @@ if ($methode === 'GET') {
 ```
 
 ::: info Que fait ce code ?
-- `header('Content-Type: application/json')` — indique au client que la réponse est au format JSON
-- `$_SERVER['REQUEST_METHOD']` — récupère la méthode HTTP de la requête (GET, POST…)
-- `file_get_contents('php://input')` — lit le corps (body) de la requête
-- `http_response_code(201)` — envoie le code de statut 201 Created
+- `header('Content-Type: application/json')` - indique au client que la réponse est au format JSON
+- `$_SERVER['REQUEST_METHOD']` - récupère la méthode HTTP de la requête (GET, POST…)
+- `file_get_contents('php://input')` - lit le corps (body) de la requête
+- `http_response_code(201)` - envoie le code de statut 201 Created
 :::
 
-### Tâche 2.2 — Tester l'API directement
+### Tâche 2.2 - Tester l'API directement
 
 Ouvrez votre navigateur sur `http://localhost/notes-app/api/notes.php`.
 
@@ -112,9 +112,9 @@ La réponse JSON de l'API affichée dans le navigateur.
 
 ---
 
-## Mission 3 — Créer le client JavaScript
+## Mission 3 - Créer le client JavaScript
 
-### Tâche 3.1 — La page index.html
+### Tâche 3.1 - La page index.html
 
 Créez `index.html` :
 
@@ -178,7 +178,7 @@ Créez `index.html` :
 </html>
 ```
 
-### Tâche 3.2 — Tester l'application
+### Tâche 3.2 - Tester l'application
 
 Ouvrez `http://localhost/notes-app/` dans votre navigateur. Vos deux notes de test doivent s'afficher, et vous devez pouvoir en ajouter une nouvelle.
 
@@ -188,15 +188,15 @@ L'interface de l'application avec les notes affichées et le formulaire d'ajout.
 
 ---
 
-## Mission 4 — Observer avec DevTools
+## Mission 4 - Observer avec DevTools
 
 C'est la mission la plus importante de ce TP : comprendre ce qui se passe **sous le capot**.
 
-### Tâche 4.1 — Ouvrir DevTools
+### Tâche 4.1 - Ouvrir DevTools
 
 Appuyez sur **F12** → onglet **Réseau** (Network). Videz le contenu avec l'icône 🚫, puis rechargez la page avec **F5**.
 
-### Tâche 4.2 — Analyser la requête GET
+### Tâche 4.2 - Analyser la requête GET
 
 Cliquez sur la requête vers `notes.php` dans la liste.
 
@@ -211,10 +211,10 @@ Dans l'onglet **Headers**, répondez aux questions suivantes :
 Dans l'onglet **Response**, que contient la réponse ?
 
 ::: tip 📸 Capture 3
-Onglet Headers de la requête GET vers `notes.php` — Request Method et Status Code visibles.
+Onglet Headers de la requête GET vers `notes.php` - Request Method et Status Code visibles.
 :::
 
-### Tâche 4.3 — Analyser la requête POST
+### Tâche 4.3 - Analyser la requête POST
 
 Ajoutez une nouvelle note via le formulaire, et observez la nouvelle requête dans DevTools.
 
@@ -225,10 +225,10 @@ Ajoutez une nouvelle note via le formulaire, et observez la nouvelle requête da
 | Où se trouve le texte de la note envoyée ? | |
 
 ::: tip 📸 Capture 4
-Onglet Payload (ou Headers) de la requête POST — body JSON envoyé visible.
+Onglet Payload (ou Headers) de la requête POST - body JSON envoyé visible.
 :::
 
-### Tâche 4.4 — Ce que ça révèle sur la sécurité
+### Tâche 4.4 - Ce que ça révèle sur la sécurité
 
 Regardez attentivement les requêtes dans DevTools. En l'état, n'importe qui connaissant l'URL de l'API peut :
 - Lire **toutes les notes** avec un simple GET
@@ -240,15 +240,15 @@ Il n'y a aucun contrôle : l'API est entièrement ouverte. C'est exactement le p
 
 ---
 
-## Mission 5 — Attaquer sa propre API
+## Mission 5 - Attaquer sa propre API
 
-### Tâche 5.1 — Ouvrir une page sans rapport avec l'application
+### Tâche 5.1 - Ouvrir une page sans rapport avec l'application
 
-Ouvrez un **nouvel onglet** et naviguez sur n'importe quelle page — par exemple `https://www.google.fr`.
+Ouvrez un **nouvel onglet** et naviguez sur n'importe quelle page - par exemple `https://www.google.fr`.
 
 L'objectif : envoyer une requête à votre API **depuis une page extérieure**, comme le ferait un attaquant.
 
-### Tâche 5.2 — Injecter une note depuis la console
+### Tâche 5.2 - Injecter une note depuis la console
 
 Ouvrez DevTools (F12) → onglet **Console**, puis collez et exécutez ce code :
 
@@ -260,12 +260,12 @@ fetch('http://localhost/notes-app/api/notes.php', {
 })
 ```
 
-### Tâche 5.3 — Vérifier l'impact
+### Tâche 5.3 - Vérifier l'impact
 
 Retournez sur `http://localhost/notes-app/` et rechargez la page.
 
 ::: danger La note est là
-La note a bien été ajoutée — sans passer par votre interface, sans aucune authentification, depuis une page qui n'a rien à voir avec votre application. N'importe qui connaissant l'URL de votre API peut faire la même chose.
+La note a bien été ajoutée - sans passer par votre interface, sans aucune authentification, depuis une page qui n'a rien à voir avec votre application. N'importe qui connaissant l'URL de votre API peut faire la même chose.
 :::
 
 ::: tip 📸 Capture 5
@@ -279,7 +279,7 @@ L'application affichant la note injectée depuis la console de Google.
 Répondez à ces questions **dans votre rapport** :
 
 1. Quelle différence concrète avez-vous observée entre la requête GET et la requête POST dans DevTools ?
-2. Où se trouve le texte de la note dans la requête POST — dans l'URL, dans les headers, ou ailleurs ?
+2. Où se trouve le texte de la note dans la requête POST - dans l'URL, dans les headers, ou ailleurs ?
 3. Si l'application tournait sur un serveur distant sans HTTPS, que pourrait voir quelqu'un qui intercepte le trafic sur le réseau ?
 4. Que faudrait-il ajouter à cette API pour qu'elle ne soit accessible qu'à un utilisateur connecté ?
 
@@ -289,7 +289,7 @@ Répondez à ces questions **dans votre rapport** :
 
 | Requête | Ce qu'on a observé |
 |---|---|
-| `GET /api/notes.php` | Récupère toutes les notes — réponse JSON, code **200 OK** |
-| `POST /api/notes.php` | Crée une note — body JSON, code **201 Created** |
+| `GET /api/notes.php` | Récupère toutes les notes - réponse JSON, code **200 OK** |
+| `POST /api/notes.php` | Crée une note - body JSON, code **201 Created** |
 | Header `Content-Type: application/json` | Indique le format des données échangées |
 | DevTools → Réseau | Inspecte tout le trafic HTTP du navigateur en temps réel |

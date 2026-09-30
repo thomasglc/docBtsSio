@@ -1,8 +1,8 @@
----
+﻿---
 outline: deep
 ---
 
-# TP 2 — Sécuriser les mots de passe
+# TP 2 - Sécuriser les mots de passe
 
 <Badge type="info" text="BTS SIO SLAM 2ème année" />  <Badge type="warning" text="Durée : 1 heure" />  <Badge type="danger" text="PHP + bcrypt" />
 
@@ -14,9 +14,9 @@ Ce TP ajoute la première brique d'authentification : l'inscription et la connex
 
 ---
 
-## Mission 1 — Préparer la structure des données
+## Mission 1 - Préparer la structure des données
 
-### Tâche 1.1 — Créer le fichier `data/users.json`
+### Tâche 1.1 - Créer le fichier `data/users.json`
 
 Dans votre dossier `notes-app/data/`, créez un fichier `users.json` contenant simplement un tableau vide :
 
@@ -26,7 +26,7 @@ Dans votre dossier `notes-app/data/`, créez un fichier `users.json` contenant s
 
 Ce fichier servira à stocker les comptes utilisateurs.
 
-### Tâche 1.2 — Nouvelle arborescence du projet
+### Tâche 1.2 - Nouvelle arborescence du projet
 
 Votre projet doit maintenant ressembler à ceci :
 
@@ -48,9 +48,9 @@ Assurez-vous que le serveur web (Apache/PHP) a le droit d'écrire dans le dossie
 
 ---
 
-## Mission 2 — Créer la route d'inscription
+## Mission 2 - Créer la route d'inscription
 
-### Tâche 2.1 — Créer `api/register.php`
+### Tâche 2.1 - Créer `api/register.php`
 
 Créez le fichier `notes-app/api/register.php` avec le code suivant :
 
@@ -105,7 +105,7 @@ echo json_encode(['message' => 'Compte créé', 'email' => $nouveauUser['email']
 Le mot de passe brut n'est **jamais** écrit dans le fichier.
 :::
 
-### Tâche 2.2 — Tester l'inscription avec curl
+### Tâche 2.2 - Tester l'inscription avec curl
 
 Ouvrez un terminal et exécutez :
 
@@ -130,7 +130,7 @@ Essayez ensuite la même commande une deuxième fois : vous devez obtenir un `40
 Utilisez l'extension **Thunder Client** dans VS Code, **Postman**, ou l'onglet **Réseau** des DevTools avec un `fetch()` dans la console du navigateur.
 :::
 
-### Tâche 2.3 — Vérifier le hash dans `data/users.json`
+### Tâche 2.3 - Vérifier le hash dans `data/users.json`
 
 Ouvrez le fichier `notes-app/data/users.json` avec votre éditeur. Vous devez voir quelque chose comme :
 
@@ -154,9 +154,9 @@ Si vous voyez le mot de passe en clair dans ce fichier, quelque chose s'est mal 
 
 ---
 
-## Mission 3 — Créer la route de connexion
+## Mission 3 - Créer la route de connexion
 
-### Tâche 3.1 — Créer `api/login.php`
+### Tâche 3.1 - Créer `api/login.php`
 
 Créez le fichier `notes-app/api/login.php` avec le code suivant :
 
@@ -208,7 +208,7 @@ echo json_encode(['message' => 'Connexion réussie', 'email' => $userTrouve['ema
 Remarquez que le code retourne **le même message d'erreur** que l'email soit inconnu ou que le mot de passe soit faux : c'est intentionnel. Expliquer lequel des deux a échoué aiderait un attaquant à énumérer les comptes existants.
 :::
 
-### Tâche 3.2 — Tester les scénarios de connexion
+### Tâche 3.2 - Tester les scénarios de connexion
 
 Testez les deux cas avec curl (ou votre outil REST) :
 
@@ -239,7 +239,7 @@ Notez vos observations dans le tableau suivant :
 Faites une capture d'écran montrant les deux requêtes et leurs réponses dans votre outil REST (ou dans le terminal).
 :::
 
-### Tâche 3.3 — Tester avec un email inexistant
+### Tâche 3.3 - Tester avec un email inexistant
 
 Envoyez une requête de connexion avec un email qui n'existe pas dans `users.json` :
 
@@ -257,9 +257,9 @@ curl -X POST http://localhost/notes-app/api/login.php \
 
 ---
 
-## Mission 4 — Brancher le client JS
+## Mission 4 - Brancher le client JS
 
-### Tâche 4.1 — Modifier `index.html`
+### Tâche 4.1 - Modifier `index.html`
 
 Remplacez (ou complétez) le contenu de votre `index.html` par le code suivant. Il ajoute deux formulaires : inscription et connexion.
 
@@ -347,7 +347,7 @@ Remplacez (ou complétez) le contenu de votre `index.html` par le code suivant. 
 </html>
 ```
 
-### Tâche 4.2 — Tester le parcours complet dans le navigateur
+### Tâche 4.2 - Tester le parcours complet dans le navigateur
 
 Ouvrez `http://localhost/notes-app/index.html` et effectuez les trois tests suivants :
 
@@ -361,9 +361,9 @@ Faites une capture d'écran du navigateur montrant au moins un message de succè
 
 ---
 
-## Mission 5 — Comprendre les attaques
+## Mission 5 - Comprendre les attaques
 
-### Tâche 5.1 — Simuler une fuite de base de données
+### Tâche 5.1 - Simuler une fuite de base de données
 
 Imaginez qu'un attaquant obtienne une copie de `data/users.json`.
 
@@ -382,7 +382,7 @@ Ouvrez le fichier et répondez aux questions suivantes :
 **bcrypt** est volontairement lent et intègre un paramètre de coût (le `12` dans `$2y$12$...`). Il est conçu pour que tester un seul mot de passe prenne plusieurs millisecondes, ce qui rend une attaque par force brute des centaines de milliers de fois plus lente.
 :::
 
-### Tâche 5.2 — Utiliser le hash comme mot de passe
+### Tâche 5.2 - Utiliser le hash comme mot de passe
 
 Copiez la valeur complète du champ `password_hash` depuis `users.json` (la chaine qui commence par `$2y$12$...`).
 

@@ -1,17 +1,17 @@
-# TP — Initiation à PowerShell
+﻿# TP - Initiation à PowerShell
 
 <Badge type="info" text="BTS SIO 1ère année" />  <Badge type="warning" text="PowerShell ISE ou VS Code" />
 
 Ce TP se déroule en 4 niveaux de difficulté croissante. Chaque exercice est indépendant. **Lisez bien les consignes avant de commencer à écrire.**
 
 
-## Niveau 1 — Premiers pas
+## Niveau 1 - Premiers pas
 
 ::: tip Niveau 1
 Variables, affichage, types de base. Tout se tape directement dans la console.
 :::
 
-### Exercice 1 — Hello PowerShell
+### Exercice 1 - Hello PowerShell
 
 Ouvrez PowerShell ISE et tapez les commandes suivantes **une par une** dans la console (zone du bas).
 
@@ -29,7 +29,7 @@ La console affiche le texte, puis la date complète, puis l'année seule (ex: 20
 
 ---
 
-### Exercice 2 — Variables et calculs
+### Exercice 2 - Variables et calculs
 
 Toujours dans la console, créez les variables suivantes :
 
@@ -45,7 +45,7 @@ Toujours dans la console, créez les variables suivantes :
 
 ---
 
-### Exercice 3 — Types de variables
+### Exercice 3 - Types de variables
 
 Dans la console, testez le comportement des types :
 
@@ -60,13 +60,13 @@ Sans forçage, `"10" + 5` donne `105` (concaténation). Avec `[int]`, on obtient
 
 ---
 
-## Niveau 2 — Fichiers et dossiers
+## Niveau 2 - Fichiers et dossiers
 
 ::: info Niveau 2
 Navigation dans l'arborescence, création et lecture de fichiers.
 :::
 
-### Exercice 4 — Navigation
+### Exercice 4 - Navigation
 
 Dans la console :
 
@@ -82,7 +82,7 @@ Dans la console :
 
 ---
 
-### Exercice 5 — Créer une arborescence — `ex5.ps1`
+### Exercice 5 - Créer une arborescence - `ex5.ps1`
 
 Créez un script `ex5.ps1` qui :
 
@@ -102,7 +102,7 @@ L'arborescence est créée et la console affiche un message pour chaque étape.
 
 ---
 
-### Exercice 6 — Lire et écrire dans un fichier — `ex6.ps1`
+### Exercice 6 - Lire et écrire dans un fichier - `ex6.ps1`
 
 Créez un script `ex6.ps1` qui :
 
@@ -112,18 +112,18 @@ Créez un script `ex6.ps1` qui :
 4. Relit le fichier pour vérifier que la ligne a bien été ajoutée
 
 ::: details Indice
-`Add-Content -Path "..." -Value "texte"` — pour insérer la date : `"Ajout du $(Get-Date)"`
+`Add-Content -Path "..." -Value "texte"` - pour insérer la date : `"Ajout du $(Get-Date)"`
 :::
 
 ---
 
-## Niveau 3 — Conditions et boucles
+## Niveau 3 - Conditions et boucles
 
 ::: warning Niveau 3
 Écriture de scripts avec `if`, `for`, `foreach` et `while`.
 :::
 
-### Exercice 7 — Conditions — `ex7.ps1`
+### Exercice 7 - Conditions - `ex7.ps1`
 
 Créez un script `ex7.ps1` qui :
 
@@ -146,7 +146,7 @@ Ajoutez une vérification que la note est bien entre 0 et 20, sinon affichez `No
 
 ---
 
-### Exercice 8 — Boucle for — `ex8.ps1`
+### Exercice 8 - Boucle for - `ex8.ps1`
 
 Créez un script `ex8.ps1` qui :
 
@@ -168,7 +168,7 @@ L'opérateur modulo en PowerShell est `%`. Un nombre est pair si `$i % 2 -eq 0`
 
 ---
 
-### Exercice 9 — Boucle foreach — `ex9.ps1`
+### Exercice 9 - Boucle foreach - `ex9.ps1`
 
 Créez un script `ex9.ps1` qui :
 
@@ -190,7 +190,7 @@ Pensez à créer d'abord le dossier parent `C:\TP-PowerShell\Eleves` avant la bo
 
 ---
 
-### Exercice 10 — Boucle while — `ex10.ps1`
+### Exercice 10 - Boucle while - `ex10.ps1`
 
 Créez un script `ex10.ps1` qui simule un compte à rebours :
 
@@ -204,13 +204,13 @@ Ajoutez `Start-Sleep -Seconds 1` dans la boucle pour que le compte à rebours s'
 
 ---
 
-## Niveau 4 — Mise en situation
+## Niveau 4 - Mise en situation
 
 ::: danger Niveau 4
 Scripts plus complets combinant plusieurs notions.
 :::
 
-### Exercice 11 — Générateur de rapport — `ex11.ps1`
+### Exercice 11 - Générateur de rapport - `ex11.ps1`
 
 Créez un script `ex11.ps1` qui génère un fichier de rapport système :
 
@@ -230,7 +230,7 @@ Un fichier `rapport.txt` lisible contenant la date, la machine, les disques et 5
 
 ---
 
-### Exercice 12 — Vérificateur de services — `ex12.ps1`
+### Exercice 12 - Vérificateur de services - `ex12.ps1`
 
 Créez un script `ex12.ps1` qui vérifie l'état de plusieurs services Windows :
 
@@ -252,7 +252,7 @@ Comptez et affichez à la fin le nombre de services démarrés sur le total. Ex 
 
 ---
 
-### Exercice 13 — Moniteur d'espace disque — `ex13.ps1`
+### Exercice 13 - Moniteur d'espace disque - `ex13.ps1`
 
 Créez un script `ex13.ps1` qui analyse l'espace disque de chaque lecteur local :
 

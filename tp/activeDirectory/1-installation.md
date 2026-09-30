@@ -1,13 +1,13 @@
----
+﻿---
 outline: deep
 ---
 
-# TP 1 — Installation et mise en place d'Active Directory
+# TP 1 - Installation et mise en place d'Active Directory
 
-<Badge type="info" text="BTS SIO SISR 1ère année" />  <Badge type="warning" text="Bloc 2 — Administration système" />  <Badge type="danger" text="Windows Server 2022 + Active Directory" />
+<Badge type="info" text="BTS SIO SISR 1ère année" />  <Badge type="warning" text="Bloc 2 - Administration système" />  <Badge type="danger" text="Windows Server 2022 + Active Directory" />
 
 ::: info Contexte
-La société **TechServices** se développe et compte désormais une cinquantaine de collaborateurs. La gestion des comptes utilisateurs et des postes de travail devient difficile à maintenir poste par poste. Votre responsable vous confie la mise en place d'un **serveur Active Directory** pour centraliser l'authentification et faciliter l'administration du parc. Ce premier TP couvre l'installation de Windows Server et la création du domaine — la configuration avancée (utilisateurs, GPO…) fera l'objet du TP suivant.
+La société **TechServices** se développe et compte désormais une cinquantaine de collaborateurs. La gestion des comptes utilisateurs et des postes de travail devient difficile à maintenir poste par poste. Votre responsable vous confie la mise en place d'un **serveur Active Directory** pour centraliser l'authentification et faciliter l'administration du parc. Ce premier TP couvre l'installation de Windows Server et la création du domaine - la configuration avancée (utilisateurs, GPO…) fera l'objet du TP suivant.
 :::
 
 ::: warning Modalités
@@ -25,10 +25,10 @@ Vous devrez constituer un **rapport-annexe** contenant les captures d'écran dem
 
 **Active Directory** (AD) est un service d'annuaire développé par Microsoft, installé sur un **serveur Windows**. Il permet de :
 
-- **Centraliser les comptes utilisateurs** — un seul compte par collaborateur, valable sur tous les postes de l'entreprise
-- **Gérer les ordinateurs du réseau** — intégrer les postes dans le domaine pour les administrer à distance
-- **Appliquer des politiques de sécurité** — via les GPO (Group Policy Objects), imposer des règles à tous les postes simultanément
-- **Contrôler les accès** — définir qui peut accéder à quoi (dossiers partagés, applications, imprimantes…)
+- **Centraliser les comptes utilisateurs** - un seul compte par collaborateur, valable sur tous les postes de l'entreprise
+- **Gérer les ordinateurs du réseau** - intégrer les postes dans le domaine pour les administrer à distance
+- **Appliquer des politiques de sécurité** - via les GPO (Group Policy Objects), imposer des règles à tous les postes simultanément
+- **Contrôler les accès** - définir qui peut accéder à quoi (dossiers partagés, applications, imprimantes…)
 
 ::: info Vocabulaire clé
 
@@ -44,9 +44,9 @@ Vous devrez constituer un **rapport-annexe** contenant les captures d'écran dem
 
 ---
 
-## Mission 1 — Créer la machine virtuelle
+## Mission 1 - Créer la machine virtuelle
 
-### Tâche 1.1 — Créer la VM dans VirtualBox
+### Tâche 1.1 - Créer la VM dans VirtualBox
 
 Dans VirtualBox, cliquez sur **Nouvelle** et renseignez :
 
@@ -66,7 +66,7 @@ Windows Server 2022 nécessite au minimum 2 Go de RAM pour démarrer, mais 4 Go 
 
 Cliquez sur **Finir** pour créer la VM.
 
-### Tâche 1.2 — Monter l'ISO Windows Server
+### Tâche 1.2 - Monter l'ISO Windows Server
 
 Avant de démarrer la VM, montez le fichier ISO :
 
@@ -77,7 +77,7 @@ Avant de démarrer la VM, montez le fichier ISO :
 5. Sélectionnez **Choisir un fichier de disque** et naviguez jusqu'au fichier `Windows_Server_2022.iso` disponible sur le NAS
 
 
-### Tâche 1.3 — Configurer le réseau de la VM
+### Tâche 1.3 - Configurer le réseau de la VM
 
 Toujours dans les paramètres de la VM, allez dans l'onglet **Réseau** :
 
@@ -92,45 +92,45 @@ En réseau interne, la VM est complètement isolée du réseau du lycée. Seules
 :::
 
 ::: tip 📸 Capture 1
-Fenêtre de configuration VirtualBox de la VM `SRV-AD-01` — onglets **Système** (RAM/CPU) et **Réseau** visibles avec les valeurs renseignées.
+Fenêtre de configuration VirtualBox de la VM `SRV-AD-01` - onglets **Système** (RAM/CPU) et **Réseau** visibles avec les valeurs renseignées.
 :::
 
 ---
 
-## Mission 2 — Installer Windows Server 2022
+## Mission 2 - Installer Windows Server 2022
 
-### Tâche 2.1 — Démarrer l'installation
+### Tâche 2.1 - Démarrer l'installation
 
 Démarrez la VM. L'assistant d'installation Windows se lance automatiquement depuis l'ISO.
 
 1. Sélectionnez **Français (France)** pour la langue, le format horaire et le clavier, puis cliquez sur **Suivant**
 2. Cliquez sur **Installer maintenant**
 
-### Tâche 2.2 — Choisir l'édition
+### Tâche 2.2 - Choisir l'édition
 
 Sur l'écran de sélection de l'édition, choisissez :
 
 **Windows Server 2022 Standard (Expérience de bureau)**
 
 ::: warning Expérience de bureau obligatoire
-Sélectionnez impérativement la version avec **Expérience de bureau**. La version **Server Core** n'a pas d'interface graphique — elle s'administre uniquement en ligne de commande et n'est pas adaptée à ce TP.
+Sélectionnez impérativement la version avec **Expérience de bureau**. La version **Server Core** n'a pas d'interface graphique - elle s'administre uniquement en ligne de commande et n'est pas adaptée à ce TP.
 :::
 
 ::: tip 📸 Capture 2
-Écran de sélection de l'édition — **Windows Server 2022 Standard (Expérience de bureau)** sélectionné.
+Écran de sélection de l'édition - **Windows Server 2022 Standard (Expérience de bureau)** sélectionné.
 :::
 
-### Tâche 2.3 — Partitionnement et installation
+### Tâche 2.3 - Partitionnement et installation
 
 Sur l'écran **Où installer Windows ?**, sélectionnez le disque disponible (le disque de 60 Go créé dans VirtualBox) et cliquez sur **Suivant**. Windows crée automatiquement les partitions nécessaires.
 
-L'installation démarre et dure entre **10 et 20 minutes**. La VM redémarre plusieurs fois automatiquement — c'est normal, ne l'éteignez pas.
+L'installation démarre et dure entre **10 et 20 minutes**. La VM redémarre plusieurs fois automatiquement - c'est normal, ne l'éteignez pas.
 
-::: tip Profitez de cette attente — Mission 7
+::: tip Profitez de cette attente - Mission 7
 Pendant ces 10 à 20 minutes d'installation, lancez la création et l'installation de la **VM cliente Windows** qui sera utilisée au TP 2. Rendez-vous directement à la **Mission 7** en fin de ce TP, puis revenez ici une fois l'installation du serveur terminée.
 :::
 
-### Tâche 2.4 — Définir le mot de passe administrateur
+### Tâche 2.4 - Définir le mot de passe administrateur
 
 À la fin de l'installation, Windows vous demande de définir le mot de passe du compte **Administrateur** local :
 
@@ -146,16 +146,16 @@ Windows Server impose une politique de mot de passe stricte : le mot de passe do
 Cliquez sur **Terminer**. La session s'ouvre sur le Bureau Windows Server.
 
 ::: tip 📸 Capture 3
-Bureau Windows Server 2022 après la première connexion — le Gestionnaire de serveur s'ouvre automatiquement en arrière-plan.
+Bureau Windows Server 2022 après la première connexion - le Gestionnaire de serveur s'ouvre automatiquement en arrière-plan.
 :::
 
 ---
 
-## Mission 3 — Configuration initiale du serveur
+## Mission 3 - Configuration initiale du serveur
 
-Avant d'installer Active Directory, il faut préparer correctement le serveur : nom de machine cohérent, adresse IP fixe et vérifications de base. Ces étapes sont indispensables — un contrôleur de domaine dont l'IP change ou dont le nom est générique posera des problèmes en production.
+Avant d'installer Active Directory, il faut préparer correctement le serveur : nom de machine cohérent, adresse IP fixe et vérifications de base. Ces étapes sont indispensables - un contrôleur de domaine dont l'IP change ou dont le nom est générique posera des problèmes en production.
 
-### Tâche 3.1 — Renommer le serveur
+### Tâche 3.1 - Renommer le serveur
 
 Par défaut, Windows génère un nom aléatoire (du type `WIN-XXXXXXX`). Il faut lui donner un nom clair et identifiable.
 
@@ -170,7 +170,7 @@ Après le redémarrage, reconnectez-vous avec le compte **Administrateur**.
 Fenêtre **Informations système** affichant le nom `SRV-AD-01` après le redémarrage.
 :::
 
-### Tâche 3.2 — Configurer une adresse IP statique
+### Tâche 3.2 - Configurer une adresse IP statique
 
 Un contrôleur de domaine doit **toujours avoir une adresse IP fixe**. Si l'IP change, les postes clients ne pourront plus le trouver pour s'authentifier.
 
@@ -189,16 +189,16 @@ Sélectionnez **Utiliser l'adresse IP suivante** et renseignez (adaptez à votre
 | Serveur DNS préféré | `127.0.0.1` |
 
 ::: info Pourquoi `127.0.0.1` en DNS préféré ?
-Le contrôleur de domaine hébergera lui-même le serveur DNS d'Active Directory. On lui indique donc de se consulter lui-même — `127.0.0.1` est l'adresse de loopback, qui signifie "moi-même". Sans ça, le serveur chercherait son propre domaine sur un DNS externe qui ne le connaît pas.
+Le contrôleur de domaine hébergera lui-même le serveur DNS d'Active Directory. On lui indique donc de se consulter lui-même - `127.0.0.1` est l'adresse de loopback, qui signifie "moi-même". Sans ça, le serveur chercherait son propre domaine sur un DNS externe qui ne le connaît pas.
 :::
 
 Cliquez sur **OK** pour valider, puis fermez les fenêtres.
 
 ::: tip 📸 Capture 5
-Propriétés **TCP/IPv4** — adresse IP statique `192.168.1.10` et DNS `127.0.0.1` configurés.
+Propriétés **TCP/IPv4** - adresse IP statique `192.168.1.10` et DNS `127.0.0.1` configurés.
 :::
 
-### Tâche 3.3 — Vérifier la configuration réseau
+### Tâche 3.3 - Vérifier la configuration réseau
 
 Ouvrez **PowerShell** (clic droit sur Démarrer → **Windows PowerShell**) et vérifiez la configuration :
 
@@ -206,19 +206,19 @@ Ouvrez **PowerShell** (clic droit sur Démarrer → **Windows PowerShell**) et v
 ipconfig /all
 ```
 
-Contrôlez que l'adresse IP, le masque et l'adresse DNS correspondent bien à ce que vous avez saisi. Repérez également le nom de l'adaptateur réseau affiché — vous en aurez besoin si vous devez diagnostiquer un problème réseau plus tard.
+Contrôlez que l'adresse IP, le masque et l'adresse DNS correspondent bien à ce que vous avez saisi. Repérez également le nom de l'adaptateur réseau affiché - vous en aurez besoin si vous devez diagnostiquer un problème réseau plus tard.
 
 ::: tip 📸 Capture 6
-Sortie de `ipconfig /all` dans PowerShell — adresse IP statique et DNS visibles.
+Sortie de `ipconfig /all` dans PowerShell - adresse IP statique et DNS visibles.
 :::
 
 ---
 
-## Mission 4 — Installer le rôle Active Directory Domain Services
+## Mission 4 - Installer le rôle Active Directory Domain Services
 
-Active Directory est un **rôle Windows Server** qui s'installe depuis le Gestionnaire de serveur. Cette étape copie les binaires nécessaires — la création du domaine intervient à l'étape suivante.
+Active Directory est un **rôle Windows Server** qui s'installe depuis le Gestionnaire de serveur. Cette étape copie les binaires nécessaires - la création du domaine intervient à l'étape suivante.
 
-### Tâche 4.1 — Ouvrir l'assistant d'ajout de rôles
+### Tâche 4.1 - Ouvrir l'assistant d'ajout de rôles
 
 Le Gestionnaire de serveur s'ouvre normalement au démarrage. Si ce n'est pas le cas : **Démarrer → Gestionnaire de serveur**.
 
@@ -226,13 +226,13 @@ Cliquez sur **Gérer → Ajouter des rôles et fonctionnalités**.
 
 L'assistant s'ouvre. Cliquez sur **Suivant** sur la page d'introduction.
 
-### Tâche 4.2 — Sélectionner le type d'installation
+### Tâche 4.2 - Sélectionner le type d'installation
 
 Sélectionnez **Installation basée sur un rôle ou une fonctionnalité** et cliquez sur **Suivant**.
 
 Sur l'écran suivant, sélectionnez le serveur `SRV-AD-01` dans la liste du pool de serveurs et cliquez sur **Suivant**.
 
-### Tâche 4.3 — Choisir le rôle AD DS
+### Tâche 4.3 - Choisir le rôle AD DS
 
 Sur l'écran **Rôles de serveurs**, cochez :
 
@@ -241,12 +241,12 @@ Sur l'écran **Rôles de serveurs**, cochez :
 Une fenêtre contextuelle s'ouvre pour signaler les fonctionnalités supplémentaires requises (outils d'administration AD, PowerShell pour AD…). Cliquez sur **Ajouter des fonctionnalités** sans décocher quoi que ce soit.
 
 ::: tip 📸 Capture 7
-Écran **Rôles de serveurs** de l'assistant — case **Services AD DS** cochée.
+Écran **Rôles de serveurs** de l'assistant - case **Services AD DS** cochée.
 :::
 
 Cliquez sur **Suivant** sur les écrans **Fonctionnalités** et **AD DS** sans modifier les options par défaut.
 
-### Tâche 4.4 — Confirmer et installer
+### Tâche 4.4 - Confirmer et installer
 
 Sur l'écran de **Confirmation** :
 
@@ -262,16 +262,16 @@ Barre de progression de l'installation du rôle AD DS.
 Une fois terminée, vérifiez que le message **"L'installation a réussi"** apparaît avant de fermer l'assistant.
 
 ::: tip 📸 Capture 9
-Message **"L'installation a réussi"** dans l'assistant — rôle AD DS installé avec succès.
+Message **"L'installation a réussi"** dans l'assistant - rôle AD DS installé avec succès.
 :::
 
 ---
 
-## Mission 5 — Promouvoir le serveur en contrôleur de domaine
+## Mission 5 - Promouvoir le serveur en contrôleur de domaine
 
 Installer le rôle AD DS ne suffit pas. Il faut ensuite **promouvoir** le serveur : c'est cette étape qui crée réellement le domaine Active Directory et configure la base de données d'annuaire.
 
-### Tâche 5.1 — Lancer l'assistant de promotion
+### Tâche 5.1 - Lancer l'assistant de promotion
 
 Dans le Gestionnaire de serveur, un **bandeau jaune d'avertissement** est apparu en haut de la fenêtre :
 
@@ -283,7 +283,7 @@ Cliquez sur ce bandeau, puis sur **Promouvoir ce serveur en contrôleur de domai
 L'installation du rôle copie uniquement les programmes nécessaires. La promotion est l'opération qui **crée la base de données Active Directory**, configure le DNS, et enregistre le serveur comme autorité d'authentification du domaine. Ces deux étapes sont intentionnellement séparées pour permettre une validation avant l'engagement.
 :::
 
-### Tâche 5.2 — Définir le type de déploiement
+### Tâche 5.2 - Définir le type de déploiement
 
 Sur l'écran **Configuration du déploiement**, sélectionnez :
 
@@ -302,10 +302,10 @@ Le suffixe `.local` est la convention standard pour les domaines AD internes non
 Cliquez sur **Suivant**.
 
 ::: tip 📸 Capture 10
-Écran **Configuration du déploiement** — option **Ajouter une nouvelle forêt** sélectionnée, domaine `techservices.local` renseigné.
+Écran **Configuration du déploiement** - option **Ajouter une nouvelle forêt** sélectionnée, domaine `techservices.local` renseigné.
 :::
 
-### Tâche 5.3 — Options du contrôleur de domaine
+### Tâche 5.3 - Options du contrôleur de domaine
 
 Sur l'écran **Options du contrôleur de domaine**, laissez les valeurs par défaut :
 
@@ -324,34 +324,34 @@ Définissez le **mot de passe DSRM** :
 | Confirmer | `Admin@1234` |
 
 ::: warning Qu'est-ce que le mot de passe DSRM ?
-Le DSRM (Directory Services Restore Mode) est un mode de démarrage spécial permettant de réparer ou restaurer Active Directory en cas de panne grave. Ce mot de passe est **indépendant** du mot de passe Administrateur — notez-le précieusement, car il ne peut pas être récupéré si perdu.
+Le DSRM (Directory Services Restore Mode) est un mode de démarrage spécial permettant de réparer ou restaurer Active Directory en cas de panne grave. Ce mot de passe est **indépendant** du mot de passe Administrateur - notez-le précieusement, car il ne peut pas être récupéré si perdu.
 :::
 
 Cliquez sur **Suivant**.
 
-### Tâche 5.4 — Options DNS et chemins de stockage
+### Tâche 5.4 - Options DNS et chemins de stockage
 
 Avancez dans l'assistant en laissant toutes les valeurs par défaut :
 
-- **Options DNS** → Cliquez sur **Suivant**. Un avertissement sur la délégation DNS peut apparaître — ignorez-le, c'est normal lors de la création d'une nouvelle forêt.
+- **Options DNS** → Cliquez sur **Suivant**. Un avertissement sur la délégation DNS peut apparaître - ignorez-le, c'est normal lors de la création d'une nouvelle forêt.
 - **Options supplémentaires** → Le nom NetBIOS `TECHSERVICES` est généré automatiquement → **Suivant**
 - **Chemins d'accès** → Laissez les chemins par défaut (base NTDS, logs, SYSVOL) → **Suivant**
 
-### Tâche 5.5 — Vérification et installation
+### Tâche 5.5 - Vérification et installation
 
 Sur l'écran **Vérifier les options**, lisez attentivement le récapitulatif de votre configuration.
 
 ::: tip 📸 Capture 11
-Écran **Vérifier les options** — récapitulatif avec le domaine `techservices.local` et les options choisies.
+Écran **Vérifier les options** - récapitulatif avec le domaine `techservices.local` et les options choisies.
 :::
 
-Cliquez sur **Suivant** pour lancer la vérification des prérequis. Des avertissements en jaune peuvent apparaître — ils sont normaux si la vérification verte s'affiche en dessous.
+Cliquez sur **Suivant** pour lancer la vérification des prérequis. Des avertissements en jaune peuvent apparaître - ils sont normaux si la vérification verte s'affiche en dessous.
 
 Cliquez sur **Installer**. La promotion dure 5 à 10 minutes, puis le serveur **redémarre automatiquement**.
 
 ---
 
-## Mission 6 — Vérifier l'installation d'Active Directory
+## Mission 6 - Vérifier l'installation d'Active Directory
 
 Après le redémarrage, reconnectez-vous. L'écran de connexion affiche maintenant :
 
@@ -361,15 +361,15 @@ TECHSERVICES\Administrateur
 
 La présence du préfixe `TECHSERVICES\` confirme que le serveur est bien contrôleur de domaine et que vous vous connectez avec un compte du domaine.
 
-### Tâche 6.1 — Vérifier depuis le Gestionnaire de serveur
+### Tâche 6.1 - Vérifier depuis le Gestionnaire de serveur
 
 Ouvrez le **Gestionnaire de serveur**. Dans le panneau de gauche, vérifiez que les rôles **AD DS** et **DNS** sont présents avec un indicateur vert.
 
 ::: tip 📸 Capture 12
-Gestionnaire de serveur — rôles **AD DS** et **DNS** affichés dans le panneau gauche avec un statut sain.
+Gestionnaire de serveur - rôles **AD DS** et **DNS** affichés dans le panneau gauche avec un statut sain.
 :::
 
-### Tâche 6.2 — Explorer la console Active Directory
+### Tâche 6.2 - Explorer la console Active Directory
 
 Naviguez dans **Démarrer → Outils d'administration Windows → Utilisateurs et ordinateurs Active Directory** (ou cherchez `dsa.msc` dans la barre de recherche).
 
@@ -378,15 +378,15 @@ La console s'ouvre et affiche la structure de votre domaine `techservices.local`
 | Conteneur | Contenu |
 |---|---|
 | `Builtin` | Groupes locaux intégrés de Windows (Administrateurs, Utilisateurs…) |
-| `Computers` | Postes clients joints au domaine — vide pour l'instant |
+| `Computers` | Postes clients joints au domaine - vide pour l'instant |
 | `Domain Controllers` | Votre serveur `SRV-AD-01` est listé ici |
 | `Users` | Comptes et groupes créés par défaut (Administrateur, Invité, Krbtgt…) |
 
 ::: tip 📸 Capture 13
-Console **Utilisateurs et ordinateurs Active Directory** — arborescence du domaine `techservices.local` dépliée avec les conteneurs visibles.
+Console **Utilisateurs et ordinateurs Active Directory** - arborescence du domaine `techservices.local` dépliée avec les conteneurs visibles.
 :::
 
-### Tâche 6.3 — Vérifier la zone DNS Active Directory
+### Tâche 6.3 - Vérifier la zone DNS Active Directory
 
 Naviguez dans **Démarrer → Outils d'administration Windows → DNS**.
 
@@ -397,10 +397,10 @@ Active Directory ne peut pas fonctionner sans DNS. La zone `techservices.local` 
 :::
 
 ::: tip 📸 Capture 14
-Gestionnaire DNS — zone `techservices.local` dépliée, enregistrements automatiques visibles.
+Gestionnaire DNS - zone `techservices.local` dépliée, enregistrements automatiques visibles.
 :::
 
-### Tâche 6.4 — Vérifier depuis PowerShell
+### Tâche 6.4 - Vérifier depuis PowerShell
 
 Ouvrez **PowerShell** et exécutez les commandes suivantes :
 
@@ -417,18 +417,18 @@ Get-ADDomainController
 Cette commande confirme que votre serveur `SRV-AD-01` est bien enregistré comme contrôleur de domaine, avec son adresse IP et son rôle.
 
 ::: tip 📸 Capture 15
-Sorties de `Get-ADDomain` et `Get-ADDomainController` dans PowerShell — domaine `techservices.local` et serveur `SRV-AD-01` confirmés.
+Sorties de `Get-ADDomain` et `Get-ADDomainController` dans PowerShell - domaine `techservices.local` et serveur `SRV-AD-01` confirmés.
 :::
 
 ---
 
-## Mission 7 — Préparer la VM cliente Windows (en parallèle)
+## Mission 7 - Préparer la VM cliente Windows (en parallèle)
 
 ::: info Pourquoi maintenant ?
 L'installation de Windows sur une VM prend entre 15 et 30 minutes. En lançant cette mission pendant l'installation du serveur (Tâche 2.3) ou pendant les redémarrages, vous évitez une longue attente au début du TP 2. La VM sera prête à configurer dès que le domaine sera opérationnel.
 :::
 
-### Tâche 7.1 — Créer la VM cliente dans VirtualBox
+### Tâche 7.1 - Créer la VM cliente dans VirtualBox
 
 Créez une nouvelle VM dans VirtualBox avec les paramètres suivants :
 
@@ -441,15 +441,15 @@ Créez une nouvelle VM dans VirtualBox avec les paramètres suivants :
 | CPU | `2` processeurs |
 | Disque dur | `50 Go` (dynamiquement alloué) |
 
-Montez l'ISO Windows 10 ou 11 (disponible sur le NAS) dans le lecteur optique, et configurez l'adaptateur réseau en **Réseau interne** avec le nom `adlab` — comme pour le serveur.
+Montez l'ISO Windows 10 ou 11 (disponible sur le NAS) dans le lecteur optique, et configurez l'adaptateur réseau en **Réseau interne** avec le nom `adlab` - comme pour le serveur.
 
-::: danger Windows 11 — Sélectionnez impérativement l'édition **Pro**
+::: danger Windows 11 - Sélectionnez impérativement l'édition **Pro**
 Lors de l'installation de Windows 11, un écran vous demande de choisir l'édition. Sélectionnez **Windows 11 Professionnel** (Pro), jamais **Famille** (Home).
 
 L'édition Home ne permet pas de joindre un domaine Active Directory : l'option est tout simplement absente de l'interface. Si vous installez la mauvaise édition, vous devrez tout recommencer depuis le début.
 :::
 
-### Tâche 7.2 — Installer Windows
+### Tâche 7.2 - Installer Windows
 
 Démarrez la VM et installez Windows normalement. À l'étape **"Comment souhaitez-vous configurer ?"**, choisissez **Configurer pour une utilisation personnelle** (ou **Configurer pour une organisation** selon la version).
 

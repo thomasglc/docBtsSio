@@ -1,8 +1,8 @@
----
+﻿---
 outline: deep
 ---
 
-# TP 1 — Découverte de Docker
+# TP 1 - Découverte de Docker
 
 <Badge type="info" text="BTS SIO SISR 1ère année" />  <Badge type="warning" text="Durée : 2 heures" />  <Badge type="danger" text="Docker + Debian" />
 
@@ -31,7 +31,7 @@ Docker résout ce problème en empaquetant une application **avec tout ce dont e
 | Taille | Plusieurs Go | Quelques dizaines de Mo |
 | Isolation | Totale (noyau propre) | Partielle (partage le noyau hôte) |
 
-Un conteneur n'est pas une VM légère — c'est un **processus isolé** qui tourne directement sur le noyau de la machine hôte.
+Un conteneur n'est pas une VM légère - c'est un **processus isolé** qui tourne directement sur le noyau de la machine hôte.
 
 ### Les trois concepts clés
 
@@ -45,11 +45,11 @@ Une image ne s'exécute jamais directement. On crée un conteneur **à partir** 
 
 ---
 
-## Mission 1 — Installer Docker sur Debian
+## Mission 1 - Installer Docker sur Debian
 
-Docker ne s'installe pas avec un simple `apt install docker` — le paquet présent dans les dépôts Debian est une ancienne version communautaire. On installe la version officielle depuis le dépôt de Docker.
+Docker ne s'installe pas avec un simple `apt install docker` - le paquet présent dans les dépôts Debian est une ancienne version communautaire. On installe la version officielle depuis le dépôt de Docker.
 
-### Tâche 1.1 — Ajouter le dépôt officiel Docker
+### Tâche 1.1 - Ajouter le dépôt officiel Docker
 
 ```bash
 sudo apt update
@@ -69,7 +69,7 @@ echo \
 sudo apt update
 ```
 
-### Tâche 1.2 — Installer Docker
+### Tâche 1.2 - Installer Docker
 
 ```bash
 sudo apt install -y docker-ce docker-ce-cli containerd.io \
@@ -77,13 +77,13 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io \
 ```
 
 ::: info Pourquoi ces paquets ?
-- `docker-ce` — le moteur Docker
-- `docker-ce-cli` — la commande `docker` en ligne de commande
-- `containerd.io` — le runtime bas niveau qui gère les conteneurs
-- `docker-compose-plugin` — le plugin `docker compose` intégré
+- `docker-ce` - le moteur Docker
+- `docker-ce-cli` - la commande `docker` en ligne de commande
+- `containerd.io` - le runtime bas niveau qui gère les conteneurs
+- `docker-compose-plugin` - le plugin `docker compose` intégré
 :::
 
-### Tâche 1.3 — Autoriser votre utilisateur à utiliser Docker
+### Tâche 1.3 - Autoriser votre utilisateur à utiliser Docker
 
 Par défaut, seul `root` peut parler au daemon Docker. On ajoute notre utilisateur au groupe `docker` pour éviter de taper `sudo` à chaque commande.
 
@@ -100,7 +100,7 @@ docker run hello-world
 ```
 
 ::: tip 📸 Capture 1
-Sortie de `docker run hello-world` — le message `Hello from Docker!` est visible.
+Sortie de `docker run hello-world` - le message `Hello from Docker!` est visible.
 :::
 
 ::: info Que vient-il de se passer ?
@@ -109,15 +109,15 @@ Docker a cherché l'image `hello-world` localement → ne l'a pas trouvée → l
 
 ---
 
-## Mission 2 — Images et conteneurs
+## Mission 2 - Images et conteneurs
 
-### Tâche 2.1 — Télécharger une image
+### Tâche 2.1 - Télécharger une image
 
 ```bash
 docker pull httpd
 ```
 
-Docker télécharge l'image officielle **Apache** depuis Docker Hub. Observez les lignes `Pull complete` : chaque ligne correspond à une **couche** (layer) de l'image. Les images sont construites en couches empilées — c'est ce qui les rend légères et partageables.
+Docker télécharge l'image officielle **Apache** depuis Docker Hub. Observez les lignes `Pull complete` : chaque ligne correspond à une **couche** (layer) de l'image. Les images sont construites en couches empilées - c'est ce qui les rend légères et partageables.
 
 Listez les images disponibles localement :
 
@@ -126,16 +126,16 @@ docker images
 ```
 
 ::: tip 📸 Capture 2
-Sortie de `docker images` — l'image `httpd` apparaît avec sa taille et son tag (`latest`).
+Sortie de `docker images` - l'image `httpd` apparaît avec sa taille et son tag (`latest`).
 :::
 
-### Tâche 2.2 — Lancer un conteneur
+### Tâche 2.2 - Lancer un conteneur
 
 ```bash
 docker run httpd
 ```
 
-Le terminal est bloqué — Apache tourne au premier plan. Faites `Ctrl+C` pour l'arrêter.
+Le terminal est bloqué - Apache tourne au premier plan. Faites `Ctrl+C` pour l'arrêter.
 
 Pour lancer un conteneur **en arrière-plan** (mode détaché), utilisez le flag `-d` :
 
@@ -143,9 +143,9 @@ Pour lancer un conteneur **en arrière-plan** (mode détaché), utilisez le flag
 docker run -d httpd
 ```
 
-Docker affiche un long identifiant hexadécimal — c'est l'ID du conteneur.
+Docker affiche un long identifiant hexadécimal - c'est l'ID du conteneur.
 
-### Tâche 2.3 — Lister les conteneurs
+### Tâche 2.3 - Lister les conteneurs
 
 ```bash
 docker ps
@@ -160,10 +160,10 @@ docker ps -a
 Le flag `-a` (all) affiche **tous** les conteneurs, y compris ceux qui sont arrêtés. Vous devriez voir le conteneur Apache lancé sans `-d` à la tâche précédente, avec le statut `Exited`.
 
 ::: tip 📸 Capture 3
-Sortie de `docker ps -a` — un conteneur en cours (`Up`) et un arrêté (`Exited`) visibles.
+Sortie de `docker ps -a` - un conteneur en cours (`Up`) et un arrêté (`Exited`) visibles.
 :::
 
-### Tâche 2.4 — Cycle de vie d'un conteneur
+### Tâche 2.4 - Cycle de vie d'un conteneur
 
 Récupérez l'ID ou le nom du conteneur en cours depuis `docker ps`, puis testez ces commandes :
 
@@ -185,11 +185,11 @@ docker ps -a        # le conteneur a disparu
 
 ---
 
-## Mission 3 — Nommer et inspecter un conteneur
+## Mission 3 - Nommer et inspecter un conteneur
 
 Jusqu'ici Docker attribue des noms aléatoires (`hopeful_morse`, `crazy_einstein`…). En production on nomme toujours ses conteneurs.
 
-### Tâche 3.1 — Lancer un conteneur nommé
+### Tâche 3.1 - Lancer un conteneur nommé
 
 ```bash
 docker run -d --name monserveur httpd
@@ -197,7 +197,7 @@ docker run -d --name monserveur httpd
 
 Le flag `--name` donne un nom fixe au conteneur. Vérifiez avec `docker ps`.
 
-### Tâche 3.2 — Consulter les logs
+### Tâche 3.2 - Consulter les logs
 
 ```bash
 docker logs monserveur
@@ -206,7 +206,7 @@ docker logs -f monserveur
 
 `-f` (follow) affiche les logs en temps réel. Faites `Ctrl+C` pour quitter le suivi sans arrêter le conteneur.
 
-### Tâche 3.3 — Entrer dans un conteneur
+### Tâche 3.3 - Entrer dans un conteneur
 
 ```bash
 docker exec -it monserveur bash
@@ -223,20 +223,20 @@ exit
 ```
 
 ::: info exec vs run
-`docker run` crée un nouveau conteneur. `docker exec` exécute une commande dans un conteneur **déjà en cours d'exécution** — ici on ouvre un shell interactif (`-it` = interactive + TTY).
+`docker run` crée un nouveau conteneur. `docker exec` exécute une commande dans un conteneur **déjà en cours d'exécution** - ici on ouvre un shell interactif (`-it` = interactive + TTY).
 :::
 
 ::: tip 📸 Capture 4
-Shell interactif à l'intérieur du conteneur — invite de commande différente visible (`root@<ID>:/#`).
+Shell interactif à l'intérieur du conteneur - invite de commande différente visible (`root@<ID>:/#`).
 :::
 
 ---
 
-## Mission 4 — Exposer des ports
+## Mission 4 - Exposer des ports
 
 Pour l'instant Apache tourne dans le conteneur mais n'est pas accessible depuis l'extérieur. Docker isole les ports : il faut explicitement faire un **mapping de port** entre l'hôte et le conteneur.
 
-### Tâche 4.1 — Comprendre le mapping de port
+### Tâche 4.1 - Comprendre le mapping de port
 
 La syntaxe est `-p <port_hote>:<port_conteneur>`.
 
@@ -249,7 +249,7 @@ docker run -d --name web -p 8080:80 httpd
 
 Apache écoute sur le port **80 à l'intérieur du conteneur**. On le rend accessible sur le port **8080 de la VM**.
 
-### Tâche 4.2 — Accéder au serveur depuis un navigateur
+### Tâche 4.2 - Accéder au serveur depuis un navigateur
 
 Récupérez l'adresse IP de votre VM :
 
@@ -269,7 +269,7 @@ La page de bienvenue Apache (`It works!`) s'affiche.
 Page de bienvenue Apache (`It works!`) accessible depuis le navigateur via `http://[IP]:8080`.
 :::
 
-### Tâche 4.3 — Lancer deux serveurs simultanément
+### Tâche 4.3 - Lancer deux serveurs simultanément
 
 Chaque conteneur a son propre espace réseau interne. On peut donc lancer deux Apache sur des ports différents :
 
@@ -278,13 +278,13 @@ docker run -d --name web2 -p 8081:80 httpd
 docker ps
 ```
 
-Accédez à `http://[IP]:8081` — un deuxième Apache tourne en parallèle.
+Accédez à `http://[IP]:8081` - un deuxième Apache tourne en parallèle.
 
 ::: info Ce qui se passerait avec des VMs
 Faire tourner deux serveurs web simultanément sur deux VMs séparées demanderait deux OS complets. Ici, les deux conteneurs partagent le même noyau Debian et démarrent en quelques secondes.
 :::
 
-### Tâche 4.4 — Modifier le contenu servi
+### Tâche 4.4 - Modifier le contenu servi
 
 Entrez dans le conteneur `web` et modifiez la page d'accueil :
 
@@ -294,7 +294,7 @@ echo "<h1>Bienvenue sur TechServices !</h1>" > /usr/local/apache2/htdocs/index.h
 exit
 ```
 
-Rafraîchissez `http://[IP]:8080` dans votre navigateur — la page a changé.
+Rafraîchissez `http://[IP]:8080` dans votre navigateur - la page a changé.
 
 ::: warning Données non persistantes
 Si vous supprimez le conteneur (`docker rm -f web`) et en relancez un nouveau, la modification disparaît. Les données écrites **dans** un conteneur sont perdues à sa suppression. La solution (les volumes) sera vue au TP 2.
@@ -306,9 +306,9 @@ Page `http://[IP]:8080` affichant le message personnalisé "Bienvenue sur TechSe
 
 ---
 
-## Mission 5 — Nettoyer l'environnement
+## Mission 5 - Nettoyer l'environnement
 
-### Tâche 5.1 — Arrêter et supprimer tous les conteneurs
+### Tâche 5.1 - Arrêter et supprimer tous les conteneurs
 
 ```bash
 docker stop web web2
@@ -326,7 +326,7 @@ docker rm -f $(docker ps -aq)
 `docker rm -f $(docker ps -aq)` supprime **tous** les conteneurs sans confirmation. À utiliser avec précaution en dehors d'un contexte de TP.
 :::
 
-### Tâche 5.2 — Nettoyer les images
+### Tâche 5.2 - Nettoyer les images
 
 ```bash
 docker images
@@ -341,14 +341,14 @@ docker system prune
 ```
 
 ::: tip 📸 Capture 7
-Sortie de `docker system prune` — espace disque récupéré affiché.
+Sortie de `docker system prune` - espace disque récupéré affiché.
 :::
 
 ---
 
 ## Questions de réflexion
 
-Répondez à ces questions **dans votre tête ou à l'oral avec votre voisin** — elles n'ont pas à être rendues, mais elles seront à la base de la discussion en fin de séance :
+Répondez à ces questions **dans votre tête ou à l'oral avec votre voisin** - elles n'ont pas à être rendues, mais elles seront à la base de la discussion en fin de séance :
 
 1. Quelle différence concrète avez-vous observée entre `docker stop` et `docker rm` ?
 2. Pourquoi a-t-on besoin du flag `-p` pour accéder à Apache depuis le navigateur ?

@@ -1,10 +1,10 @@
----
+﻿---
 outline: deep
 ---
 
-# TP 2 — Gestion d'un inventaire avec GLPI
+# TP 2 - Gestion d'un inventaire avec GLPI
 
-<Badge type="info" text="BTS SIO SISR 1ère année" />  <Badge type="warning" text="Bloc 2 — Administration système" />  <Badge type="danger" text="GLPI + GLPI Agent + Debian" />
+<Badge type="info" text="BTS SIO SISR 1ère année" />  <Badge type="warning" text="Bloc 2 - Administration système" />  <Badge type="danger" text="GLPI + GLPI Agent + Debian" />
 
 ::: info Contexte
 La société **TechServices** vient de déployer GLPI. Votre responsable vous demande maintenant de commencer à **alimenter le parc informatique** : d'abord en saisissant manuellement quelques équipements existants, puis en automatisant la collecte d'informations grâce à **GLPI Agent** installé sur les postes du réseau.
@@ -12,9 +12,9 @@ La société **TechServices** vient de déployer GLPI. Votre responsable vous de
 
 ::: warning Modalités
 Vous avez besoin de deux VMs et de votre PC hôte pour ce TP :
-- **VM-Serveur** — votre serveur Debian avec GLPI (TP 1)
-- **VM-Cliente** — une VM Debian ou Windows sur laquelle vous installerez GLPI Agent
-- **PC hôte** — votre poste de travail Windows physique, qui sera également inventorié
+- **VM-Serveur** - votre serveur Debian avec GLPI (TP 1)
+- **VM-Cliente** - une VM Debian ou Windows sur laquelle vous installerez GLPI Agent
+- **PC hôte** - votre poste de travail Windows physique, qui sera également inventorié
 
 Vous devrez constituer un **rapport-annexe** contenant les captures d'écran demandées à chaque étape. Les captures sont indiquées par 📸.
 :::
@@ -25,16 +25,16 @@ Vous devrez constituer un **rapport-annexe** contenant les captures d'écran dem
 
 L'inventaire regroupe l'ensemble des **équipements matériels et logiciels** gérés par l'entreprise. Dans GLPI, on distingue deux façons d'alimenter cet inventaire :
 
-- **La saisie manuelle** — un administrateur entre directement les informations d'un équipement dans l'interface. Utile pour les équipements qui ne peuvent pas être inventoriés automatiquement (écrans, imprimantes sans agent…).
-- **L'inventaire automatique via GLPI Agent** — un petit programme installé sur chaque poste remonte automatiquement ses informations matérielles et logicielles vers GLPI (processeur, RAM, disques, logiciels installés, adresse IP…). C'est la méthode utilisée en entreprise.
+- **La saisie manuelle** - un administrateur entre directement les informations d'un équipement dans l'interface. Utile pour les équipements qui ne peuvent pas être inventoriés automatiquement (écrans, imprimantes sans agent…).
+- **L'inventaire automatique via GLPI Agent** - un petit programme installé sur chaque poste remonte automatiquement ses informations matérielles et logicielles vers GLPI (processeur, RAM, disques, logiciels installés, adresse IP…). C'est la méthode utilisée en entreprise.
 
 ---
 
-## Mission 1 — Créer des éléments de parc manuellement
+## Mission 1 - Créer des éléments de parc manuellement
 
 Avant d'automatiser quoi que ce soit, vous allez saisir manuellement deux équipements : un ordinateur et un écran. Cela vous permettra de vous familiariser avec la structure d'un asset dans GLPI.
 
-### Tâche 1.1 — Créer un ordinateur
+### Tâche 1.1 - Créer un ordinateur
 
 Connectez-vous à GLPI avec le compte administrateur, puis naviguez dans **Parc → Ordinateurs**.
 
@@ -60,17 +60,17 @@ Si "Direction" n'existe pas dans la liste déroulante, cliquez sur l'icône **+*
 Une fois les champs remplis, cliquez sur **Ajouter** en bas du formulaire.
 
 ::: tip 📸 Capture 1
-Formulaire de création de l'ordinateur `PC-Direction-01` — champs remplis avant validation.
+Formulaire de création de l'ordinateur `PC-Direction-01` - champs remplis avant validation.
 :::
 
-### Tâche 1.2 — Ajouter des informations matérielles à l'ordinateur
+### Tâche 1.2 - Ajouter des informations matérielles à l'ordinateur
 
 L'ordinateur vient d'être créé. Ouvrez-le en cliquant sur son nom dans la liste, puis explorez les onglets disponibles :
 
-- **Composants** — permet d'ajouter le processeur, la RAM, les disques durs
-- **Logiciels** — liste les logiciels installés sur ce poste
-- **Connexions** — permet de relier l'ordinateur à d'autres équipements (écran, imprimante…)
-- **Utilisateurs** — permet d'affecter un utilisateur à ce poste
+- **Composants** - permet d'ajouter le processeur, la RAM, les disques durs
+- **Logiciels** - liste les logiciels installés sur ce poste
+- **Connexions** - permet de relier l'ordinateur à d'autres équipements (écran, imprimante…)
+- **Utilisateurs** - permet d'affecter un utilisateur à ce poste
 
 Dans l'onglet **Composants**, cliquez sur **Gérer les composants** et ajoutez les éléments suivants :
 
@@ -80,7 +80,7 @@ Dans l'onglet **Composants**, cliquez sur **Gérer les composants** et ajoutez l
 | Mémoire (RAM) | `16 Go` |
 | Disque dur | `SSD 512 Go` |
 
-::: warning RAM — créer le composant avant de l'ajouter
+::: warning RAM - créer le composant avant de l'ajouter
 Pour la **Mémoire (RAM)**, GLPI ne propose pas de valeur libre : il faut d'abord créer le modèle de barrette dans le catalogue avant de pouvoir l'associer à l'ordinateur.
 
 Naviguez dans **Configuration → Composants → Mémoire → + Ajouter**, renseignez un nom (ex : `16 Go DDR4`) et sauvegardez. Revenez ensuite dans l'onglet **Composants** de `PC-Direction-01` pour sélectionner ce composant dans la liste.
@@ -90,7 +90,7 @@ Naviguez dans **Configuration → Composants → Mémoire → + Ajouter**, rense
 Onglet **Composants** de `PC-Direction-01` avec les éléments matériels renseignés.
 :::
 
-### Tâche 1.3 — Créer un écran
+### Tâche 1.3 - Créer un écran
 
 Naviguez dans **Parc → Moniteurs**, puis cliquez sur **+ Ajouter**.
 
@@ -106,7 +106,7 @@ Naviguez dans **Parc → Moniteurs**, puis cliquez sur **+ Ajouter**.
 
 Cliquez sur **Ajouter**.
 
-### Tâche 1.4 — Relier l'écran à l'ordinateur
+### Tâche 1.4 - Relier l'écran à l'ordinateur
 
 Dans GLPI, le lien se crée **depuis la fiche de l'écran** vers l'ordinateur (et non l'inverse).
 
@@ -119,14 +119,14 @@ Si vous essayez de faire la connexion depuis la fiche de l'ordinateur, le lien n
 :::
 
 ::: info Pourquoi lier les équipements ?
-Relier les équipements entre eux permet de savoir instantanément, depuis la fiche d'un ordinateur, quels périphériques lui sont associés — et inversement. Cela facilite les interventions et le suivi du matériel.
+Relier les équipements entre eux permet de savoir instantanément, depuis la fiche d'un ordinateur, quels périphériques lui sont associés - et inversement. Cela facilite les interventions et le suivi du matériel.
 :::
 
 ::: tip 📸 Capture 3
 Onglet **Connexions** de `Ecran-Direction-01` montrant le lien vers `PC-Direction-01`.
 :::
 
-### Tâche 1.5 — Affecter un utilisateur au poste
+### Tâche 1.5 - Affecter un utilisateur au poste
 
 Toujours dans la fiche de `PC-Direction-01`, allez dans l'onglet **Utilisateurs** (ou directement dans le champ **Utilisateur** de l'onglet principal).
 
@@ -138,11 +138,11 @@ Fiche de `PC-Direction-01` montrant l'utilisateur affecté.
 
 ---
 
-## Mission 2 — Créer d'autres types d'assets
+## Mission 2 - Créer d'autres types d'assets
 
 GLPI ne se limite pas aux ordinateurs. Vous allez créer rapidement deux autres types d'équipements pour vous familiariser avec la diversité du parc.
 
-### Tâche 2.1 — Créer une imprimante
+### Tâche 2.1 - Créer une imprimante
 
 Naviguez dans **Parc → Imprimantes → + Ajouter** et renseignez :
 
@@ -154,7 +154,7 @@ Naviguez dans **Parc → Imprimantes → + Ajouter** et renseignez :
 | Localisation | `Rez-de-chaussée` |
 | État | En production |
 
-### Tâche 2.2 — Créer un équipement réseau
+### Tâche 2.2 - Créer un équipement réseau
 
 Naviguez dans **Parc → Réseaux → + Ajouter** et renseignez :
 
@@ -172,11 +172,11 @@ Liste **Parc → Réseaux** affichant le switch créé.
 
 ---
 
-## Mission 3 — Préparer GLPI pour recevoir les inventaires automatiques
+## Mission 3 - Préparer GLPI pour recevoir les inventaires automatiques
 
 Avant d'installer GLPI Agent sur les postes, il faut vérifier que GLPI est bien configuré pour **recevoir et traiter les inventaires** envoyés automatiquement.
 
-### Tâche 3.1 — Vérifier la configuration de l'inventaire
+### Tâche 3.1 - Vérifier la configuration de l'inventaire
 
 Dans GLPI, naviguez dans **Administration → Inventaire**.
 
@@ -199,7 +199,7 @@ Si ce n'est pas le cas, activez ces options et cliquez sur **Sauvegarder**.
 Page **Administration → Inventaire** avec les options correctement configurées.
 :::
 
-### Tâche 3.2 — Noter l'adresse IP du serveur GLPI
+### Tâche 3.2 - Noter l'adresse IP du serveur GLPI
 
 Vous aurez besoin de l'adresse IP du serveur lors de la configuration de GLPI Agent. Relevez-la :
 
@@ -211,7 +211,7 @@ Notez l'adresse IP de votre VM-Serveur (ex : `192.168.x.x`). Vous l'utiliserez a
 
 ---
 
-## Mission 4 — Installer GLPI Agent sur la VM Cliente
+## Mission 4 - Installer GLPI Agent sur la VM Cliente
 
 GLPI Agent est un programme qui s'installe sur chaque poste du parc. Il collecte automatiquement les informations matérielles et logicielles, puis les envoie au serveur GLPI.
 
@@ -222,7 +222,7 @@ GLPI Agent est un programme qui s'installe sur chaque poste du parc. Il collecte
 - Adresses IP et interfaces réseau
 :::
 
-### Tâche 4.1 — Télécharger GLPI Agent
+### Tâche 4.1 - Télécharger GLPI Agent
 
 Sur la **VM-Cliente**, ouvrez un terminal et téléchargez la dernière version de GLPI Agent depuis le dépôt officiel GitHub.
 
@@ -234,7 +234,7 @@ Téléchargez-le :
 wget [lien-copié] -O /tmp/glpi-agent.deb
 ```
 
-### Tâche 4.2 — Installer le paquet
+### Tâche 4.2 - Installer le paquet
 
 ```bash
 apt install /tmp/glpi-agent.deb -y
@@ -254,7 +254,7 @@ glpi-agent --version
 Sortie de `glpi-agent --version` confirmant l'installation.
 :::
 
-### Tâche 4.3 — Configurer GLPI Agent
+### Tâche 4.3 - Configurer GLPI Agent
 
 Il faut indiquer à l'agent l'adresse du serveur GLPI vers lequel envoyer les inventaires. La configuration se fait dans un fichier dédié :
 
@@ -274,7 +274,7 @@ Respectez bien le `/` final dans l'URL. Sans lui, l'agent ne trouvera pas le poi
 
 Sauvegardez le fichier.
 
-### Tâche 4.4 — Démarrer et activer le service
+### Tâche 4.4 - Démarrer et activer le service
 
 ```bash
 systemctl enable glpi-agent
@@ -288,12 +288,12 @@ systemctl status glpi-agent
 ```
 
 ::: tip 📸 Capture 8
-Sortie de `systemctl status glpi-agent` — état `active (running)`.
+Sortie de `systemctl status glpi-agent` - état `active (running)`.
 :::
 
 ---
 
-## Mission 5 — Installer GLPI Agent sur le PC Hôte Windows
+## Mission 5 - Installer GLPI Agent sur le PC Hôte Windows
 
 Votre VM-Serveur GLPI est également joignable depuis votre PC physique Windows. Vous allez y installer GLPI Agent pour que **votre poste de travail réel** apparaisse lui aussi dans l'inventaire, aux côtés de la VM-Cliente.
 
@@ -309,7 +309,7 @@ ping [IP-SERVEUR]
 Si la commande échoue (Request timed out), vérifiez le mode réseau de la VM dans ses paramètres avant de continuer.
 :::
 
-### Tâche 5.1 — Télécharger l'installeur Windows
+### Tâche 5.1 - Télécharger l'installeur Windows
 
 Depuis votre **PC hôte**, ouvrez un navigateur et rendez-vous sur :
 
@@ -321,10 +321,10 @@ Dans la liste des assets de la dernière version, repérez le fichier `.msi` cor
 Téléchargez-le sur votre bureau ou dans votre dossier Téléchargements.
 
 ::: tip 📸 Capture 9
-Page des releases GitHub — fichier `.msi` identifié et téléchargement en cours.
+Page des releases GitHub - fichier `.msi` identifié et téléchargement en cours.
 :::
 
-### Tâche 5.2 — Installer GLPI Agent
+### Tâche 5.2 - Installer GLPI Agent
 
 Faites un **clic droit** sur le fichier `.msi` téléchargé et choisissez **Exécuter en tant qu'administrateur**.
 
@@ -353,10 +353,10 @@ Respectez bien le `/` final dans l'URL du serveur. Sans lui, l'agent ne trouvera
 :::
 
 ::: tip 📸 Capture 10
-Écran de configuration de l'installeur GLPI Agent — champ **Server** renseigné avec l'URL du serveur GLPI.
+Écran de configuration de l'installeur GLPI Agent - champ **Server** renseigné avec l'URL du serveur GLPI.
 :::
 
-### Tâche 5.3 — Vérifier la configuration via l'interface locale
+### Tâche 5.3 - Vérifier la configuration via l'interface locale
 
 GLPI Agent embarque une **interface web locale** accessible directement depuis votre navigateur. Elle vous permet de vérifier la configuration et de déclencher un inventaire à la demande, sans passer par la ligne de commande.
 
@@ -379,10 +379,10 @@ L'agent démarre en tant que service Windows. Si la page est inaccessible :
 :::
 
 ::: tip 📸 Capture 11
-Interface web locale de GLPI Agent (`http://localhost:62354/`) — configuration du serveur visible et statut Running.
+Interface web locale de GLPI Agent (`http://localhost:62354/`) - configuration du serveur visible et statut Running.
 :::
 
-### Tâche 5.4 — Forcer un inventaire immédiat
+### Tâche 5.4 - Forcer un inventaire immédiat
 
 Par défaut, GLPI Agent envoie un inventaire toutes les 24 heures. Pour ne pas attendre, vous allez déclencher un envoi immédiat.
 
@@ -394,10 +394,10 @@ Depuis `http://localhost:62354/`, cliquez sur le bouton **Force an inventory**. 
 Attendez quelques secondes que l'agent collecte et envoie les données.
 
 ::: tip 📸 Capture 12
-Résultat de l'inventaire forcé — confirmation dans l'interface web (`Inventory started`) ou sortie de PowerShell.
+Résultat de l'inventaire forcé - confirmation dans l'interface web (`Inventory started`) ou sortie de PowerShell.
 :::
 
-### Tâche 5.5 — Vérifier l'apparition du PC dans GLPI
+### Tâche 5.5 - Vérifier l'apparition du PC dans GLPI
 
 Retournez dans l'interface GLPI (depuis la VM-Serveur ou votre navigateur) et naviguez dans **Parc → Ordinateurs**.
 
@@ -416,9 +416,9 @@ Liste **Parc → Ordinateurs** dans GLPI affichant votre PC hôte Windows remont
 
 ---
 
-## Mission 6 — Déclencher et vérifier les inventaires automatiques
+## Mission 6 - Déclencher et vérifier les inventaires automatiques
 
-### Tâche 6.1 — Forcer un inventaire immédiat sur la VM-Cliente
+### Tâche 6.1 - Forcer un inventaire immédiat sur la VM-Cliente
 
 Sur la **VM-Cliente**, forcez un envoi immédiat :
 
@@ -432,7 +432,7 @@ L'agent collecte les informations du poste et les envoie au serveur GLPI. Vous d
 Sortie de `glpi-agent --force` sur la VM-Cliente montrant l'inventaire envoyé avec succès.
 :::
 
-### Tâche 6.2 — Vérifier la réception dans GLPI
+### Tâche 6.2 - Vérifier la réception dans GLPI
 
 Retournez sur l'interface GLPI (VM-Serveur) et naviguez dans **Parc → Ordinateurs**.
 
@@ -449,30 +449,30 @@ Votre **VM-Cliente** et votre **PC hôte Windows** doivent maintenant apparaîtr
 Liste **Parc → Ordinateurs** dans GLPI affichant la VM-Cliente **et** le PC hôte Windows remontés automatiquement.
 :::
 
-### Tâche 6.3 — Explorer la fiche générée automatiquement
+### Tâche 6.3 - Explorer la fiche générée automatiquement
 
 Cliquez sur la fiche de la VM-Cliente pour l'ouvrir. Comparez son niveau de détail avec la fiche de `PC-Direction-01` créée manuellement.
 
 Explorez les onglets :
-- **Composants** — processeur, RAM, disques détectés automatiquement
-- **Logiciels** — liste complète des logiciels installés
-- **Réseau** — adresses IP et interfaces détectées
+- **Composants** - processeur, RAM, disques détectés automatiquement
+- **Logiciels** - liste complète des logiciels installés
+- **Réseau** - adresses IP et interfaces détectées
 
 ::: tip 📸 Capture 16
-Onglet **Composants** de la VM-Cliente remontée par GLPI Agent — informations matérielles détectées automatiquement.
+Onglet **Composants** de la VM-Cliente remontée par GLPI Agent - informations matérielles détectées automatiquement.
 :::
 
 ::: tip 📸 Capture 17
-Onglet **Logiciels** de la VM-Cliente — liste des logiciels installés détectée automatiquement.
+Onglet **Logiciels** de la VM-Cliente - liste des logiciels installés détectée automatiquement.
 :::
 
 ---
 
-## Mission 7 — Exploiter les données du parc
+## Mission 7 - Exploiter les données du parc
 
 Maintenant que le parc contient plusieurs éléments, vous allez apprendre à rechercher, filtrer et exporter des données.
 
-### Tâche 7.1 — Utiliser la recherche avancée
+### Tâche 7.1 - Utiliser la recherche avancée
 
 Dans **Parc → Ordinateurs**, cliquez sur **Rechercher** pour accéder aux filtres avancés.
 
@@ -486,10 +486,10 @@ Ajoutez les critères suivants pour trouver uniquement les postes en production 
 Cliquez sur **Rechercher** et observez les résultats filtrés.
 
 ::: tip 📸 Capture 18
-Résultats de la recherche filtrée — seul `PC-Direction-01` apparaît.
+Résultats de la recherche filtrée - seul `PC-Direction-01` apparaît.
 :::
 
-### Tâche 7.2 — Personnaliser les colonnes affichées
+### Tâche 7.2 - Personnaliser les colonnes affichées
 
 Par défaut, la liste des ordinateurs n'affiche que quelques colonnes. Vous pouvez personnaliser cet affichage.
 
@@ -502,7 +502,7 @@ Dans la liste **Parc → Ordinateurs**, cliquez sur l'icône de configuration de
 Liste des ordinateurs avec les colonnes personnalisées affichées.
 :::
 
-### Tâche 7.3 — Exporter les données
+### Tâche 7.3 - Exporter les données
 
 La liste des équipements peut être exportée pour être intégrée dans un rapport ou un tableur.
 
@@ -511,17 +511,17 @@ Depuis la liste **Parc → Ordinateurs**, cliquez sur le bouton **Exporter** (ic
 Ouvrez le fichier exporté pour vérifier son contenu.
 
 ::: tip 📸 Capture 20
-Fichier CSV exporté ouvert dans un tableur — colonnes et données visibles.
+Fichier CSV exporté ouvert dans un tableur - colonnes et données visibles.
 :::
 
-### Tâche 7.4 — Utiliser la recherche globale
+### Tâche 7.4 - Utiliser la recherche globale
 
 La barre de recherche en haut de GLPI permet de retrouver n'importe quel élément du parc, tous types confondus.
 
 Tapez `Direction` dans la barre de recherche globale. GLPI doit vous retourner tous les assets dont le nom ou la localisation contient ce mot.
 
 ::: tip 📸 Capture 21
-Résultats de la recherche globale pour "Direction" — plusieurs assets retournés.
+Résultats de la recherche globale pour "Direction" - plusieurs assets retournés.
 :::
 
 ---
@@ -543,7 +543,7 @@ Déposez votre **rapport-annexe** (PDF) avec les 21 captures numérotées et lé
 
 ---
 
-## Annexe — Réinitialiser le mot de passe du compte GLPI
+## Annexe - Réinitialiser le mot de passe du compte GLPI
 
 Si vous avez perdu l'accès au compte `glpi`, vous pouvez réinitialiser son mot de passe directement en base de données depuis la VM-Serveur :
 

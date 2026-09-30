@@ -1,10 +1,10 @@
----
+﻿---
 outline: deep
 ---
 
-# TP 2 — Configuration de base : utilisateurs, groupes et jonction au domaine
+# TP 2 - Configuration de base : utilisateurs, groupes et jonction au domaine
 
-<Badge type="info" text="BTS SIO SISR 1ère année" />  <Badge type="warning" text="Bloc 2 — Administration système" />  <Badge type="danger" text="Windows Server 2022 + Active Directory" />
+<Badge type="info" text="BTS SIO SISR 1ère année" />  <Badge type="warning" text="Bloc 2 - Administration système" />  <Badge type="danger" text="Windows Server 2022 + Active Directory" />
 
 ::: info Contexte
 Le domaine `techservices.local` est opérationnel depuis le TP 1. Votre responsable vous demande maintenant de **structurer l'annuaire** en le calquant sur l'organigramme de l'entreprise, de **créer les premiers comptes utilisateurs**, puis de **joindre un poste Windows au domaine** pour valider que tout fonctionne de bout en bout.
@@ -12,8 +12,8 @@ Le domaine `techservices.local` est opérationnel depuis le TP 1. Votre responsa
 
 ::: warning Modalités
 Vous avez besoin de deux VMs pour ce TP :
-- **VM-Serveur** (`SRV-AD-01`) — votre contrôleur de domaine du TP 1, démarré et connecté
-- **VM-Cliente** — une VM Windows 10 ou 11 que vous préparerez durant ce TP (ISO disponible sur le NAS)
+- **VM-Serveur** (`SRV-AD-01`) - votre contrôleur de domaine du TP 1, démarré et connecté
+- **VM-Cliente** - une VM Windows 10 ou 11 que vous préparerez durant ce TP (ISO disponible sur le NAS)
 
 Les deux VMs doivent être sur le **même réseau interne `adlab`** (même configuration que dans le TP 1).
 
@@ -48,17 +48,17 @@ Une OU est un **conteneur** qui permet d'organiser les objets AD (utilisateurs, 
 Un compte utilisateur AD représente **une personne de l'entreprise**. Il lui permet de s'authentifier sur n'importe quel poste joint au domaine avec un seul identifiant et mot de passe.
 
 **Les groupes de sécurité**
-Un groupe rassemble plusieurs utilisateurs pour leur attribuer des **droits communs** (accès à un dossier partagé, à une imprimante…). On gère les droits au niveau du groupe, pas de chaque utilisateur — ce qui simplifie considérablement l'administration.
+Un groupe rassemble plusieurs utilisateurs pour leur attribuer des **droits communs** (accès à un dossier partagé, à une imprimante…). On gère les droits au niveau du groupe, pas de chaque utilisateur - ce qui simplifie considérablement l'administration.
 
 :::
 
 ---
 
-## Mission 1 — Créer la structure organisationnelle (OUs)
+## Mission 1 - Créer la structure organisationnelle (OUs)
 
 L'organigramme de TechServices comporte quatre services. Vous allez reproduire cette structure dans Active Directory sous forme d'Unités d'Organisation.
 
-### Tâche 1.1 — Ouvrir la console Active Directory
+### Tâche 1.1 - Ouvrir la console Active Directory
 
 Sur `SRV-AD-01`, ouvrez la console **Utilisateurs et ordinateurs Active Directory** :
 
@@ -69,10 +69,10 @@ Ou tapez `dsa.msc` dans la barre de recherche Windows.
 Dans l'arborescence de gauche, développez `techservices.local`. Vous voyez les conteneurs créés par défaut lors du TP 1 (`Builtin`, `Computers`, `Domain Controllers`, `Users`).
 
 ::: tip 📸 Capture 1
-Console ADUC — arborescence de `techservices.local` dépliée, conteneurs par défaut visibles.
+Console ADUC - arborescence de `techservices.local` dépliée, conteneurs par défaut visibles.
 :::
 
-### Tâche 1.2 — Créer les OUs de premier niveau
+### Tâche 1.2 - Créer les OUs de premier niveau
 
 Vous allez d'abord créer une OU racine `TechServices` pour regrouper toute la structure de l'entreprise et la séparer des conteneurs système.
 
@@ -102,19 +102,19 @@ Maintenant, faites un **clic droit sur la nouvelle OU `TechServices`** → **Nou
 Par convention, les noms d'OUs n'utilisent pas d'accents ni d'espaces. Cela évite des problèmes de compatibilité avec certains scripts PowerShell et outils tiers.
 :::
 
-Créez également une OU `Postes` dans `TechServices` — elle accueillera les ordinateurs joints au domaine.
+Créez également une OU `Postes` dans `TechServices` - elle accueillera les ordinateurs joints au domaine.
 
 ::: tip 📸 Capture 2
-Console ADUC — OU `TechServices` dépliée avec les cinq sous-OUs (`Direction`, `Comptabilite`, `Informatique`, `Commercial`, `Postes`) visibles.
+Console ADUC - OU `TechServices` dépliée avec les cinq sous-OUs (`Direction`, `Comptabilite`, `Informatique`, `Commercial`, `Postes`) visibles.
 :::
 
 ---
 
-## Mission 2 — Créer les comptes utilisateurs
+## Mission 2 - Créer les comptes utilisateurs
 
 Votre responsable vous a fourni la liste des premiers comptes à créer. Vous allez les placer directement dans leur OU respective.
 
-### Tâche 2.1 — Créer le premier utilisateur
+### Tâche 2.1 - Créer le premier utilisateur
 
 Commencez par créer le compte de Marie Dupont, directrice.
 
@@ -146,10 +146,10 @@ Sur l'écran de mot de passe, renseignez :
 Cliquez sur **Suivant** puis **Terminer**.
 
 ::: tip 📸 Capture 3
-Formulaire de création de l'utilisateur `Marie Dupont` — champs renseignés avant validation.
+Formulaire de création de l'utilisateur `Marie Dupont` - champs renseignés avant validation.
 :::
 
-### Tâche 2.2 — Créer les utilisateurs restants
+### Tâche 2.2 - Créer les utilisateurs restants
 
 En suivant la même procédure, créez les trois autres comptes dans leurs OUs respectives :
 
@@ -162,10 +162,10 @@ En suivant la même procédure, créez les trois autres comptes dans leurs OUs r
 Utilisez le même mot de passe `Techservices@2024` pour tous.
 
 ::: tip 📸 Capture 4
-Console ADUC — les quatre OUs dépliées affichant chacune leur utilisateur respectif.
+Console ADUC - les quatre OUs dépliées affichant chacune leur utilisateur respectif.
 :::
 
-### Tâche 2.3 — Vérifier les propriétés d'un compte
+### Tâche 2.3 - Vérifier les propriétés d'un compte
 
 Double-cliquez sur le compte de `Marie Dupont` pour ouvrir ses propriétés. Explorez les onglets disponibles :
 
@@ -183,16 +183,16 @@ Renseignez dans l'onglet **Général** :
 Cliquez sur **OK** pour sauvegarder.
 
 ::: tip 📸 Capture 5
-Propriétés du compte `Marie Dupont` — onglet **Général** avec les informations renseignées.
+Propriétés du compte `Marie Dupont` - onglet **Général** avec les informations renseignées.
 :::
 
 ---
 
-## Mission 3 — Créer les groupes de sécurité
+## Mission 3 - Créer les groupes de sécurité
 
 Les groupes permettent d'attribuer des droits à plusieurs utilisateurs en une seule opération. Plutôt que de gérer les autorisations utilisateur par utilisateur, on gère les droits au niveau du groupe.
 
-### Tâche 3.1 — Créer les groupes
+### Tâche 3.1 - Créer les groupes
 
 Dans la console ADUC, faites un **clic droit sur l'OU `Informatique`** → **Nouveau → Groupe**.
 
@@ -216,10 +216,10 @@ Créez les quatre groupes suivants (répétez l'opération pour chacun) :
 :::
 
 ::: tip 📸 Capture 6
-Console ADUC — OU `Informatique` affichant les quatre groupes créés.
+Console ADUC - OU `Informatique` affichant les quatre groupes créés.
 :::
 
-### Tâche 3.2 — Ajouter les utilisateurs dans leurs groupes
+### Tâche 3.2 - Ajouter les utilisateurs dans leurs groupes
 
 Vous allez maintenant associer chaque utilisateur à son groupe.
 
@@ -236,22 +236,22 @@ Répétez l'opération pour les trois autres groupes :
 | `GRP-Commercial` | `s.leroy` (Sophie Leroy) |
 
 ::: tip 📸 Capture 7
-Propriétés du groupe `GRP-Direction` — onglet **Membres** affichant `Marie Dupont`.
+Propriétés du groupe `GRP-Direction` - onglet **Membres** affichant `Marie Dupont`.
 :::
 
-### Tâche 3.3 — Vérifier l'appartenance depuis le compte utilisateur
+### Tâche 3.3 - Vérifier l'appartenance depuis le compte utilisateur
 
 Ouvrez les propriétés de `Jean Martin`, allez dans l'onglet **Membre de**.
 
 Vous devez voir `GRP-Comptabilite` dans la liste, ce qui confirme que l'appartenance au groupe est bidirectionnelle : on peut la voir depuis le groupe ou depuis l'utilisateur.
 
 ::: tip 📸 Capture 8
-Propriétés de `Jean Martin` — onglet **Membre de** affichant `GRP-Comptabilite`.
+Propriétés de `Jean Martin` - onglet **Membre de** affichant `GRP-Comptabilite`.
 :::
 
 ---
 
-## Mission 4 — Configurer la VM cliente Windows
+## Mission 4 - Configurer la VM cliente Windows
 
 ::: info VM déjà installée depuis le TP 1
 Si vous avez suivi la **Mission 7 du TP 1**, votre VM `PC-CLIENT-01` est déjà créée et Windows est installé. Passez directement à la **Tâche 4.1** ci-dessous pour la configurer.
@@ -259,7 +259,7 @@ Si vous avez suivi la **Mission 7 du TP 1**, votre VM `PC-CLIENT-01` est déjà 
 Si ce n'est pas le cas, créez la VM et installez Windows maintenant en vous référant aux Tâches 7.1 et 7.2 du TP 1 (pensez à choisir l'édition **Pro** si vous utilisez Windows 11).
 :::
 
-### Tâche 4.1 — Renommer le poste
+### Tâche 4.1 - Renommer le poste
 
 Une fois sur le bureau, renommez le poste pour lui donner un nom cohérent :
 
@@ -268,15 +268,15 @@ Une fois sur le bureau, renommez le poste pour lui donner un nom cohérent :
 3. Entrez le nom : `PC-CLIENT-01`
 4. Redémarrez
 
-### Tâche 4.2 — Configurer le DNS vers le contrôleur de domaine
+### Tâche 4.2 - Configurer le DNS vers le contrôleur de domaine
 
-C'est l'étape **la plus importante** de la préparation. Pour rejoindre le domaine `techservices.local`, le poste client doit pouvoir résoudre ce nom via le DNS — et ce DNS, c'est votre serveur AD.
+C'est l'étape **la plus importante** de la préparation. Pour rejoindre le domaine `techservices.local`, le poste client doit pouvoir résoudre ce nom via le DNS - et ce DNS, c'est votre serveur AD.
 
 1. Clic droit sur l'icône réseau → **Ouvrir les paramètres réseau et Internet**
 2. **Modifier les options d'adaptateur** → clic droit sur la carte active → **Propriétés**
 3. Sélectionnez **Protocole Internet version 4 (TCP/IPv4)** → **Propriétés**
 
-En réseau interne, il n'y a pas de DHCP — configurez une adresse IP statique et pointez le DNS vers le serveur AD :
+En réseau interne, il n'y a pas de DHCP - configurez une adresse IP statique et pointez le DNS vers le serveur AD :
 
 | Champ | Valeur |
 |---|---|
@@ -293,10 +293,10 @@ Si le DNS n'est pas correctement configuré, la jonction au domaine échouera av
 :::
 
 ::: tip 📸 Capture 9
-Propriétés TCP/IPv4 du poste `PC-CLIENT-01` — adresse IP statique `192.168.1.20` et DNS préféré `192.168.1.10` configurés.
+Propriétés TCP/IPv4 du poste `PC-CLIENT-01` - adresse IP statique `192.168.1.20` et DNS préféré `192.168.1.10` configurés.
 :::
 
-### Tâche 4.3 — Vérifier la connectivité avec le serveur
+### Tâche 4.3 - Vérifier la connectivité avec le serveur
 
 Ouvrez **PowerShell** ou l'**Invite de commandes** et testez :
 
@@ -317,16 +317,16 @@ Les deux commandes doivent répondre. Si le deuxième `ping` fonctionne (résolu
 :::
 
 ::: tip 📸 Capture 10
-Sortie PowerShell sur `PC-CLIENT-01` — `ping SRV-AD-01.techservices.local` avec réponses reçues.
+Sortie PowerShell sur `PC-CLIENT-01` - `ping SRV-AD-01.techservices.local` avec réponses reçues.
 :::
 
 ---
 
-## Mission 5 — Joindre le poste au domaine
+## Mission 5 - Joindre le poste au domaine
 
 C'est la mission centrale de ce TP. Une fois le poste joint au domaine, n'importe quel utilisateur AD pourra s'y connecter avec son compte du domaine.
 
-### Tâche 5.1 — Lancer la procédure de jonction
+### Tâche 5.1 - Lancer la procédure de jonction
 
 Sur `PC-CLIENT-01`, ouvrez les propriétés système :
 
@@ -337,10 +337,10 @@ Ou tapez `sysdm.cpl` dans la barre de recherche Windows.
 Dans l'onglet **Nom de l'ordinateur**, cliquez sur **Modifier**.
 
 ::: tip 📸 Capture 11
-Fenêtre **Propriétés système** sur `PC-CLIENT-01` — onglet **Nom de l'ordinateur** affichant `WORKGROUP` comme groupe de travail actuel.
+Fenêtre **Propriétés système** sur `PC-CLIENT-01` - onglet **Nom de l'ordinateur** affichant `WORKGROUP` comme groupe de travail actuel.
 :::
 
-### Tâche 5.2 — Rejoindre le domaine
+### Tâche 5.2 - Rejoindre le domaine
 
 Dans la fenêtre **Modification du nom ou du domaine de l'ordinateur** :
 
@@ -358,7 +358,7 @@ Une fenêtre d'authentification apparaît. Entrez les **identifiants d'un compte
 Cliquez sur **OK**.
 
 ::: info Pourquoi des identifiants administrateur ?
-Joindre un ordinateur à un domaine est une opération sensible — elle donne au domaine le contrôle sur ce poste. Seul un compte avec les droits suffisants dans l'AD peut effectuer cette opération (par défaut, les membres du groupe `Admins du domaine`).
+Joindre un ordinateur à un domaine est une opération sensible - elle donne au domaine le contrôle sur ce poste. Seul un compte avec les droits suffisants dans l'AD peut effectuer cette opération (par défaut, les membres du groupe `Admins du domaine`).
 :::
 
 Si tout est correctement configuré, un message de bienvenue apparaît :
@@ -371,7 +371,7 @@ Message **"Bienvenue dans le domaine techservices.local"** après la jonction r�
 
 Cliquez sur **OK**, puis **OK** à nouveau, et **Redémarrer maintenant**.
 
-### Tâche 5.3 — Vérifier depuis l'écran de connexion
+### Tâche 5.3 - Vérifier depuis l'écran de connexion
 
 Après le redémarrage, observez l'écran de connexion de Windows. Cliquez sur **Autres utilisateurs** (ou observez le champ de connexion).
 
@@ -384,24 +384,24 @@ Se connecter à : TECHSERVICES
 Cela confirme que le poste est bien joint au domaine et prêt à accepter des connexions avec des comptes AD.
 
 ::: tip 📸 Capture 13
-Écran de connexion Windows sur `PC-CLIENT-01` après jonction — mention **"Se connecter à : TECHSERVICES"** visible.
+Écran de connexion Windows sur `PC-CLIENT-01` après jonction - mention **"Se connecter à : TECHSERVICES"** visible.
 :::
 
 ---
 
-## Mission 6 — Vérifier et tester de bout en bout
+## Mission 6 - Vérifier et tester de bout en bout
 
-### Tâche 6.1 — Vérifier depuis la console Active Directory
+### Tâche 6.1 - Vérifier depuis la console Active Directory
 
 Retournez sur `SRV-AD-01` et ouvrez la console **Utilisateurs et ordinateurs Active Directory**.
 
 Naviguez dans le conteneur **Computers** (sous `techservices.local`). Votre poste `PC-CLIENT-01` doit y apparaître automatiquement.
 
 ::: tip 📸 Capture 14
-Console ADUC — conteneur `Computers` affichant `PC-CLIENT-01` après la jonction.
+Console ADUC - conteneur `Computers` affichant `PC-CLIENT-01` après la jonction.
 :::
 
-### Tâche 6.2 — Déplacer le poste dans l'OU Postes
+### Tâche 6.2 - Déplacer le poste dans l'OU Postes
 
 Par défaut, les ordinateurs joints au domaine atterrissent dans le conteneur `Computers`. Il est préférable de les placer dans votre OU `Postes` pour pouvoir leur appliquer des GPO plus tard.
 
@@ -410,10 +410,10 @@ Dans la console ADUC, faites un **clic droit sur `PC-CLIENT-01`** → **Déplace
 Dans la fenêtre de sélection, naviguez vers `TechServices → Postes` et cliquez sur **OK**.
 
 ::: tip 📸 Capture 15
-Console ADUC — OU `Postes` (dans `TechServices`) affichant `PC-CLIENT-01` après le déplacement.
+Console ADUC - OU `Postes` (dans `TechServices`) affichant `PC-CLIENT-01` après le déplacement.
 :::
 
-### Tâche 6.3 — Se connecter avec un compte du domaine
+### Tâche 6.3 - Se connecter avec un compte du domaine
 
 Sur `PC-CLIENT-01`, à l'écran de connexion, cliquez sur **Autres utilisateurs**.
 
@@ -424,9 +424,9 @@ Connectez-vous avec le compte de Sophie Leroy :
 | Nom d'utilisateur | `s.leroy` |
 | Mot de passe | `Techservices@2024` |
 
-Une nouvelle session s'ouvre au nom de Sophie Leroy — son profil est créé automatiquement sur ce poste.
+Une nouvelle session s'ouvre au nom de Sophie Leroy - son profil est créé automatiquement sur ce poste.
 
-### Tâche 6.4 — Vérifier l'identité de la session
+### Tâche 6.4 - Vérifier l'identité de la session
 
 Une fois connecté, ouvrez **PowerShell** et tapez :
 
@@ -449,7 +449,7 @@ whoami /all
 Cette commande affiche l'identité, les groupes d'appartenance (vous devez voir `GRP-Commercial` dans la liste) et les privilèges associés.
 
 ::: tip 📸 Capture 16
-Sortie de `whoami /all` dans PowerShell — identité `techservices\s.leroy` et appartenance au groupe `GRP-Commercial` visibles.
+Sortie de `whoami /all` dans PowerShell - identité `techservices\s.leroy` et appartenance au groupe `GRP-Commercial` visibles.
 :::
 
 ---
