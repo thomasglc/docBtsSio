@@ -19,7 +19,7 @@ hero:
 features:
   - title: 🖥️ Programmation C#
     link: /tp/csharp/1-prise-en-main
-    details: Initiation au développement — Visual Studio, premiers programmes en C#
+    details: Initiation au développement, Visual Studio, premiers programmes en C#
   - title: 🌐 Développement web
     link: /presentation/dev-web
     details: PHP, tests unitaires, Git
