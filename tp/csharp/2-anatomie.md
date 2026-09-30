@@ -340,35 +340,7 @@ Utilisez l'interpolation de chaînes pour construire le message.
 Votre programme de présentation en cours d'exécution dans la console.
 :::
 
-### Exercice 2 - Fiche de contact
-
-Créez un programme qui demande à l'utilisateur :
-
-- Son prénom et son nom
-- Son adresse e-mail
-- Sa ville
-
-Puis affiche une fiche formatée. Exemple de résultat attendu :
-
-```
-╔══════════════════════════════════╗
-║         FICHE DE CONTACT         ║
-╠══════════════════════════════════╣
-║  Nom    : Lucie MARTIN           ║
-║  Email  : lucie.martin@email.fr  ║
-║  Ville  : Colmar                 ║
-╚══════════════════════════════════╝
-```
-
-::: tip Caractères de bordure
-Copiez-collez ces caractères directement dans votre code : `╔ ╗ ║ ╠ ╣ ╚ ╝ ═`
-:::
-
-::: tip 📸 Capture 5
-Votre fiche de contact affichée dans la console avec les données saisies.
-:::
-
-### Exercice 3 - Billet de train
+### Exercice 2 - Billet de train
 
 Créez un programme qui demande à l'utilisateur :
 
@@ -394,11 +366,11 @@ Puis affiche un billet formaté dans la console :
 Utilisez `Console.WriteLine("══════...")`  pour les séparateurs - copiez-collez le caractère `═` autant de fois que nécessaire.
 :::
 
-::: tip 📸 Capture 6
+::: tip 📸 Capture 5
 Votre billet de train affiché dans la console avec les informations saisies.
 :::
 
-### Exercice 4 - Générateur d'histoire
+### Exercice 3 - Générateur d'histoire
 
 Créez un programme qui demande 5 informations à l'utilisateur, puis génère une histoire courte en les insérant :
 
@@ -427,7 +399,7 @@ Personne ne sut jamais comment cette aventure se termina...
 Le texte ne sera pas parfaitement aligné pour des saisies très courtes ou très longues - c'est normal. Vous découvrirez plus tard comment formater précisément la largeur des chaînes. Pour l'instant, l'important est que l'histoire s'affiche avec les bonnes informations.
 :::
 
-::: tip 📸 Capture 7
+::: tip 📸 Capture 6
 Votre générateur d'histoire avec vos propres mots.
 :::
 
