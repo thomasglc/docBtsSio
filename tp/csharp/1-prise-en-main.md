@@ -323,19 +323,19 @@ Créez un programme qui affiche une **carte de visite** dans la console en utili
 Voici un exemple de mise en forme à reproduire (adaptez avec vos informations) :
 
 ```
-╔══════════════════════════════════╗
-║         CARTE DE VISITE          ║
-╠══════════════════════════════════╣
-║  Nom    : MARTIN Lucie           ║
-║  Classe : BTS SIO 1              ║
-║  École  : Lycée Camille Sée      ║
-║           Colmar                 ║
-║  Année  : 2026-2027              ║
-╚══════════════════════════════════╝
+════════════════════════════════════
+          CARTE DE VISITE          
+════════════════════════════════════
+   Nom    : MARTIN Lucie           
+   Classe : BTS SIO 1              
+   École  : Lycée Camille Sée     
+            Colmar                 
+   Année  : 2026-2027              
+════════════════════════════════════
 ```
 
 ::: tip Caractères de bordure
-Copiez-collez ces caractères directement dans votre code : `╔ ╗ ║ ╠ ╣ ╚ ╝ ═`
+Copiez-collez le caractère directement dans votre code : `═`
 :::
 
 ::: tip 📸 Capture 6
