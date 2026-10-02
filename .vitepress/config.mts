@@ -50,7 +50,9 @@ export default withMermaid ({
               { text: 'TP 2 - Anatomie d\'un programme', link: '/tp/csharp/2-anatomie.md' },
               { text: 'TP 3 - Variables et types', link: '/tp/csharp/3-variables-types.md' },
               { text: 'TP 4 - Les conditions', link: '/tp/csharp/4-conditions.md' },
-              { text: 'TP 5 - Les boucles', link: '/tp/csharp/5-boucles.md' },            ]
+              { text: 'TP 5 - Les boucles', link: '/tp/csharp/5-boucles.md' },
+              { text: 'TP 6 - Les fonctions', link: '/tp/csharp/6-fonctions.md' },
+              { text: 'TP bonus - Entraînement', link: '/tp/csharp/bonus-entrainement.md' },            ]
           },
         ]
       },
