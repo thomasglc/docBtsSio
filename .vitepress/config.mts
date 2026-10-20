@@ -63,6 +63,14 @@ export default withMermaid ({
             collapsed: true,
             items: [
               {
+                text: 'HTML / CSS',
+                collapsed: true,
+                items: [
+                  { text: '1 - Découverte du web et première page', link: '/tp/html/1-premiere-page.md' },
+                  { text: '2 - Texte, listes, liens et images', link: '/tp/html/2-liens-images.md' },
+                ]
+              },
+              {
                 text: 'PHP',
                 collapsed: true,
                 items: [

@@ -1,8 +1,28 @@
 ﻿# Développement web
 
-Les travaux pratiques de cette section couvrent les technologies du développement web côté serveur, les tests et la gestion de version.
+Les travaux pratiques de cette section couvrent le développement web, des pages HTML et CSS jusqu'au code côté serveur, ainsi que les tests et la gestion de version.
 
 <div class="tp-grid">
+
+  <div class="tp-card">
+    <div class="tp-card-header">
+      <span class="tp-icon">🌐</span>
+      <h2>HTML / CSS</h2>
+    </div>
+    <ul>
+      <li><a href="/tp/html/1-premiere-page">1 - Découverte du web et première page</a></li>
+      <li><a href="/tp/html/2-liens-images">2 - Texte, listes, liens et images</a></li>
+      <li class="tp-soon">3 - Structure sémantique et validation</li>
+      <li class="tp-soon">4 - Les tableaux</li>
+      <li class="tp-soon">5 - Les formulaires</li>
+      <li class="tp-soon">6 - Premiers pas en CSS</li>
+      <li class="tp-soon">7 - Le modèle de boîte</li>
+      <li class="tp-soon">8 - Mise en page avec Flexbox</li>
+      <li class="tp-soon">9 - Mise en page d'une page complète</li>
+      <li class="tp-soon">10 - Responsive design</li>
+      <li class="tp-soon">11 - Finitions CSS</li>
+    </ul>
+  </div>
 
   <div class="tp-card">
     <div class="tp-card-header">
