@@ -68,6 +68,8 @@ export default withMermaid ({
                 items: [
                   { text: '1 - Découverte du web et première page', link: '/tp/html/1-premiere-page.md' },
                   { text: '2 - Texte, listes, liens et images', link: '/tp/html/2-liens-images.md' },
+                  { text: '3 - Structure sémantique et validation', link: '/tp/html/3-structure-semantique.md' },
+                  { text: '4 - Les tableaux', link: '/tp/html/4-tableaux.md' },
                 ]
               },
               {
@@ -99,6 +101,8 @@ export default withMermaid ({
                   { text: '1 - Observer le trafic HTTP', link: '/tp/cybersecurite/1-http-devtools.md' },
                   { text: '2 - Sécuriser les mots de passe', link: '/tp/cybersecurite/2-mots-de-passe.md' },
                   { text: '3 - Les tokens JWT', link: '/tp/cybersecurite/3-jwt.md' },
+                  { text: '4 - Sécuriser les routes /notes', link: '/tp/cybersecurite/4-routes-protegees.md' },
+                  { text: '5 - Attaquer et corriger son API', link: '/tp/cybersecurite/5-attaquer-corriger.md' },
                 ]
               },
               {
