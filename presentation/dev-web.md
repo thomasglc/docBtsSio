@@ -71,6 +71,9 @@ Les travaux pratiques de cette section couvrent le développement web, des pages
     <ul>
       <li><a href="/tp/cybersecurite/1-http-devtools">1 - Observer le trafic HTTP</a></li>
       <li><a href="/tp/cybersecurite/2-mots-de-passe">2 - Sécuriser les mots de passe</a></li>
+      <li><a href="/tp/cybersecurite/3-jwt">3 - Les tokens JWT</a></li>
+      <li><a href="/tp/cybersecurite/4-routes-protegees">4 - Sécuriser les routes /notes</a></li>
+      <li class="tp-soon">5 - Attaquer et corriger son API</li>
     </ul>
   </div>
 
