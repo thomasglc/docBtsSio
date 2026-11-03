@@ -16,7 +16,7 @@ Vous commencez la construction de l'application fil rouge du cours de cybersécu
 
 ### Tâche 1.1 - Structure des fichiers
 
-Créez le dossier `notes-app` dans votre répertoire web (htdocs pour XAMPP, www pour Laragon) avec la structure suivante :
+Créez le dossier `notes-app` dans votre répertoire web (`www` pour WAMP, `htdocs` pour XAMPP) avec la structure suivante. C'est ce même dossier que vous ferez évoluer jusqu'au TP 5 :
 
 ```
 notes-app/

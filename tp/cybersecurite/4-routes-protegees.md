@@ -20,11 +20,13 @@ notes-app/
 │   ├── auth.php        ← nouveau : le middleware
 │   ├── login.php       ← existant (TP 3)
 │   ├── notes.php       ← à protéger
-│   └── register.php    ← existant
+│   └── register.php    ← existant (TP 2)
 ├── data/
 │   ├── notes.json
 │   └── users.json
-├── vendor/
+├── vendor/             ← existant (TP 3)
+├── composer.json
+├── composer.lock
 ├── config.php          ← existant (TP 3)
 └── index.html          ← à modifier
 ```
@@ -197,21 +199,21 @@ La réponse **401 Token manquant** pour un `GET /notes` sans token.
 
 ### Tâche 3.1 - Une fonction qui joint le token
 
-Dans `index.html`, toutes les requêtes vers les routes protégées doivent envoyer le header `Authorization`. Pour éviter de le répéter, créez une petite fonction qui l'ajoute automatiquement :
+Dans `index.html`, toutes les requêtes vers les routes protégées doivent envoyer le header `Authorization`. Pour éviter de le répéter, créez une petite fonction qui l'ajoute automatiquement. Placez-la juste **sous la ligne `const API = ...`**, qui existe depuis le TP 2 :
 
 ```javascript
-const API = 'http://localhost/notes-app/api';
-
 // Appelle une route protégée en joignant le token
 async function appelerApi(route, options = {}) {
   const token = localStorage.getItem('token');
 
+  const entetes = { 'Content-Type': 'application/json' };
+  if (token) {
+    entetes['Authorization'] = 'Bearer ' + token;
+  }
+
   const reponse = await fetch(`${API}/${route}`, {
     ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    }
+    headers: entetes
   });
 
   const data = await reponse.json();
@@ -224,9 +226,13 @@ async function appelerApi(route, options = {}) {
 }
 ```
 
+::: warning Ne recopiez pas `const API`
+La constante `API` est déjà déclarée en haut du script depuis le TP 2. La déclarer une deuxième fois provoque une erreur et plus rien ne fonctionne sur la page.
+:::
+
 ### Tâche 3.2 - Charger et créer des notes avec le token
 
-Utilisez cette fonction pour lire et ajouter des notes :
+Les fonctions `chargerNotes()` et `ajouterNote()` du TP 1 appellent encore `fetch()` directement, sans token. Remplacez-les par les versions suivantes, qui passent par `appelerApi()` :
 
 ```javascript
 async function chargerNotes() {
@@ -242,25 +248,33 @@ async function chargerNotes() {
   });
 }
 
-async function ajouterNote(texte) {
+async function ajouterNote() {
+  const texte = document.getElementById('champ-note').value;
+  if (!texte) return;
+
   const resultat = await appelerApi('notes.php', {
     method: 'POST',
     body: JSON.stringify({ texte })
   });
   if (resultat === null) return;
+
+  document.getElementById('champ-note').value = '';
   chargerNotes();
 }
 ```
 
+Le reste du fichier ne change pas : le bouton **Ajouter** appelle toujours `ajouterNote()`, et le formulaire de connexion du TP 3 appelle toujours `chargerNotes()` après avoir rangé le token.
+
 ::: info La clé du header
-Le token est joint avec `'Authorization': \`Bearer ${token}\``. Le mot `Bearer`, une espace, puis le token : c'est exactement ce que le middleware attend avec `str_starts_with($entete, 'Bearer ')`.
+Le token est joint avec `'Bearer ' + token`. Le mot `Bearer`, une espace, puis le token : c'est exactement ce que le middleware attend avec `str_starts_with($entete, 'Bearer ')`. S'il n'y a pas encore de token, le header n'est pas envoyé du tout.
 :::
 
 ### Tâche 3.3 - Tester le parcours complet
 
-1. Connectez-vous avec un compte créé au TP 3.
-2. Ajoutez une note : elle s'affiche.
-3. Ouvrez les DevTools (F12) → onglet **Réseau**, cliquez sur la requête `notes.php`, puis sur **Headers**. Repérez le header `Authorization: Bearer ...` dans la requête.
+1. Rechargez la page **sans être connecté**. Une alerte `Accès refusé : ...` s'affiche : `chargerNotes()` est appelée au chargement et le middleware la refuse. C'est le comportement attendu.
+2. Connectez-vous avec le compte créé au TP 2 (`alice@example.com`). La liste se recharge.
+3. Ajoutez une note : elle s'affiche.
+4. Ouvrez les DevTools (F12) → onglet **Réseau**, cliquez sur la requête `notes.php`, puis sur **Headers**. Repérez le header `Authorization: Bearer ...` dans la requête.
 
 ::: warning Mes anciennes notes ont disparu ?
 C'est normal : les notes créées avant ce TP n'ont pas de champ `id_utilisateur`, elles n'appartiennent à personne. Seules les notes créées **après connexion** apparaissent. Vous pouvez vider `data/notes.json` en y remettant `[]` pour repartir propre.
@@ -303,7 +317,7 @@ Dans `config.php`, changez temporairement l'expiration à **10 secondes** :
 define('JWT_EXPIRATION', 10); // 10 secondes, le temps du test
 ```
 
-Reconnectez-vous pour obtenir un token tout neuf, **attendez 15 secondes**, puis rechargez la liste des notes.
+Reconnectez-vous pour obtenir un token tout neuf, **attendez 15 secondes**, puis rechargez la page (F5) : `chargerNotes()` envoie le token expiré.
 
 | Question | Votre réponse |
 |---|---|
@@ -338,9 +352,9 @@ Répondez dans votre compte-rendu :
 |---|---|
 | `api/auth.php` | Middleware `verifierToken()` : lit le header `Bearer`, vérifie signature et expiration |
 | `api/notes.php` | Protégé par le middleware ; ne renvoie que les notes de l'utilisateur connecté |
-| `index.html` | Joint `Authorization: Bearer <token>` à chaque requête protégée |
+| `index.html` | `appelerApi()` joint `Authorization: Bearer <token>` ; `chargerNotes()` et `ajouterNote()` l'utilisent |
 | Tests | 401 pour un token **absent**, **modifié** ou **expiré** |
 
 ::: info La suite
-Votre API est désormais protégée par authentification. La semaine prochaine, vous allez **attaquer votre propre application** (injection SQL, XSS) pour découvrir les failles qui restent, puis les corriger.
+Votre API est désormais protégée par authentification. Au TP 5, elle passe sur une base MySQL et vous allez **attaquer votre propre application** pour découvrir les failles qui restent, puis les corriger.
 :::

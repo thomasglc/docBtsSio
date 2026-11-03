@@ -9,7 +9,7 @@ outline: deep
 ::: info Contexte
 En TP 1, vous avez créé une mini-API PHP de gestion de notes personnelles. Elle fonctionne, mais n'importe qui peut lire et créer des notes : il n'y a aucune notion d'utilisateur.
 
-Ce TP ajoute la première brique d'authentification : l'inscription et la connexion avec un mot de passe haché via **bcrypt**. La semaine prochaine, vous ajouterez les tokens JWT pour protéger les routes de notes.
+Ce TP ajoute la première brique d'authentification : l'inscription et la connexion avec un mot de passe haché via **bcrypt**. Au TP 3, la connexion renverra un token JWT, qui servira au TP 4 à protéger les routes de notes.
 :::
 
 ---
@@ -43,7 +43,7 @@ notes-app/
 ```
 
 ::: warning Vérifiez les permissions
-Assurez-vous que le serveur web (Apache/PHP) a le droit d'écrire dans le dossier `data/`. Sur XAMPP, ce n'est généralement pas un problème si le projet est dans `htdocs/`.
+Assurez-vous que le serveur web (Apache/PHP) a le droit d'écrire dans le dossier `data/`. Avec WAMP ou XAMPP, ce n'est généralement pas un problème si le projet est dans `www/` ou `htdocs/`.
 :::
 
 ---
@@ -126,8 +126,10 @@ Vous devez obtenir une réponse similaire à :
 
 Essayez ensuite la même commande une deuxième fois : vous devez obtenir un `409 Conflict` avec `"Cet email est déjà utilisé"`.
 
-::: tip Vous n'avez pas curl ?
-Utilisez l'extension **Thunder Client** dans VS Code, **Postman**, ou l'onglet **Réseau** des DevTools avec un `fetch()` dans la console du navigateur.
+::: tip Quel terminal utiliser ?
+Les commandes `curl` de ce TP et des suivants sont écrites pour **Git Bash**. Dans PowerShell, `curl` ne comprend pas cette syntaxe (options `-X`, `-H`, `-d` et retours à la ligne avec `\`).
+
+Vous pouvez aussi utiliser l'extension **Thunder Client** dans VS Code, **Postman**, ou un `fetch()` dans la console du navigateur.
 :::
 
 ### Tâche 2.3 - Vérifier le hash dans `data/users.json`
@@ -196,7 +198,7 @@ if ($userTrouve === null || !password_verify($body['password'], $userTrouve['pas
 }
 
 echo json_encode(['message' => 'Connexion réussie', 'email' => $userTrouve['email']]);
-// Semaine 3 : on ajoutera le token JWT ici
+// TP 3 : on ajoutera le token JWT ici
 ```
 
 ::: info Que fait ce code ?
@@ -261,26 +263,29 @@ curl -X POST http://localhost/notes-app/api/login.php \
 
 ### Tâche 4.1 - Modifier `index.html`
 
-Remplacez (ou complétez) le contenu de votre `index.html` par le code suivant. Il ajoute deux formulaires : inscription et connexion.
+Remplacez le contenu de votre `index.html` par le code suivant. Il **conserve la liste des notes du TP 1** (`chargerNotes()` et `ajouterNote()`) et ajoute deux formulaires : inscription et connexion.
 
 ```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Notes App</title>
+  <title>Mes notes</title>
   <style>
-    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 16px; }
-    h2 { margin-top: 2rem; }
-    form { display: flex; flex-direction: column; gap: 8px; max-width: 320px; }
-    input { padding: 6px; font-size: 1rem; }
-    button { padding: 8px; cursor: pointer; }
+    body   { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+    h2     { margin-top: 2rem; }
+    ul     { list-style: none; padding: 0; }
+    li     { background: #f0f4ff; border-left: 4px solid #3748A0; padding: 10px 14px; margin-bottom: 8px; border-radius: 4px; }
+    form   { display: flex; flex-direction: column; gap: 8px; max-width: 320px; }
+    input  { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+    button { padding: 8px 16px; background: #3748A0; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    #champ-note { width: 70%; }
     #msg-register, #msg-login { margin-top: 8px; font-weight: bold; }
   </style>
 </head>
 <body>
 
-  <h1>Notes App</h1>
+  <h1>📝 Mes notes</h1>
 
   <h2>Inscription</h2>
   <form id="form-register">
@@ -298,8 +303,47 @@ Remplacez (ou complétez) le contenu de votre `index.html` par le code suivant. 
   </form>
   <p id="msg-login"></p>
 
+  <h2>Mes notes</h2>
+  <ul id="liste-notes"></ul>
+
+  <h2>Ajouter une note</h2>
+  <input type="text" id="champ-note" placeholder="Votre note..." />
+  <button onclick="ajouterNote()">Ajouter</button>
+
   <script>
+    // L'adresse pointe maintenant vers le dossier api/ : notes.php, register.php et login.php
     const API = 'http://localhost/notes-app/api';
+
+    // ----- Les notes (TP 1) -----
+
+    async function chargerNotes() {
+      const reponse = await fetch(`${API}/notes.php`);
+      const notes   = await reponse.json();
+
+      const liste = document.getElementById('liste-notes');
+      liste.innerHTML = '';
+      notes.forEach(note => {
+        const li = document.createElement('li');
+        li.textContent = note.texte;
+        liste.appendChild(li);
+      });
+    }
+
+    async function ajouterNote() {
+      const texte = document.getElementById('champ-note').value;
+      if (!texte) return;
+
+      await fetch(`${API}/notes.php`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ texte })
+      });
+
+      document.getElementById('champ-note').value = '';
+      chargerNotes();
+    }
+
+    // ----- Inscription et connexion (TP 2) -----
 
     document.getElementById('form-register').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -342,18 +386,27 @@ Remplacez (ou complétez) le contenu de votre `index.html` par le code suivant. 
         msgEl.textContent = 'Erreur réseau';
       }
     });
+
+    chargerNotes();
   </script>
 </body>
 </html>
 ```
 
+::: info Ce qui a changé par rapport au TP 1
+- La constante `API` contient maintenant l'adresse du **dossier** `api/`. Les fonctions des notes appellent donc `${API}/notes.php`.
+- Les deux formulaires envoient leurs données à `register.php` et `login.php`, puis affichent la réponse dans `msg-register` ou `msg-login`.
+- La liste des notes et le champ d'ajout fonctionnent comme avant.
+:::
+
 ### Tâche 4.2 - Tester le parcours complet dans le navigateur
 
-Ouvrez `http://localhost/notes-app/index.html` et effectuez les trois tests suivants :
+Ouvrez `http://localhost/notes-app/index.html` et effectuez les quatre tests suivants :
 
-1. **Inscription** : remplissez le formulaire avec un nouvel email et un mot de passe, cliquez sur "Créer un compte". Vous devez voir le message vert "Compte créé".
-2. **Connexion réussie** : connectez-vous avec les mêmes identifiants. Vous devez voir "Connexion réussie".
-3. **Mauvais mot de passe** : retentez la connexion avec un mauvais mot de passe. Vous devez voir le message rouge "Identifiants incorrects".
+1. **Notes** : les notes du TP 1 s'affichent toujours, et vous pouvez en ajouter une.
+2. **Inscription** : remplissez le formulaire avec un nouvel email et un mot de passe, cliquez sur "Créer un compte". Vous devez voir le message vert "Compte créé".
+3. **Connexion réussie** : connectez-vous avec les mêmes identifiants. Vous devez voir "Connexion réussie".
+4. **Mauvais mot de passe** : retentez la connexion avec un mauvais mot de passe. Vous devez voir le message rouge "Identifiants incorrects".
 
 ::: tip 📸 Capture 3
 Faites une capture d'écran du navigateur montrant au moins un message de succès (vert) et un message d'erreur (rouge) après les tests.
@@ -428,7 +481,8 @@ Répondez aux questions suivantes dans votre compte-rendu :
 | `POST /api/login.php` | Vérification des identifiants avec `password_verify()`, réponse 200 ou 401 |
 | `data/users.json` | Stockage persistant des comptes (id, email, password_hash) |
 | `password_hash()` / `password_verify()` | Hachage sécurisé et vérification sans jamais stocker le mot de passe en clair |
+| `index.html` | Liste des notes du TP 1 + formulaires d'inscription et de connexion |
 
-::: info Semaine prochaine
-Le serveur répond "Connexion réussie" mais le client ne peut pas encore prouver son identité sur les requêtes suivantes. En TP 3, vous ajouterez les **tokens JWT** : à la connexion, le serveur génèrera un token signé que le client joindra à chaque requête pour accéder à ses notes.
+::: info La suite
+Le serveur répond "Connexion réussie" mais le client ne peut pas encore prouver son identité sur les requêtes suivantes. Au TP 3, la connexion renverra un **token JWT** signé que le client conservera. Au TP 4, le client joindra ce token à chaque requête pour accéder à ses notes.
 :::

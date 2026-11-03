@@ -7,12 +7,12 @@ outline: deep
 <Badge type="info" text="BTS SIO SLAM 2ème année" />  <Badge type="warning" text="Durée : 1 heure" />  <Badge type="danger" text="PHP + JWT + localStorage" />
 
 ::: info Contexte
-A la fin du TP 2, votre mini-API de gestion de notes personnelles dispose de :
-- `notes-app/api/notes.php` - GET/POST sans authentification
+À la fin du TP 2, votre mini-API de gestion de notes personnelles dispose de :
+- `notes-app/api/notes.php` - GET/POST sans authentification (TP 1)
 - `notes-app/api/register.php` - création de compte avec `password_hash()`
 - `notes-app/api/login.php` - vérification des identifiants avec `password_verify()`, renvoie 200 + message mais **pas encore de token**
 - `notes-app/data/notes.json` et `notes-app/data/users.json`
-- `notes-app/index.html` - client JS avec formulaires inscription/connexion
+- `notes-app/index.html` - liste des notes (`chargerNotes()`, `ajouterNote()`) et formulaires d'inscription et de connexion
 
 Dans ce TP, vous allez ajouter la génération d'un JWT (JSON Web Token) à la connexion et son stockage côté client.
 :::
@@ -83,6 +83,7 @@ composer --version
    ```
    C:\wamp64\bin\php\php8.x.x\php.exe
    ```
+   Avec XAMPP, il se trouve dans `C:\xampp\php\php.exe`.
 4. Terminez l'installation (laissez toutes les options par défaut)
 5. **Fermez et rouvrez PowerShell** (nécessaire pour que le PATH soit pris en compte)
 6. Vérifiez l'installation :
@@ -101,6 +102,8 @@ Dans PowerShell, naviguez jusqu'au dossier `notes-app` (remplacez le chemin par 
 ```bash
 cd C:\wamp64\www\notes-app
 ```
+
+Avec XAMPP, le chemin est `C:\xampp\htdocs\notes-app`.
 
 ### Tâche 2.4 - Installer la librairie
 
@@ -136,11 +139,11 @@ Faites une capture d'écran du terminal avec la commande `composer require fireb
 
 ---
 
-## Mission 3 - Générer un JWT a la connexion
+## Mission 3 - Générer un JWT à la connexion
 
 ### Tâche 3.1 - Créer le fichier de configuration
 
-Créez un fichier `config.php` a la racine de `notes-app` :
+Créez un fichier `config.php` à la racine de `notes-app` :
 
 ```php
 <?php
@@ -149,12 +152,12 @@ define('JWT_EXPIRATION', 3600); // 1 heure en secondes
 ```
 
 ::: warning Clé secrète
-Choisissez une clé longue et difficile a deviner. Dans un vrai projet, elle serait stockée dans une variable d'environnement, jamais en dur dans le code source.
+Choisissez une clé longue et difficile à deviner. Dans un vrai projet, elle serait stockée dans une variable d'environnement, jamais en dur dans le code source.
 :::
 
 ### Tâche 3.2 - Modifier login.php
 
-Remplacez le contenu de `api/login.php` par le code suivant :
+Remplacez le contenu de `api/login.php` par le code suivant. C'est le fichier du TP 2 : seuls le début (chargement de la librairie et de `config.php`) et la fin (création du token) changent.
 
 ```php
 <?php
@@ -218,13 +221,17 @@ echo json_encode(['token' => $token]);
 
 ### Tâche 3.3 - Tester avec curl ou Postman
 
-Testez la connexion. La réponse doit maintenant contenir un champ `token` :
+Testez la connexion avec le compte créé au TP 2. La réponse doit maintenant contenir un champ `token` :
 
 ```bash
 curl -X POST http://localhost/notes-app/api/login.php \
   -H "Content-Type: application/json" \
-  -d '{"email":"votre@email.com","password":"votre-mdp"}'
+  -d '{"email": "alice@example.com", "password": "MonMotDePasse123"}'
 ```
+
+::: tip Git Bash, pas PowerShell
+Comme au TP 2, lancez `curl` dans **Git Bash** (ou utilisez Thunder Client / Postman). La fenêtre PowerShell ouverte pour Composer ne comprend pas cette syntaxe.
+:::
 
 Réponse attendue :
 
@@ -250,36 +257,64 @@ Faites une capture d'écran du token décodé sur jwt.io avec le payload (sub, e
 
 ## Mission 4 - Stocker le token dans le client JS
 
-### Tâche 4.1 - Modifier la fonction connecter() dans index.html
+### Tâche 4.1 - Constater le problème
 
-Dans `index.html`, mettez a jour la fonction `connecter()` pour récupérer le token et le stocker dans `localStorage` :
+Ouvrez `http://localhost/notes-app/index.html` et connectez-vous avec le formulaire de connexion. Le message affiché est maintenant `undefined (undefined)`.
+
+| Question | Votre réponse |
+|---|---|
+| Que renvoie maintenant `login.php` en cas de succès ? (regardez la réponse dans l'onglet **Réseau**) | |
+| Pourquoi le formulaire du TP 2 affiche-t-il `undefined` ? | |
+
+::: warning Votre index.html doit être celui du TP 2
+Votre `index.html` doit contenir la liste des notes **et** les deux formulaires. S'il manque la liste des notes (`<ul id="liste-notes">`, `chargerNotes()`, `ajouterNote()`), recopiez le code de la [Tâche 4.1 du TP 2](./2-mots-de-passe#tache-4-1-modifier-index-html) avant de continuer.
+:::
+
+### Tâche 4.2 - Conserver le token après la connexion
+
+Dans `index.html`, repérez le gestionnaire du formulaire de connexion écrit au TP 2 : le bloc qui commence par `document.getElementById('form-login').addEventListener(...)`. Remplacez **tout ce bloc** par la version suivante :
 
 ```javascript
-async function connecter() {
-  const email    = document.getElementById('champ-email').value;
-  const password = document.getElementById('champ-mdp').value;
+document.getElementById('form-login').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email    = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+  const msgEl    = document.getElementById('msg-login');
 
-  const reponse = await fetch('http://localhost/notes-app/api/login.php', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password })
-  });
+  try {
+    const res  = await fetch(`${API}/login.php`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
 
-  const data = await reponse.json();
-
-  if (reponse.ok) {
-    localStorage.setItem('token', data.token);
-    document.getElementById('statut').textContent = 'Connecté : ' + email;
-    chargerNotes();
-  } else {
-    document.getElementById('statut').textContent = 'Erreur : ' + data.erreur;
+    if (res.ok) {
+      // Nouveau : on range le token dans le navigateur
+      localStorage.setItem('token', data.token);
+      msgEl.style.color = 'green';
+      msgEl.textContent = 'Connecté : ' + email;
+      chargerNotes();
+    } else {
+      msgEl.style.color = 'red';
+      msgEl.textContent = data.erreur;
+    }
+  } catch (err) {
+    msgEl.style.color = 'red';
+    msgEl.textContent = 'Erreur réseau';
   }
-}
+});
 ```
 
-### Tâche 4.2 - Vérifier dans DevTools
+::: info Ce qui change par rapport au TP 2
+- `localStorage.setItem('token', data.token)` range le token reçu dans le navigateur.
+- Le message n'utilise plus `data.message` ni `data.email`, qui n'existent plus dans la réponse : il affiche l'email saisi.
+- `chargerNotes()` (écrite au TP 1) recharge la liste après la connexion. Pour l'instant la liste ne change pas, mais au TP 4 le serveur ne renverra que les notes de l'utilisateur connecté.
+:::
 
-1. Rechargez la page et connectez-vous avec votre compte
+### Tâche 4.3 - Vérifier dans DevTools
+
+1. Rechargez la page et connectez-vous avec votre compte : le message vert `Connecté : alice@example.com` s'affiche
 2. Ouvrez les DevTools (F12)
 3. Allez dans l'onglet **Application** (ou **Stockage** selon le navigateur)
 4. Dans le menu de gauche, cliquez sur **Local Storage** puis sur votre URL
@@ -289,11 +324,11 @@ async function connecter() {
 Faites une capture d'écran de DevTools - Application - Local Storage montrant la clé `"token"` avec le JWT stocké.
 :::
 
-### Tâche 4.3 - Observer la persistance
+### Tâche 4.4 - Observer la persistance
 
 Rechargez la page avec F5. Retournez dans DevTools - Application - Local Storage.
 
-Le token est toujours présent. Contrairement a une variable JavaScript qui disparait au rechargement, `localStorage` persiste entre les sessions.
+Le token est toujours présent. Contrairement à une variable JavaScript qui disparaît au rechargement, `localStorage` persiste entre les sessions.
 
 ---
 
@@ -349,6 +384,16 @@ Le JWT garantit l'**intégrité** (on ne peut pas falsifier les données sans in
 
 ---
 
+## Questions de réflexion
+
+Répondez dans votre compte-rendu :
+
+1. Le payload d'un JWT est lisible par tous. Qu'est-ce qui empêche alors un utilisateur de modifier son `sub` pour se faire passer pour un autre ?
+2. Pourquoi la clé `JWT_SECRET` ne doit-elle être connue que du serveur ?
+3. À quoi sert le claim `exp` ? Quel serait le risque d'un token valable un an ?
+4. Le token est rangé dans le `localStorage`, mais `chargerNotes()` ne l'envoie pas encore. Le serveur sait-il qui demande les notes ? Que faudra-t-il ajouter au TP 4 ?
+
+---
 
 ## Récapitulatif
 
@@ -356,10 +401,11 @@ Le JWT garantit l'**intégrité** (on ne peut pas falsifier les données sans in
 |---|---|
 | jwt.io | Explorer la structure d'un JWT et comprendre le Base64 |
 | firebase/php-jwt | Installer via Composer |
+| `config.php` | Clé secrète `JWT_SECRET` et durée de validité `JWT_EXPIRATION` |
 | `api/login.php` | Génère un JWT signé contenant `sub`, `email`, `iat`, `exp` |
-| `index.html` | Stocke le token dans `localStorage` apres connexion |
+| `index.html` | Le formulaire de connexion du TP 2 stocke le token dans `localStorage` |
 | DevTools - Application | Vérifier la présence du token |
 
-::: danger A retenir
-Un JWT n'est **pas un mécanisme de chiffrement**. Il garantit que les données n'ont pas été altérées (grace a la signature HMAC), mais son contenu est lisible par tous. La prochaine étape (TP 4) sera de vérifier ce token cote serveur pour protéger les routes de l'API.
+::: danger À retenir
+Un JWT n'est **pas un mécanisme de chiffrement**. Il garantit que les données n'ont pas été altérées (grâce à la signature HMAC), mais son contenu est lisible par tous. La prochaine étape (TP 4) sera de vérifier ce token côté serveur pour protéger les routes de l'API.
 :::

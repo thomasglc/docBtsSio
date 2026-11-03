@@ -9,7 +9,7 @@ outline: deep
 ::: info Contexte
 Votre API est maintenant protégée par authentification (JWT). Mais l'authentification n'est qu'**une** brique de sécurité. Pour aller plus loin, l'application passe d'un stockage en fichiers JSON à une **base de données MySQL**.
 
-Le code migré vous est fourni. Avant de le « mettre en production », vous allez l'**auditer** comme le ferait un attaquant : il contient **trois failles classiques** (injection SQL, XSS, CORS trop permissif). Vous allez les exploiter sur votre propre application, puis les corriger.
+Le code de la migration vous est donné dans ce TP. Avant de le « mettre en production », vous allez l'**auditer** comme le ferait un attaquant : il contient **trois failles classiques** (injection SQL, XSS, CORS trop permissif). Vous allez les exploiter sur votre propre application, puis les corriger.
 :::
 
 ::: danger Cadre du TP
@@ -53,9 +53,19 @@ INSERT INTO notes (texte, id_utilisateur) VALUES
     ('Acheter un câble HDMI', 2);
 ```
 
-### Tâche 1.2 - Configurer la connexion
+### Tâche 1.2 - Configurer la connexion à la base
 
-Complétez `config.php` avec les informations de connexion (valeurs par défaut de XAMPP / WAMP) :
+Vous continuez avec votre dossier `notes-app` du TP 4. `vendor/`, `api/auth.php` et `index.html` restent en place : seules les routes PHP changent, pour lire la base au lieu des fichiers JSON.
+
+| Fichier | Ce qui change |
+|---|---|
+| `config.php` | Ajout des informations de connexion à la base |
+| `api/db.php` | Nouveau : ouvre la connexion PDO |
+| `api/cors.php` | Nouveau : regroupe les en-têtes communs à toutes les routes |
+| `api/register.php`, `api/notes.php`, `api/login.php` | Lisent et écrivent dans la base au lieu des fichiers JSON |
+| `api/auth.php` | Inchangé (le middleware du TP 4) |
+
+Ajoutez les informations de connexion dans `config.php` (valeurs par défaut de WAMP et XAMPP), en gardant votre `JWT_SECRET` du TP 3 :
 
 ```php
 <?php
@@ -70,9 +80,7 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 ```
 
-### Tâche 1.3 - Un fichier de connexion db.php
-
-Créez `api/db.php` :
+Créez ensuite `api/db.php`, qui utilise ces constantes pour ouvrir la connexion :
 
 ```php
 <?php
@@ -88,13 +96,13 @@ function connexion(): PDO
 }
 ```
 
-### Tâche 1.4 - Récupérer le code migré
+### Tâche 1.3 - Regrouper les en-têtes dans cors.php
 
-Remplacez le contenu de vos fichiers par les versions ci-dessous, qui lisent et écrivent maintenant dans la base. **Un fichier `api/cors.php`** regroupe les en-têtes communs :
+Depuis le TP 1, chaque route commence par les mêmes `header(...)` et la même réponse au `OPTIONS`. Créez `api/cors.php` pour les écrire une seule fois :
 
 ```php
 <?php
-// api/cors.php
+// En-têtes communs à toutes les routes de l'API
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST');
@@ -103,6 +111,84 @@ header('Access-Control-Allow-Headers: Content-Type, Authorization');
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(204);
     exit;
+}
+```
+
+### Tâche 1.4 - Migrer les trois routes
+
+Remplacez le contenu des trois fichiers suivants. Chacun inclut maintenant `cors.php` et `db.php` au lieu de répéter les en-têtes et de lire un fichier JSON.
+
+**`api/register.php`** enregistre le compte dans la table `users` :
+
+```php
+<?php
+require_once __DIR__ . '/cors.php';
+require_once __DIR__ . '/db.php';
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') { http_response_code(405); echo json_encode(['erreur' => 'Méthode non autorisée']); exit; }
+
+$body = json_decode(file_get_contents('php://input'), true);
+
+if (empty($body['email']) || empty($body['password'])) {
+    http_response_code(400);
+    echo json_encode(['erreur' => 'Email et mot de passe obligatoires']);
+    exit;
+}
+
+$pdo = connexion();
+
+$requete = $pdo->prepare('SELECT id FROM users WHERE email = ?');
+$requete->execute([$body['email']]);
+if ($requete->fetch()) {
+    http_response_code(409);
+    echo json_encode(['erreur' => 'Cet email est déjà utilisé']);
+    exit;
+}
+
+$requete = $pdo->prepare('INSERT INTO users (email, password_hash) VALUES (?, ?)');
+$requete->execute([$body['email'], password_hash($body['password'], PASSWORD_BCRYPT)]);
+
+http_response_code(201);
+echo json_encode(['message' => 'Compte créé', 'email' => $body['email']]);
+```
+
+**`api/notes.php`** lit et écrit dans la table `notes`, toujours protégé par `verifierToken()` du TP 4 :
+
+```php
+<?php
+require_once __DIR__ . '/cors.php';
+require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/db.php';
+
+$utilisateur = verifierToken();
+$pdo = connexion();
+$methode = $_SERVER['REQUEST_METHOD'];
+
+if ($methode === 'GET') {
+
+    $requete = $pdo->prepare('SELECT id, texte FROM notes WHERE id_utilisateur = ? ORDER BY id');
+    $requete->execute([$utilisateur->sub]);
+    echo json_encode($requete->fetchAll(PDO::FETCH_ASSOC));
+
+} elseif ($methode === 'POST') {
+
+    $body = json_decode(file_get_contents('php://input'), true);
+
+    if (empty($body['texte'])) {
+        http_response_code(400);
+        echo json_encode(['erreur' => 'Le champ texte est obligatoire']);
+        exit;
+    }
+
+    $requete = $pdo->prepare('INSERT INTO notes (texte, id_utilisateur) VALUES (?, ?)');
+    $requete->execute([$body['texte'], $utilisateur->sub]);
+
+    http_response_code(201);
+    echo json_encode(['id' => (int) $pdo->lastInsertId(), 'texte' => $body['texte']]);
+
+} else {
+    http_response_code(405);
+    echo json_encode(['erreur' => 'Méthode non autorisée']);
 }
 ```
 
@@ -142,13 +228,32 @@ $payload = ['sub' => (int) $userTrouve['id'], 'email' => $userTrouve['email'], '
 echo json_encode(['token' => JWT::encode($payload, JWT_SECRET, 'HS256')]);
 ```
 
-::: info Les autres fichiers
-`register.php` et `notes.php` sont également migrés vers la base. Votre professeur vous fournit le projet complet migré. `auth.php` (le middleware du TP 4) ne change pas.
+::: info Le dossier data/
+Les fichiers `data/notes.json` et `data/users.json` ne sont plus utilisés, vous pouvez les laisser. Les comptes créés aux TP 2 à 4 ne sont pas repris : utilisez les comptes de test du script SQL, ou créez-en un nouveau avec le formulaire d'inscription.
 :::
 
-### Tâche 1.5 - Vérifier que tout fonctionne
+### Tâche 1.5 - Afficher le numéro des notes en gras
 
-Ouvrez l'application, connectez-vous avec `alice@example.com` / `MonMotDePasse123`. Vous devez voir les notes d'Alice.
+Dans `index.html`, modifiez la fonction `chargerNotes()` du TP 4 pour que le numéro de chaque note s'affiche en gras :
+
+```javascript
+async function chargerNotes() {
+  const notes = await appelerApi('notes.php');
+  if (notes === null) return;
+
+  const liste = document.getElementById('liste-notes');
+  liste.innerHTML = '';
+  notes.forEach(note => {
+    liste.innerHTML += `<li><strong>#${note.id}</strong> ${note.texte}</li>`;
+  });
+}
+```
+
+Pour mettre du gras, il faut une balise `<strong>` : `textContent` l'afficherait comme du texte, on passe donc par `innerHTML`.
+
+### Tâche 1.6 - Vérifier que tout fonctionne
+
+Ouvrez l'application, connectez-vous avec `alice@example.com` / `MonMotDePasse123`. Vous devez voir les notes d'Alice, avec leur numéro en gras.
 
 ::: tip 📸 Capture 1
 L'application fonctionnelle après migration, notes d'Alice affichées.
@@ -254,10 +359,10 @@ Une boîte d'alerte s'ouvre. Le navigateur a interprété votre note comme du **
 
 ### Tâche 3.2 - Trouver la cause
 
-Regardez la fonction `chargerNotes()` dans `index.html` :
+Regardez la fonction `chargerNotes()` que vous avez modifiée à la Tâche 1.5 :
 
 ```javascript
-liste.innerHTML += `<li>#${note.id} ${note.texte}</li>`;
+liste.innerHTML += `<li><strong>#${note.id}</strong> ${note.texte}</li>`;
 ```
 
 `innerHTML` **interprète le HTML**. Le texte de la note est inséré comme du code, pas comme du texte.
