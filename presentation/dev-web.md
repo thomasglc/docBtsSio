@@ -1,4 +1,4 @@
-﻿# Développement web
+# Développement web
 
 Les travaux pratiques de cette section couvrent le développement web, des pages HTML et CSS jusqu'au code côté serveur, ainsi que les tests et la gestion de version.
 

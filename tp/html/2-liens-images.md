@@ -169,7 +169,17 @@ Un lien s'écrit avec la balise `<a>` et son attribut `href`, qui indique **où 
 
 Le texte entre les balises est ce qui s'affiche et sur quoi l'on clique.
 
-À la fin de `index.html`, ajoutez ce paragraphe :
+À la fin de `index.html`, ajoutez une partie `Nos services` : un titre de partie, puis ces quatre services en liste à puces.
+
+```text
+Nos services
+Prêt de livres, BD, films et jeux vidéo
+Espace numérique : ordinateurs, imprimante et wifi gratuit
+Salle de travail au calme
+Ateliers et animations : club manga, heure du conte, tournois de jeux
+```
+
+Terminez la partie par ce paragraphe :
 
 ```html
 <p>Horaires, tarifs et inscription : consultez la page <a href="infos.html">Infos pratiques</a>.</p>
