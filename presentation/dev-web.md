@@ -12,7 +12,7 @@ Les travaux pratiques de cette section couvrent le développement web, des pages
     <ul>
       <li><a href="/tp/html/1-premiere-page">1 - Découverte du web et première page</a></li>
       <li><a href="/tp/html/2-liens-images">2 - Texte, listes, liens et images</a></li>
-      <li class="tp-soon">3 - Structure sémantique et validation</li>
+      <li><a href="/tp/html/3-structure-semantique.md">3 - Structure sémantique et validation</a></li>
       <li class="tp-soon">4 - Les tableaux</li>
       <li class="tp-soon">5 - Les formulaires</li>
       <li class="tp-soon">6 - Premiers pas en CSS</li>
