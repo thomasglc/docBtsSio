@@ -98,7 +98,7 @@ Quand vous ajoutez une balise autour d'un bloc, décalez le bloc vers la droite 
 
 Englobez **tout le contenu propre à la page**, du `<h1>` jusqu'au dernier paragraphe, dans une balise `<main>`.
 
-Puis, **à l'intérieur** de `<main>`, englobez chaque partie dans une balise `<section>` : la partie `Bienvenue`, la partie `Nos collections` avec ses `<h3>`, et la partie `Nos services`. Chaque section commence par son `<h2>`.
+Puis, **à l'intérieur** de `<main>`, englobez chaque partie dans une balise `<section>` : la partie `Bienvenue`, la partie `Nos collections` avec ses `<h3>`. Chaque section commence par son `<h2>`.
 
 ```html
 <main>
