@@ -13,14 +13,13 @@ Les travaux pratiques de cette section couvrent le développement web, des pages
       <li><a href="/tp/html/1-premiere-page">1 - Découverte du web et première page</a></li>
       <li><a href="/tp/html/2-liens-images">2 - Texte, listes, liens et images</a></li>
       <li><a href="/tp/html/3-structure-semantique">3 - Structure sémantique et validation</a></li>
-      <li class="tp-soon">4 - Les tableaux</li>
-      <li class="tp-soon">5 - Les formulaires</li>
-      <li class="tp-soon">6 - Premiers pas en CSS</li>
-      <li class="tp-soon">7 - Le modèle de boîte</li>
-      <li class="tp-soon">8 - Mise en page avec Flexbox</li>
-      <li class="tp-soon">9 - Mise en page d'une page complète</li>
-      <li class="tp-soon">10 - Responsive design</li>
-      <li class="tp-soon">11 - Finitions CSS</li>
+      <li><a href="/tp/html/4-tableaux">4 - Les tableaux</a></li>
+      <li class="tp-soon">5 - Premiers pas en CSS</li>
+      <li class="tp-soon">6 - Le modèle de boîte</li>
+      <li class="tp-soon">7 - Mise en page avec Flexbox</li>
+      <li class="tp-soon">8 - Mise en page d'une page complète</li>
+      <li class="tp-soon">9 - Responsive design</li>
+      <li class="tp-soon">10 - Finitions CSS</li>
     </ul>
   </div>
 

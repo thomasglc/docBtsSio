@@ -308,5 +308,5 @@ Déposez votre **document de restitution au format PDF** sur Moodle avant la fin
 :::
 
 ::: info La suite
-Gardez votre dossier `mediatheque`. Au prochain TP, vous créerez le **formulaire d'inscription** de la médiathèque, avec un champ pour chaque donnée de l'adhérent.
+Gardez votre dossier `mediatheque`. Au prochain TP, le site prendra enfin les **couleurs de la médiathèque**, avec une feuille de style **CSS** commune à toutes les pages.
 :::

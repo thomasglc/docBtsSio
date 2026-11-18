@@ -2,24 +2,24 @@
 outline: deep
 ---
 
-# TP 7 - Le modèle de boîte
+# TP 6 - Le modèle de boîte
 
 <Badge type="info" text="BTS SIO 1ère année" />  <Badge type="warning" text="Bloc 1 - Développement web" />  <Badge type="danger" text="VS Code · CSS · Inspecteur" />
 
 ::: info Contexte
-Le site a pris les couleurs de la médiathèque, mais tout est serré : les animations de l'agenda se suivent sans séparation, et les champs du formulaire d'inscription sont petits et mal alignés. Aujourd'hui, vous réglez les **espaces** et les **dimensions** des éléments grâce au **modèle de boîte**.
+Le site a pris les couleurs de la médiathèque, mais tout est serré : les animations de l'agenda se suivent sans séparation, et les parties des pages se fondent les unes dans les autres. Aujourd'hui, vous réglez les **espaces** et les **dimensions** des éléments grâce au **modèle de boîte**.
 :::
 
 ::: warning Modalités
-Ce TP se déroule **individuellement**, dans votre dossier `mediatheque` du TP 6. Complétez le **document de restitution** au fil de la séance : **3 captures** 📸 et **3 questions courtes**. Déposez-le sur Moodle **avant la fin du TP**, au format **PDF**.
+Ce TP se déroule **individuellement**, dans votre dossier `mediatheque` du TP 5. Complétez le **document de restitution** au fil de la séance : **3 captures** 📸 et **3 questions courtes**. Déposez-le sur Moodle **avant la fin du TP**, au format **PDF**.
 
-📥 <a href="/tp7-html-restitution.docx" download style="font-weight:600">Télécharger le document de restitution</a>
+📥 <a href="/tp6-html-restitution.docx" download style="font-weight:600">Télécharger le document de restitution</a>
 :::
 
-::: details Je n'ai plus mon dossier du TP 6
+::: details Je n'ai plus mon dossier du TP 5
 Téléchargez le dossier de départ, décompressez-le sur le disque D, puis ouvrez le dossier `mediatheque` dans VS Code :
 
-📥 <a href="/tp/html/mediatheque-depart-tp7.zip" download style="font-weight:600">Télécharger le dossier de départ</a>
+📥 <a href="/tp/html/mediatheque-depart-tp6.zip" download style="font-weight:600">Télécharger le dossier de départ</a>
 
 La page `coups-de-coeur/mon-coup-de-coeur.html` contient seulement un modèle : remplacez les textes par votre œuvre, quelques lignes suffisent.
 :::
@@ -32,10 +32,10 @@ La page `coups-de-coeur/mon-coup-de-coeur.html` contient seulement un modèle : 
 |---|---|
 | **Le modèle de boîte** | Chaque élément est une boîte : contenu, `padding`, `border` et `margin` |
 | **L'inspecteur** | Voir les boîtes d'une page et mesurer leurs espaces |
-| **Les dimensions** | `width`, `height`, `max-width` et `box-sizing` |
+| **Les dimensions** | `width`, `max-width` et `box-sizing` |
 | **Bloc ou en ligne** | La propriété `display` |
 
-Aujourd'hui, seul `style.css` change : le HTML est déjà prêt.
+Aujourd'hui, presque tout se passe dans `style.css` : le HTML ne reçoit qu'une classe.
 
 ---
 
@@ -43,7 +43,7 @@ Aujourd'hui, seul `style.css` change : le HTML est déjà prêt.
 
 Pour le navigateur, chaque élément de la page est une **boîte** rectangulaire, faite de quatre couches :
 
-![Le modèle de boîte : le contenu au centre, entouré du padding, puis de la bordure, puis de la margin](/tp/html/tp7-modele-boite.svg)
+![Le modèle de boîte : le contenu au centre, entouré du padding, puis de la bordure, puis de la margin](/tp/html/tp6-modele-boite.svg)
 
 | Couche | Propriété CSS | Couleur dans l'inspecteur |
 |---|---|---|
@@ -93,7 +93,7 @@ article {
 
 Voici le résultat attendu :
 
-![L'agenda en cartes : chaque animation dans un cadre blanc à bordure bleue, séparé de la suivante](/tp/html/tp7-agenda.png)
+![L'agenda en cartes : chaque animation dans un cadre blanc à bordure bleue, séparé de la suivante](/tp/html/tp6-agenda.png)
 
 ::: tip 📸 Capture 1
 Faites une capture de l'agenda en cartes.
@@ -117,110 +117,106 @@ Complétez la **Question 1** : quelle différence entre `padding` et `margin` ?
 
 ---
 
-## Mission 3 - Un formulaire bien rangé
+## Mission 3 - Des pages aérées
 
-### Tâche 3.1 - Le cadre du formulaire
+### Tâche 3.1 - Les sections en cadres
+
+L'accueil, les infos pratiques et votre coup de cœur sont découpés en `<section>`. Ajoutez cette règle, puis actualisez la page **Infos pratiques** :
 
 ```css
-form {
-    max-width: 500px;
+section {
+    width: 800px;
     background-color: white;
     border: 1px solid #C8CCD4;
     padding: 20px;
+    margin-bottom: 24px;
 }
 ```
 
-`max-width: 500px;` : le formulaire mesure **au plus** 500 pixels de large. Sur un écran plus étroit, il rétrécit. Regardez aussi le catalogue : le formulaire d'avis a reçu le même cadre.
+Inspectez une section et survolez la ligne `<section>` : l'inspecteur affiche sa taille, à côté de son nom. **Combien de pixels de large ?**
 
-### Tâche 3.2 - Les étiquettes au-dessus des champs
+### Tâche 3.2 - Le piège de la largeur
+
+La section ne mesure pas 800 pixels ! Par défaut, `width` ne compte que le **contenu** : le navigateur ajoute ensuite le padding et la bordure. Ajoutez cette ligne à la règle :
+
+```css
+box-sizing: border-box;
+```
+
+Avec `border-box`, `width` compte **tout** : le contenu, le padding et la bordure. Vérifiez dans l'inspecteur : la section mesure 800 pixels, pas un de plus.
+
+::: tip Document de restitution - Question 2
+Complétez la **Question 2** : pourquoi la section mesurait-elle plus de 800 pixels ?
+:::
+
+### Tâche 3.3 - Une largeur qui s'adapte
+
+Rétrécissez la fenêtre du navigateur : les sections gardent leurs 800 pixels, et une barre de défilement apparaît en bas. Remplacez `width` par `max-width` :
+
+```css
+max-width: 800px;
+```
+
+La section mesure **au plus** 800 pixels : dans une fenêtre étroite, elle rétrécit. Voici le résultat attendu :
+
+![Les infos pratiques : les horaires et les tarifs, chacun dans un cadre blanc à fine bordure grise](/tp/html/tp6-sections.png)
+
+### Tâche 3.4 - Un lien en forme de bouton
 
 Il existe deux grandes sortes de boîtes :
 
 | | En **bloc** | En **ligne** |
 |---|---|---|
 | Place | Commence sur une nouvelle ligne et prend **toute la largeur** | Reste dans la ligne et prend **la place de son contenu** |
-| Exemples | `<p>`, `<h1>`, `<section>`, `<article>`, `<form>`, `<div>` | `<a>`, `<strong>`, `<span>`, `<img>`, `<label>`, `<input>` |
+| Exemples | `<p>`, `<h1>`, `<section>`, `<article>`, `<ul>`, `<div>` | `<a>`, `<strong>`, `<em>`, `<span>`, `<img>` |
 
-`<label>` est en ligne : son champ se place juste à côté. La propriété `display` change cela :
+1. Dans votre page coup de cœur, donnez la classe `bouton` au lien `Retour à l'accueil` :
 
-```css
-label {
-    display: block;
-    margin-bottom: 6px;
-}
-```
-
-Chaque étiquette passe sur sa propre ligne, au-dessus de son champ.
-
-::: tip Document de restitution - Question 2
-Complétez la **Question 2** : bloc ou en ligne ?
-:::
-
-### Tâche 3.3 - Des champs à la largeur du cadre
-
-Ajoutez cette règle, puis actualisez la page d'inscription :
-
-```css
-input, select, textarea {
-    width: 100%;
-    padding: 10px;
-}
-```
-
-Regardez bien le bord droit du cadre, et la case à cocher :
-
-![Les champs dépassent du cadre du formulaire à droite, et la case à cocher se retrouve au milieu de la ligne](/tp/html/tp7-debordement.png)
-
-Deux problèmes :
-
-1. **Les champs dépassent du cadre.** `width: 100%` donne au **contenu** toute la largeur du cadre, puis le navigateur ajoute le padding et la bordure **en plus** : 500 + 10 + 10 + 2 + 2 = 524 pixels. Ajoutez cette ligne à la règle :
-
-   ```css
-   box-sizing: border-box;
+   ```html
+   <a href="../index.html" class="bouton">Retour à l'accueil</a>
    ```
 
-   Avec `border-box`, `width` compte **tout** : le contenu, le padding et la bordure. Le champ mesure 500 pixels, pas un de plus.
-
-2. **La case à cocher est partie au milieu.** C'est un `<input>` : elle aussi mesure 100 % ! Rendez-lui sa largeur normale grâce à son identifiant, qui l'emporte sur la balise, comme au TP 6 :
+2. Ajoutez cette règle à `style.css` :
 
    ```css
-   #newsletter {
-       width: auto;
+   .bouton {
+       background-color: #3748A0;
+       color: white;
+       padding: 12px 24px;
+       margin-top: 20px;
+       text-decoration: none;
    }
    ```
 
+   `text-decoration: none;` retire le soulignement du lien.
+
+3. Regardez bien le haut du bouton : il touche la ligne du dessus, et `margin-top` ne change rien.
+
+   ![Le bouton Retour à l'accueil colle à la ligne Pour en savoir plus, juste au-dessus](/tp/html/tp6-bouton-en-ligne.png)
+
+   Un `<a>` est **en ligne** : il ignore les marges du haut et du bas. Ajoutez cette ligne à la règle :
+
+   ```css
+   display: inline-block;
+   ```
+
+   Le lien reste dans la ligne, mais il respecte maintenant son padding et ses marges, comme un bloc :
+
+   ![Le bouton Retour à l'accueil, bien détaché de la ligne du dessus](/tp/html/tp6-bouton.png)
+
 ::: tip Document de restitution - Question 3
-Complétez la **Question 3** : pourquoi les champs dépassaient-ils ?
+Complétez la **Question 3** : bloc ou en ligne ?
 :::
 
-### Tâche 3.4 - Le commentaire et les boutons
-
-- Le commentaire du catalogue est trop petit : donnez à `textarea` une hauteur, `height: 120px;`.
-- Mettez les boutons aux couleurs du site :
-
-```css
-button {
-    background-color: #3748A0;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    font-size: 16px;
-}
-```
-
-Voici le résultat attendu pour l'inscription :
-
-![Le formulaire d'inscription mis en forme : un cadre blanc, les étiquettes au-dessus de champs larges, la case à cocher à sa place et un bouton bleu](/tp/html/tp7-formulaire.png)
-
 ::: tip 📸 Capture 3
-Faites une capture de votre formulaire d'inscription mis en forme.
+Faites une capture de votre page coup de cœur : les sections en cadres et le bouton.
 :::
 
 ---
 
 ## Mission 4 - Zéro erreur partout
 
-Passez `style.css` au validateur CSS du W3C, comme au TP 6, jusqu'au message **Félicitations ! Aucune erreur trouvée.** Vérifiez enfin les six pages : l'agenda, les deux formulaires et les tableaux.
+Passez `style.css` au validateur CSS du W3C, comme au TP 5, jusqu'au message **Félicitations ! Aucune erreur trouvée.** Repassez aussi votre page coup de cœur au validateur HTML, puis vérifiez les cinq pages dans le navigateur.
 
 ---
 
@@ -228,7 +224,7 @@ Passez `style.css` au validateur CSS du W3C, comme au TP 6, jusqu'au message **F
 
 ### Bonus 1 - Des coins arrondis
 
-Cherchez sur [MDN](https://developer.mozilla.org/fr/docs/Web/CSS/border-radius) la propriété `border-radius`, puis arrondissez les coins des cartes, des formulaires et des boutons.
+Cherchez sur [MDN](https://developer.mozilla.org/fr/docs/Web/CSS/border-radius) la propriété `border-radius`, puis arrondissez les coins des cartes, des sections et du bouton.
 
 ### Bonus 2 - Un trait de couleur
 
@@ -248,7 +244,7 @@ Beaucoup de sites commencent leur feuille de style par cette règle :
 }
 ```
 
-Que désigne le sélecteur `*` ? Pourquoi cette règle évite-t-elle le problème de la Tâche 3.3 partout sur le site ?
+Que désigne le sélecteur `*` ? Pourquoi cette règle évite-t-elle le piège de la Tâche 3.2 partout sur le site ?
 
 ---
 

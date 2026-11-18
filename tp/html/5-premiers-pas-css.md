@@ -2,24 +2,24 @@
 outline: deep
 ---
 
-# TP 6 - Premiers pas en CSS
+# TP 5 - Premiers pas en CSS
 
 <Badge type="info" text="BTS SIO 1ère année" />  <Badge type="warning" text="Bloc 1 - Développement web" />  <Badge type="danger" text="VS Code · CSS · Validateurs W3C" />
 
 ::: info Contexte
-Le site de la médiathèque compte maintenant six pages, un catalogue et deux formulaires. Mais il est **noir sur blanc**, en police Times, avec des liens bleus soulignés. La médiathèque a une **charte graphique** aux couleurs de son logo : aujourd'hui, vous l'appliquez à tout le site avec le **CSS**.
+Le site de la médiathèque compte maintenant cinq pages, avec un catalogue et des tableaux. Mais il est **noir sur blanc**, en police Times, avec des liens bleus soulignés. La médiathèque a une **charte graphique** aux couleurs de son logo : aujourd'hui, vous l'appliquez à tout le site avec le **CSS**.
 :::
 
 ::: warning Modalités
-Ce TP se déroule **individuellement**, dans votre dossier `mediatheque` du TP 5. Complétez le **document de restitution** au fil de la séance : **3 captures** 📸 et **3 questions courtes**. Déposez-le sur Moodle **avant la fin du TP**, au format **PDF**.
+Ce TP se déroule **individuellement**, dans votre dossier `mediatheque` du TP 4. Complétez le **document de restitution** au fil de la séance : **3 captures** 📸 et **3 questions courtes**. Déposez-le sur Moodle **avant la fin du TP**, au format **PDF**.
 
-📥 <a href="/tp6-html-restitution.docx" download style="font-weight:600">Télécharger le document de restitution</a>
+📥 <a href="/tp5-html-restitution.docx" download style="font-weight:600">Télécharger le document de restitution</a>
 :::
 
-::: details Je n'ai plus mon dossier du TP 5
+::: details Je n'ai plus mon dossier du TP 4
 Téléchargez le dossier de départ, décompressez-le sur le disque D, puis ouvrez le dossier `mediatheque` dans VS Code :
 
-📥 <a href="/tp/html/mediatheque-depart-tp6.zip" download style="font-weight:600">Télécharger le dossier de départ</a>
+📥 <a href="/tp/html/mediatheque-depart-tp5.zip" download style="font-weight:600">Télécharger le dossier de départ</a>
 
 La page `coups-de-coeur/mon-coup-de-coeur.html` contient seulement un modèle : remplacez les textes par votre œuvre, quelques lignes suffisent.
 :::
@@ -46,7 +46,6 @@ mediatheque/
 ├── infos.html
 ├── catalogue.html
 ├── agenda.html
-├── inscription.html
 ├── images/
 │   └── …
 └── coups-de-coeur/
@@ -92,9 +91,9 @@ Enregistrez les deux fichiers, puis actualisez le navigateur : le fond de la pag
 
 ### Tâche 1.3 - Relier toutes les pages
 
-Ajoutez la même ligne `<link>` dans les cinq autres pages. Dans la page coup de cœur, le chemin commence par `../`, comme pour le logo.
+Ajoutez la même ligne `<link>` dans les quatre autres pages. Dans la page coup de cœur, le chemin commence par `../`, comme pour le logo.
 
-Vérifiez : les six pages sont jaunes. Remplacez maintenant `yellow` par `lightblue` dans `style.css` et actualisez : **toutes** les pages changent d'un coup.
+Vérifiez : les cinq pages sont jaunes. Remplacez maintenant `yellow` par `lightblue` dans `style.css` et actualisez : **toutes** les pages changent d'un coup.
 
 ### Tâche 1.4 - Ranger les règles du TP 4
 
@@ -162,7 +161,7 @@ h1, h2, h3 {
 
 Voici le résultat attendu pour la page d'accueil :
 
-![La page d'accueil mise en forme : fond très clair, titres bleus en police Georgia, sous-titres orange, liens bleus et pied de page centré](/tp/html/tp6-accueil.png)
+![La page d'accueil mise en forme : fond très clair, titres bleus en police Georgia, sous-titres orange, liens bleus et pied de page centré](/tp/html/tp5-accueil.png)
 
 ::: tip 📸 Capture 1
 Faites une capture de votre page d'accueil mise en forme.
@@ -174,7 +173,7 @@ Faites une capture de votre page d'accueil mise en forme.
 
 ### Tâche 3.1 - Une classe pour les phrases d'introduction
 
-Sous leur `<h1>`, quatre pages commencent par une phrase d'introduction : l'accueil, le catalogue, l'agenda et l'inscription. Pour leur donner à toutes la même apparence, on leur attribue une **classe** :
+Sous leur `<h1>`, trois pages commencent par une phrase d'introduction : l'accueil, le catalogue et l'agenda. Pour leur donner à toutes la même apparence, on leur attribue une **classe** :
 
 ```html
 <p class="intro">Livres, BD, mangas, films et jeux vidéo : la culture pour tous, au cœur de Colmar.</p>
@@ -191,7 +190,7 @@ Sous leur `<h1>`, quatre pages commencent par une phrase d'introduction : l'accu
 - Dans le HTML, `class="intro"` ; dans le CSS, `.intro`, avec un **point**.
 - Une classe se réutilise autant de fois que l'on veut, sur toutes les pages.
 
-Ajoutez la classe aux quatre phrases d'introduction et la règle dans `style.css`.
+Ajoutez la classe aux trois phrases d'introduction et la règle dans `style.css`.
 
 ### Tâche 3.2 - L'alerte de l'agenda
 
@@ -250,7 +249,7 @@ Une faute de frappe dans `color` donne : `La propriété “colr” n'existe pas
 
 ### Tâche 4.2 - Et toujours le HTML
 
-Vos pages ont reçu des `<link>`, des classes et un identifiant : repassez-les au validateur HTML, comme au TP 3. Vérifiez enfin que le menu fonctionne sur les **six** pages.
+Vos pages ont reçu des `<link>`, des classes et un identifiant : repassez-les au validateur HTML, comme au TP 3. Vérifiez enfin que le menu fonctionne sur les **cinq** pages.
 
 ---
 
@@ -258,7 +257,7 @@ Vos pages ont reçu des `<link>`, des classes et un identifiant : repassez-les a
 
 ### Bonus 1 - Le mode sombre
 
-Une seule feuille pour tout le site, c'est aussi un seul endroit à modifier. Changez quelques couleurs de `style.css` pour obtenir une version **sombre** du site : fond très foncé, texte clair. Combien de lignes avez-vous modifiées pour changer l'apparence des six pages ?
+Une seule feuille pour tout le site, c'est aussi un seul endroit à modifier. Changez quelques couleurs de `style.css` pour obtenir une version **sombre** du site : fond très foncé, texte clair. Combien de lignes avez-vous modifiées pour changer l'apparence des cinq pages ?
 
 ### Bonus 2 - Des majuscules sans les taper
 
@@ -266,7 +265,7 @@ Cherchez sur [MDN](https://developer.mozilla.org/fr/docs/Web/CSS/text-transform)
 
 ### Bonus 3 - Une police venue d'Internet
 
-Sur [Google Fonts](https://fonts.google.com/), choisissez une police pour les titres. Le site vous donne une ligne `@import`, à placer tout en haut de `style.css`, et le nom de la police, à utiliser dans `font-family`. Les six pages en profitent d'un coup.
+Sur [Google Fonts](https://fonts.google.com/), choisissez une police pour les titres. Le site vous donne une ligne `@import`, à placer tout en haut de `style.css`, et le nom de la police, à utiliser dans `font-family`. Les cinq pages en profitent d'un coup.
 
 ### Bonus 4 - Le style dans la balise
 
@@ -281,5 +280,5 @@ Déposez votre **document de restitution au format PDF** sur Moodle avant la fin
 :::
 
 ::: info La suite
-Gardez votre dossier `mediatheque`. Au prochain TP, vous gérerez les **espaces** et les **dimensions** : les animations de l'agenda deviendront des cartes, et le formulaire d'inscription sera enfin bien aligné.
+Gardez votre dossier `mediatheque`. Au prochain TP, vous gérerez les **espaces** et les **dimensions** : les animations de l'agenda deviendront des cartes, et les parties de vos pages des cadres bien aérés.
 :::
