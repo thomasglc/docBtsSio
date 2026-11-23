@@ -16,13 +16,6 @@ Ce TP se déroule **individuellement**, dans votre dossier `mediatheque` du TP 4
 📥 <a href="/tp5-html-restitution.docx" download style="font-weight:600">Télécharger le document de restitution</a>
 :::
 
-::: details Je n'ai plus mon dossier du TP 4
-Téléchargez le dossier de départ, décompressez-le sur le disque D, puis ouvrez le dossier `mediatheque` dans VS Code :
-
-📥 <a href="/tp/html/mediatheque-depart-tp5.zip" download style="font-weight:600">Télécharger le dossier de départ</a>
-
-La page `coups-de-coeur/mon-coup-de-coeur.html` contient seulement un modèle : remplacez les textes par votre œuvre, quelques lignes suffisent.
-:::
 
 ---
 
