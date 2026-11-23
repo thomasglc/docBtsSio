@@ -69,7 +69,7 @@ export default withMermaid ({
                   { text: '1 - Découverte du web et première page', link: '/tp/html/1-premiere-page.md' },
                   { text: '2 - Texte, listes, liens et images', link: '/tp/html/2-liens-images.md' },
                   { text: '3 - Structure sémantique et validation', link: '/tp/html/3-structure-semantique.md' },
-                  // { text: '4 - Les tableaux', link: '/tp/html/4-tableaux.md' },
+                  { text: '4 - Les tableaux', link: '/tp/html/4-tableaux.md' },
                   // { text: '5 - Premiers pas en CSS', link: '/tp/html/5-premiers-pas-css.md' },
                   // { text: '6 - Le modèle de boîte', link: '/tp/html/6-modele-de-boite.md' },
                 ]
