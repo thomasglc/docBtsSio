@@ -54,6 +54,18 @@ export default withMermaid ({
               { text: 'TP 6 - Les fonctions', link: '/tp/csharp/6-fonctions.md' },
               { text: 'TP bonus - Entraînement', link: '/tp/csharp/bonus-entrainement.md' },            ]
           },
+          {
+            text: 'Tests unitaires C#',
+            collapsed: true,
+            items: [
+              { text: 'TP 1 - Premiers tests unitaires', link: '/tp/tests-csharp/1-premiers-tests.md' },
+              // { text: 'TP 2 - La chasse aux bugs', link: '/tp/tests-csharp/2-chasse-aux-bugs.md' },
+              // { text: 'TP 3 - Tester un objet et la couverture', link: '/tp/tests-csharp/3-objet-couverture.md' },
+              // { text: 'TP 4 - Le TDD en binôme', link: '/tp/tests-csharp/4-tdd.md' },
+              // { text: 'TP 5 - Les doublures de test', link: '/tp/tests-csharp/5-doublures.md' },
+              // { text: 'TP bonus - L\'intégration continue', link: '/tp/tests-csharp/bonus-integration-continue.md' },
+            ]
+          },
         ]
       },
       {
@@ -70,7 +82,7 @@ export default withMermaid ({
                   { text: '2 - Texte, listes, liens et images', link: '/tp/html/2-liens-images.md' },
                   { text: '3 - Structure sémantique et validation', link: '/tp/html/3-structure-semantique.md' },
                   { text: '4 - Les tableaux', link: '/tp/html/4-tableaux.md' },
-                  // { text: '5 - Premiers pas en CSS', link: '/tp/html/5-premiers-pas-css.md' },
+                  { text: '5 - Premiers pas en CSS', link: '/tp/html/5-premiers-pas-css.md' },
                   // { text: '6 - Le modèle de boîte', link: '/tp/html/6-modele-de-boite.md' },
                 ]
               },
