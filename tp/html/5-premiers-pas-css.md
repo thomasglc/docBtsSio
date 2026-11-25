@@ -183,7 +183,15 @@ Sous leur `<h1>`, trois pages commencent par une phrase d'introduction : l'accue
 - Dans le HTML, `class="intro"` ; dans le CSS, `.intro`, avec un **point**.
 - Une classe se réutilise autant de fois que l'on veut, sur toutes les pages.
 
-Ajoutez la classe aux trois phrases d'introduction et la règle dans `style.css`.
+Les trois phrases d'introduction sont le `<p>` placé juste sous le `<h1>` :
+
+| Page | Phrase d'introduction |
+|---|---|
+| `index.html` | Livres, BD, mangas, films et jeux vidéo… |
+| `catalogue.html` | Retrouvez tous les livres de la médiathèque… |
+| `agenda.html` | Toutes nos animations sont gratuites… |
+
+Ajoutez `class="intro"` à ces trois paragraphes, puis la règle `.intro` dans `style.css`.
 
 ### Tâche 3.2 - L'alerte de l'agenda
 
